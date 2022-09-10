@@ -13,6 +13,8 @@
   services.syncthing.enable = true;
 
   home.packages = [
+    pkgs.wireguard-tools
+    pkgs.mosh
     pkgs.nixfmt
     pkgs.shfmt
     pkgs.glslang
