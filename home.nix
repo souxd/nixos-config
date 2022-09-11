@@ -13,6 +13,10 @@
   services.syncthing.enable = true;
 
   home.packages = [
+    pkgs.blender
+    pkgs.helvum
+    pkgs.mumble
+    pkgs.hexchat
     pkgs.wireguard-tools
     pkgs.mosh
     pkgs.nixfmt
