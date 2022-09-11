@@ -33,8 +33,8 @@
   time.timeZone = "Brazil/East";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = { LC_TIME = "pt_BR.UTF-8"; } 
+  i18n.defaultLocale = "C.UTF-8";
+  i18n.extraLocaleSettings = { LC_ALL = "C.UTF-8"; LC_TIME = "pt_BR.UTF-8"; }; 
   console = {
     font = "Lat2-Terminus16";
     keyMap = "br-abnt2";
@@ -51,6 +51,7 @@
     displayManager.gdm.enable = true;
   };
   programs.xwayland.enable = true;
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Configure keymap in X11
   services.xserver.layout = "br";
@@ -91,6 +92,10 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.gsconnect
+    gnomeExtensions.mpris-indicator-button        
+    gnomeExtensions.appindicator
   ];
 
   system.stateVersion = "22.05"; # Did you read the comment?
