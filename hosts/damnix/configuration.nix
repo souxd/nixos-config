@@ -8,7 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-#      ./nix-alien.nix
+      ../../modules
+      ../../modules/nix-alien.nix
     ];
 
   # Use the GRUB 2 boot loader.
