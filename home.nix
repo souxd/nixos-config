@@ -13,6 +13,7 @@
   services.syncthing.enable = true;
 
   home.packages = [
+    pkgs.dotnet-sdk
     pkgs.blender
     pkgs.helvum
     pkgs.mumble
@@ -54,6 +55,7 @@
     XDG_DATA_HOME   = "\${HOME}/.local/share";
     VISUAL	        = "emacsclient -c";
 
+    NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
 #    PATH = [ 
 #      "\${XDG_BIN_HOME}"
 #      "\${HOME}/.npm-global"
