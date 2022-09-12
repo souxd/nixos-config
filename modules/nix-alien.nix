@@ -2,16 +2,12 @@
 
 let
   nix-alien-pkgs = import (
-    fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
-  ) { };
+    fetchTarball {
+      url = "https://github.com/thiagokokada/nix-alien/tarball/master";
+      sha256 = "0kp2m1kx9i4ndh5xi37zcacijx3j6zw6jwdqh32l9fmxdafifisj";
+  }) { };
 in
 {
-  # Optional, but this is needed for `nix-alien-ld` command
-  # See https://github.com/Mic92/nix-ld#installation for how to setup `nix-ld`
-  # channel
-  imports = [
-    <nix-ld/modules/nix-ld.nix>
-  ];
 
   environment.systemPackages = with nix-alien-pkgs; [
     nix-alien
@@ -19,4 +15,3 @@ in
     pkgs.nix-index # not necessary, but recommended
   ];
 }
-
