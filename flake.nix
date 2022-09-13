@@ -32,7 +32,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.souxd = {
-                imports = [ ./home.nix ];
+                imports = [ ./home.nix ./modules/emacs/doom-emacs.nix ];
 		xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
 		nix.registry.nixpkgs.flake = nixpkgs;
               };

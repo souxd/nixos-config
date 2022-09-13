@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 #      ../../modules
-      ../../modules/nix-alien.nix
+#      ../../modules/nix-alien.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -36,12 +36,16 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "C.UTF-8";
-  i18n.extraLocaleSettings = { LC_ALL = "C.UTF-8"; LC_TIME = "pt_BR.UTF-8"; }; 
+  i18n.extraLocaleSettings = { LC_ALL = "pt_BR.UTF-8"; }; 
   console = {
     font = "Lat2-Terminus16";
     keyMap = "br-abnt2";
   #   useXkbConfig = true; # use xkbOptions in tty.
   };
+   i18n.inputMethod = {
+     enabled = "ibus";
+     ibus.engines = with pkgs.ibus-engines; [ mozc typing-booster m17n uniemoji ];
+     };
 
   services.printing.enable = true;
 
@@ -65,6 +69,10 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
+  # Enable OpenTabletDriver
+  hardware.opentabletdriver.daemon.enable = true;
+  hardware.opentabletdriver.enable = true;
+
   # Enable sound.
   sound.enable = false;
   hardware.pulseaudio.enable = false;
@@ -87,8 +95,6 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
@@ -97,6 +103,7 @@
     gnomeExtensions.mpris-indicator-button        
     gnomeExtensions.appindicator
   ];
+  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "22.05"; # Did you read the comment?
 

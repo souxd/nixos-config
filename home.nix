@@ -6,13 +6,20 @@
   home.username = "souxd";
   home.homeDirectory = "/home/souxd";
 
-  programs.bash.enable = true;
 
   services.easyeffects.enable = true;
   services.emacs.enable = true;
   services.syncthing.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
   home.packages = [
+    pkgs.heroic
+    pkgs.steam
+    pkgs.lutris
+    pkgs.hydrus
+    pkgs.xournalpp
+    pkgs.tinycc
+    pkgs.krita
     pkgs.dotnet-sdk
     pkgs.blender
     pkgs.helvum
@@ -24,14 +31,14 @@
     pkgs.shfmt
     pkgs.glslang
     pkgs.appimage-run
-    pkgs.emacs28NativeComp
+    #pkgs.emacs28NativeComp
     pkgs.kdenlive
     pkgs.fd
     pkgs.gcc
     pkgs.libgccjit
-    pkgs.git
     pkgs.ripgrep
     pkgs.shellcheck
+    pkgs.git
     pkgs.nodejs
     pkgs.yarn
     pkgs.rnnoise
@@ -49,18 +56,14 @@
   ];
 
   home.sessionVariables = rec {
-    XDG_CACHE_HOME  = "\${HOME}/.cache";
-    XDG_CONFIG_HOME = "\${HOME}/.config";
-    XDG_BIN_HOME    = "\${HOME}/.local/bin";
-    XDG_DATA_HOME   = "\${HOME}/.local/share";
+    XDG_CACHE_HOME  	= "\${HOME}/.cache";
+    XDG_CONFIG_HOME 	= "\${HOME}/.config";
+    XDG_DATA_HOME   	= "\${HOME}/.local/share";
     VISUAL	        = "emacsclient -c";
-
-    NIX_PATH = "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
-#    PATH = [ 
-#      "\${XDG_BIN_HOME}"
-#      "\${HOME}/.npm-global"
-#    ];
+    NIX_PATH 		= "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
   };
+
+  programs.bash = { enable = true; };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
