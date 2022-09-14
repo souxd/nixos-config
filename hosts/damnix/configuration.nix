@@ -8,8 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-#      ../../modules
-#      ../../modules/nix-alien.nix
+      ../../modules/cachix.nix
+      ../../modules/emacs/emacs-overlay.nix
     ];
 
   # Use the GRUB 2 boot loader.

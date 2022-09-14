@@ -8,7 +8,7 @@
 
 
   services.easyeffects.enable = true;
-  services.emacs.enable = true;
+  #services.emacs.enable = true;
   services.syncthing.enable = true;
 
   nixpkgs.config.allowUnfree = true;
