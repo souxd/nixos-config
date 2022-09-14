@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixOS/nixpkgs/nixos-unstable";  
 
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = github:nix-community/home-manager/release-22.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -26,6 +26,7 @@
           modules = [ 
             ./hosts/damnix/configuration.nix
 	    {
+	    nixpkgs.config.allowUnfree = true;
             environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
             nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
 	    nix.registry.nixpkgs.flake = nixpkgs;
@@ -35,8 +36,8 @@
               home-manager.useUserPackages = true;
               home-manager.users.souxd = {
                 imports = [ ./hosts/damnix/home.nix ];
-		xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
-		nix.registry.nixpkgs.flake = nixpkgs;
+	        xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+	    	nix.registry.nixpkgs.flake = nixpkgs;
               };
             }
           ];

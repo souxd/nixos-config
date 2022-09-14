@@ -9,7 +9,7 @@
       ./hardware-configuration.nix
       ../../modules/flake.nix
       ../../modules/cachix.nix
-      ../../modules/emacs/emacs-overlay.nix
+      ../../modules/emacs/mjlbash-emacs-overlay.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -100,7 +100,6 @@
     wget
     gnomeExtensions.gsconnect
   ];
-  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "22.05"; # Did you read the comment?
 

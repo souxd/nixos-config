@@ -7,7 +7,7 @@
       experimental-features = nix-command flakes  
     '';  
     
-    registry.nixpkgs.flake = nixpkgs;
+    #registry.nixpkgs.flake = nixpkgs;
   };
  
   environment.systemPackages = [ pkgs.nixFlakes ];

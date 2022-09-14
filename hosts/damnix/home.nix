@@ -11,7 +11,6 @@
   #services.emacs.enable = true;
   services.syncthing.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
   home.packages = [
     pkgs.heroic
     pkgs.steam
