@@ -1,5 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
+# Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
@@ -8,6 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/flake.nix
       ../../modules/cachix.nix
       ../../modules/emacs/emacs-overlay.nix
     ];
@@ -98,18 +98,10 @@
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    gnomeExtensions.dash-to-dock
     gnomeExtensions.gsconnect
-    gnomeExtensions.mpris-indicator-button        
-    gnomeExtensions.appindicator
   ];
   nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
-  };
-  programs.nix-ld.enable = true;
 }
