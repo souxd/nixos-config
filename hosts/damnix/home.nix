@@ -12,6 +12,7 @@
   services.syncthing.enable = true;
 
   home.packages = [
+    pkgs.ripcord
     pkgs.heroic
     pkgs.steam
     pkgs.lutris

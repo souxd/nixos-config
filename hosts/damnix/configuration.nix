@@ -9,7 +9,7 @@
       ./hardware-configuration.nix
       ../../modules/flake.nix
       ../../modules/cachix.nix
-      ../../modules/emacs/mjlbash-emacs-overlay.nix
+      ../../modules/emacs/emacs-overlay.nix
     ];
 
   # Use the GRUB 2 boot loader.
