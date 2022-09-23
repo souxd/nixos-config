@@ -1,7 +1,7 @@
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -9,6 +9,7 @@
       ./hardware-configuration.nix
       ../../modules/flake.nix
       ../../modules/cachix.nix
+      ../../modules/emacs/emacs-overlay.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -73,11 +74,6 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
-  virtualisation = {
-    waydroid.enable = true;
-    lxd.enable = true;
-  };  
-
   # Enable OpenTabletDriver
   hardware.opentabletdriver.daemon.enable = true;
   hardware.opentabletdriver.enable = true;
@@ -93,6 +89,19 @@
     pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
+    config.pipewire = {
+    "context.objects" = [
+      {
+        # A default dummy driver. This handles nodes marked with the "node.always-driver"
+        # properyty when no other driver is currently active. JACK clients need this.
+        factory = "spa-node-factory";
+        args = {
+          "factory.name"     = "support.node.driver";
+          "node.name"        = "Dummy-Driver";
+          "priority.driver"  = 8000;
+        };
+      }
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

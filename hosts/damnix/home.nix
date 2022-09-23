@@ -8,62 +8,93 @@
 
 
   services.easyeffects.enable = true;
-  #services.emacs.enable = true;
   services.syncthing.enable = true;
 
-  home.packages = [
-    pkgs.ripcord
-    pkgs.heroic
-    pkgs.steam
-    pkgs.lutris
-    pkgs.hydrus
-    pkgs.xournalpp
-    pkgs.tinycc
-    pkgs.krita
-    pkgs.dotnet-sdk
-    pkgs.blender
-    pkgs.helvum
-    pkgs.mumble
-    pkgs.hexchat
-    pkgs.wireguard-tools
-    pkgs.mosh
-    pkgs.nixfmt
-    pkgs.shfmt
-    pkgs.glslang
-    pkgs.appimage-run
-    #pkgs.emacs28NativeComp
-    pkgs.kdenlive
-    pkgs.fd
-    pkgs.gcc
-    pkgs.libgccjit
-    pkgs.ripgrep
-    pkgs.shellcheck
-    pkgs.git
-    pkgs.nodejs
-    pkgs.yarn
-    pkgs.rnnoise
-    pkgs.keepassxc
-    pkgs.chromium
-    pkgs.wineWowPackages.waylandFull
-    pkgs.qbittorrent-nox
-    pkgs.gzdoom
-    pkgs.gnumake
-    pkgs.cmake
-    pkgs.libtool
-    pkgs.binutils 
-    pkgs.glibc
-    pkgs.lld
+  programs.firefox = {
+    enable = true;
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+      forceWayland = true;
+      extraPolicies = {
+        ExtensionSettings = {};
+      };
+    };
+  };
+  home.packages = with pkgs; [
+    #xonotic
+    grapejuice
+    nheko
+    amberol
+    dillo
+    calibre
+    htop
+    ripcord
+    heroic
+    lutris
+    hydrus
+    xournalpp
+    tinycc
+    krita
+    blender
+    helvum
+    mumble
+    hexchat
+    wireguard-tools
+    mosh
+    nixfmt
+    shfmt
+    glslang
+    qt5.wrapQtAppsHook
+    autoPatchelfHook
+    steam-run
+    appimage-run
+    kdenlive
+    fd
+    gcc
+    libgccjit
+    ripgrep
+    shellcheck
+    git
+    nodejs
+    yarn
+    rnnoise
+    keepassxc
+    wineWowPackages.staging
+    qbittorrent-nox
+    gzdoom
+    gnumake
+    cmake
+    libtool
+    binutils 
+    glibc
+    lld
   ];
+
+  programs.bash = { 
+    enable = true;
+    shellAliases = {
+      ".." = "cd ..";
+      "e" = "emacsclient -t";
+      "nixupdate" = "sudo nixos-rebuild switch --flake .#damnix";
+    };
+    sessionVariables = {
+      EDITOR = "neovim";
+      };
+    initExtra = ''
+    . "/etc/profiles/per-user/souxd/etc/profile.d/hm-session-vars.sh"
+    '';
+    };
 
   home.sessionVariables = rec {
     XDG_CACHE_HOME  	= "\${HOME}/.cache";
     XDG_CONFIG_HOME 	= "\${HOME}/.config";
     XDG_DATA_HOME   	= "\${HOME}/.local/share";
-    VISUAL	        = "emacsclient -c";
+    EDITOR		= "emacsclient -t";
+    VISUAL	        = "gnome-text-editor";
+    MOZ_USE_XINPUT2	= "1";
+    MOZ_ENABLE_WAYLAND	= "1";
     NIX_PATH 		= "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
   };
 
-  programs.bash = { enable = true; };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
