@@ -54,6 +54,7 @@
     displayManager.gdm.enable = true;
   };
   services.gnome = {
+  core-developer-tools.enable = true;
   tracker.enable = true;
   tracker-miners.enable = true;
   };
