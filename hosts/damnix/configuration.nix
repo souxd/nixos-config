@@ -1,7 +1,7 @@
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-stable, ... }:
 
 {
   imports =
@@ -28,7 +28,24 @@
   # Swap
   swapDevices = [ { device = "/swap/swapfile"; } ];
 
+  # ZRam
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
+
   networking.hostName = "damnix"; # Define your hostname.
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      # KDE Connect
+      { from = 1714; to = 1764; }
+    ];
+    allowedUDPPortRanges = [
+      # KDE Connect
+      { from = 1714; to = 1764; }
+    ]; 
+  };
 
   # Set your time zone.
   time.timeZone = "Brazil/East";
@@ -41,17 +58,22 @@
     keyMap = "br-abnt2";
   #   useXkbConfig = true; # use xkbOptions in tty.
   };
-   i18n.inputMethod = {
-     enabled = "ibus";
-     ibus.engines = with pkgs.ibus-engines; [ mozc typing-booster m17n uniemoji ];
-     };
+#   i18n.inputMethod = {
+#     enabled = "ibus";
+#     ibus.engines = with pkgs.ibus-engines; [ mozc typing-booster m17n uniemoji ];
+#     };
 
-  services.printing.enable = true;
+  services = {
+    printing.enable = true;
+    zerotierone.enable = true;
+  };  
 
   # Enable the X11 windowing system.
-  services.xserver = { enable = true;
+  services.xserver = { 
+    enable = true;
     desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
+  # displayManager.startx.enable = true;
+    displayManager.gdm.enable = true; # apparently this causes input delay on wayland :/
   };
   services.gnome = {
   core-developer-tools.enable = true;
@@ -105,9 +127,12 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
+  environment.systemPackages = [
+    pkgs.man-db
+    pkgs.git
+    pkgs.neovim
+    pkgs.wget
+    pkgs.gnomeExtensions.gsconnect
   ];
 
   system.stateVersion = "22.05"; # Did you read the comment?

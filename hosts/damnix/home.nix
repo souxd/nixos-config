@@ -1,12 +1,11 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "souxd";
   home.homeDirectory = "/home/souxd";
-
-
+  
   services.easyeffects.enable = true;
   services.syncthing.enable = true;
 
@@ -19,54 +18,52 @@
       };
     };
   };
-  home.packages = with pkgs; [
-    #xonotic
-    grapejuice
-    nheko
-    amberol
-    dillo
-    calibre
-    htop
-    ripcord
-    heroic
-    lutris
-    hydrus
-    xournalpp
-    tinycc
-    krita
-    blender
-    helvum
-    mumble
-    hexchat
-    wireguard-tools
-    mosh
-    nixfmt
-    shfmt
-    glslang
-    qt5.wrapQtAppsHook
-    autoPatchelfHook
-    steam-run
-    appimage-run
-    kdenlive
-    fd
-    gcc
-    libgccjit
-    ripgrep
-    shellcheck
-    git
-    nodejs
-    yarn
-    rnnoise
-    keepassxc
-    wineWowPackages.staging
-    qbittorrent-nox
-    gzdoom
-    gnumake
-    cmake
-    libtool
-    binutils 
-    glibc
-    lld
+  
+  home.packages = [
+    pkgs.reaper
+    pkgs.inkscape
+    pkgs.ffmpeg
+    pkgs.grapejuice
+    pkgs.deadbeef
+    pkgs.dillo
+    pkgs.calibre
+    #pkgs.ripcord
+    #pkgs.heroic
+    #pkgs.lutris
+    #pkgs.hydrus
+    #pkgs.xournalpp
+    pkgs.tinycc
+    pkgs.krita
+    pkgs.blender
+    pkgs.helvum
+    pkgs.mumble
+    pkgs.hexchat
+    pkgs.wireguard-tools
+    pkgs.mosh
+    pkgs.nixfmt
+    pkgs.shfmt
+    pkgs.glslang
+    #pkgs.steam-run
+    pkgs.appimage-run
+    pkgs.kdenlive
+    pkgs.fd
+    pkgs.gcc
+    pkgs.libgccjit
+    pkgs.ripgrep
+    pkgs.shellcheck
+    pkgs.nodejs
+    pkgs.yarn
+    pkgs.keepassxc
+    pkgs.wineWowPackages.waylandFull
+    pkgs.winetricks
+    pkgs.qbittorrent-nox
+    pkgs.gzdoom
+    pkgs.gnumake
+    pkgs.cmake
+    pkgs.libtool
+    pkgs.binutils 
+    pkgs.glibc
+    pkgs.lld
   ];
 
   programs.bash = { 
@@ -75,6 +72,7 @@
       ".." = "cd ..";
       "e" = "emacsclient -t";
       "nixupdate" = "sudo nixos-rebuild switch --flake .#damnix";
+      "homeupdate" = "nix build .#homeConfigurations.souxd.activationPackage && ./result/activate";
     };
     sessionVariables = {
       EDITOR = "neovim";
