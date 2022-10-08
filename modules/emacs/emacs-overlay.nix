@@ -1,4 +1,4 @@
-{config, pkgs, callPackage, ... }:
+{ config, pkgs, callPackage, ... }:
 {
 
   services.emacs.package = with pkgs; ((emacsPackagesFor emacsPgtkNativeComp).emacsWithPackages (epkgs: [ epkgs.evil epkgs.vterm epkgs.lisp-local ]));

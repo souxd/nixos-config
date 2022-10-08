@@ -72,14 +72,11 @@
       ".." = "cd ..";
       "e" = "emacsclient -t";
       "nixupdate" = "sudo nixos-rebuild switch --flake .#damnix";
-      "homeupdate" = "nix build .#homeConfigurations.souxd.activationPackage && ./result/activate";
+      "homeupdate" = "nix build .#homeConfigurations.souxd.activationPackage && result/activate";
     };
     sessionVariables = {
       EDITOR = "neovim";
       };
-    initExtra = ''
-    . "/etc/profiles/per-user/souxd/etc/profile.d/hm-session-vars.sh"
-    '';
     };
 
   home.sessionVariables = rec {
