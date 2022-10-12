@@ -13,10 +13,13 @@
       ./users/souxd.nix
     ];
 
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/sda";
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader.grub = {
+      enable = true;
+      version = 2;
+      device = "/dev/sda";
+    };  
   };
 
   # Enforce fstab options
@@ -27,7 +30,7 @@
     "/swap".options = [ "noatime" ];
   };
 
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  # swapDevices = [ { device = "/swap/swapfile"; } ];
   zramSwap = {
     enable = true;
     algorithm = "zstd";
