@@ -1,33 +1,41 @@
 { config, lib, pkgs, pkgs-stable, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
   home.username = "souxd";
   home.homeDirectory = "/home/souxd";
   
   services.easyeffects.enable = true;
   services.syncthing.enable = true;
 
-  programs.firefox = {
-    enable = true;
-    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-      forceWayland = true;
-      extraPolicies = {
-        ExtensionSettings = {};
+  programs = {
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
+    };  
+    firefox = {
+      enable = true;
+      package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+        forceWayland = true;
+        extraPolicies = {
+          ExtensionSettings = {};
+        };
       };
     };
   };
-  
   home.packages = [
+    pkgs.gnome.pomodoro
+    pkgs.obsidian
+    pkgs.bottles
+    pkgs.melonDS
     pkgs.reaper
+    pkgs.helm
     pkgs.inkscape
     pkgs.ffmpeg
     pkgs.grapejuice
     pkgs.deadbeef
     pkgs.dillo
     pkgs.calibre
-    #pkgs.ripcord
+    pkgs.ripcord
     #pkgs.heroic
     #pkgs.lutris
     #pkgs.hydrus
@@ -90,17 +98,8 @@
     NIX_PATH 		= "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
   };
 
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
   home.stateVersion = "22.05";
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+    programs.home-manager.enable = true; # Let Home Manager install and manage itself.
+
 }
