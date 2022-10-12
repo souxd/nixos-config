@@ -25,7 +25,7 @@
 	];
       };
     };  
-    homeConfigurations = {
+    homeConfigurations = { # nix build .#homeConfigurations.<user>.activationPackage
       souxd = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         stateVersion = "22.05";
@@ -35,7 +35,7 @@
 	configuration = {
           xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
           nix.registry.nixpkgs.flake = nixpkgs;
-          imports = [ ./hosts/damnix/home.nix ];
+          imports = [ ./village/souxdHM.nix ];
 	};  
         extraSpecialArgs = { inherit pkgs-stable; };
       };
