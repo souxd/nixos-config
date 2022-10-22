@@ -8,6 +8,7 @@
       ../../modules/cachix.nix
       ../../modules/locale.nix
       ../../modules/vlan.nix
+      ../../modules/qbittorrent.nix
       ../../modules/graphical.nix
       ../../modules/touchpad.nix
       ./users/souxd.nix
@@ -34,6 +35,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+    memoryPercent = 100;
   };
 
   networking.hostName = "damnix"; # Define your hostname.

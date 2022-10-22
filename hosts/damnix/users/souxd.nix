@@ -1,6 +1,6 @@
 { lib, ... }:
 
 {
-  imports = [ ../../../users/souxd.nix ];
+  imports = [ ../../../users/souxd/user.nix ];
 
 }
