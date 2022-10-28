@@ -8,12 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    doom-emacs.url =
-      "github:doomemacs/doomemacs/3853dff5e11655e858d0bfae64b70cb12ef685ac";
-    doom-emacs.flake = false;
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";
-    nix-doom-emacs.inputs.doom-emacs.follows = "doom-emacs";
-
   };
 
   outputs = { nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, ... }:
