@@ -21,7 +21,8 @@
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
 
       nixosConfigurations = {
         damnix = nixpkgs-stable.lib.nixosSystem {

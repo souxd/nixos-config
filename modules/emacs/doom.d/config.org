@@ -18,11 +18,6 @@ Fix Docs not working (Nix workaround)
       doom-docs-dir (car doom-modules-dirs))
 #+end_src
 
-Magit SPC-g-g not working fix
-,#+begin_src emacs-lisp
-(defun doom-modeline-set-vcs-modeline () 1)
-#+end_src
-
 * Org
 Reasonable inline images size
 #+begin_src emacs-lisp
@@ -74,4 +69,415 @@ org-roam capture templates
            )
     )
 )
+#+end_src
+
+* Dashboard
+Based on [[https://git.tecosaur.net/tec/emacs-config/][Tecosaur's Emacs config]]
+** Splash Screen
+*** Stylish SVG image basic config
+#+begin_src emacs-lisp
+(defvar fancy-splash-image-directory
+  (expand-file-name "misc/splash-images/" doom-private-dir)
+  "Directory in which to look for splash image templates.")
+
+(defvar fancy-splash-image-template
+  (expand-file-name "emacs-e-template.svg" fancy-splash-image-directory)
+  "Default template svg used for the splash image.
+Colours are substituted as per `fancy-splash-template-colours'.")
+#+end_src
+*** Special named colours replacement system for SVG
+#+begin_src emacs-lisp
+(defvar fancy-splash-template-colours
+  '(("#000001" :face ansi-color-black)
+    ("#111112" :face font-lock-keyword-face)
+    ("#222223" :face font-lock-type-face)
+    ("#333334" :face font-lock-constant-face)
+    ("#444445" :face font-lock-function-name-face)
+    ("#555556" :face font-lock-string-face)
+    ("#666667" :face error)
+    ("#ff0000" :face ansi-color-red)
+    ("#00ff00" :face ansi-color-green)
+    ("#0000ff" :face ansi-color-blue)
+    ("$ddddde" :face shadow)
+    ("#eeeeef" :face ansi-color-bright-white)
+    ("#fffff1" :face ansi-color-white))
+  "Alist of colour-replacement plists.
+Each plist is of the form (\"$placeholder\" :doom-color 'key :face 'face).
+If the current theme is a doom theme :doom-color will be used,
+otherwise the colour will be face foreground.")
+#+end_src
+*** Cache directory
+#+begin_src emacs-lisp
+(defvar fancy-splash-cache-dir (expand-file-name "theme-splashes/" doom-cache-dir))
+#+end_src
+*** Dynamic SVG resizing
+#+begin_src emacs-lisp
+(defvar fancy-splash-sizes
+  `((:height 300 :min-height 50 :padding (0 . 2))
+    (:height 250 :min-height 42 :padding (2 . 4))
+    (:height 200 :min-height 35 :padding (3 . 3))
+    (:height 150 :min-height 28 :padding (3 . 3))
+    (:height 100 :min-height 20 :padding (2 . 2))
+    (:height 75  :min-height 15 :padding (2 . 1))
+    (:height 50  :min-height 10 :padding (1 . 0))
+    (:height 1   :min-height 0  :padding (0 . 0)))
+  "List of plists specifying image sizing states.
+Each plist should have the following properties:
+- :height, the height of the image
+- :min-height, the minimum `frame-height' for image
+- :padding, a `+doom-dashboard-banner-padding' (top . bottom) padding
+  specification to apply
+Optionally, each plist may set the following two properties:
+- :template, a non-default template file
+- :file, a file to use instead of template")
+#+end_src
+*** Utility function to get relevant file path
+#+begin_src emacs-lisp
+(defun fancy-splash-filename (theme template height)
+  "Get the file name for the splash image with THEME and of HEIGHT."
+  (expand-file-name (format "%s-%s-%d.svg" theme (file-name-base template) height) fancy-splash-cache-dir))
+#+end_src
+*** Generate images
+#+begin_src emacs-lisp
+(defun fancy-splash-generate-image (template height)
+  "Create a themed image from TEMPLATE of HEIGHT.
+The theming is performed using `fancy-splash-template-colours'
+and the current theme."
+  (with-temp-buffer
+    (insert-file-contents template)
+    (if (re-search-forward "$height" nil t)
+        (replace-match (number-to-string height) nil nil)
+      (warn "fancy splash template problem: $height not found in %s" template))
+    (dolist (substitution fancy-splash-template-colours)
+      (goto-char (point-min))
+      (let ((replacement
+               (face-attribute (plist-get (cdr substitution) :face)
+                               :foreground nil 'default)))
+        (while (search-forward (car substitution) nil t)
+          (replace-match replacement nil nil))))
+    (unless (file-exists-p fancy-splash-cache-dir)
+      (make-directory fancy-splash-cache-dir t))
+    (write-region nil nil (fancy-splash-filename (car custom-enabled-themes) template height) nil nil)))
+#+end_src
+*** Generate each theme images in bunk
+#+begin_src emacs-lisp
+(defun fancy-splash-generate-all-images ()
+  "Perform `fancy-splash-generate-image' in bulk."
+  (dolist (size fancy-splash-sizes)
+    (unless (plist-get size :file)
+      (fancy-splash-generate-image
+       (or (plist-get size :template)
+           fancy-splash-image-template)
+       (plist-get size :height)))))
+#+end_src
+*** Check function that generates the set of relevant images if needeed
+#+begin_src emacs-lisp
+(defun fancy-splash-ensure-theme-images-exist (&optional height)
+  "Ensure that the relevant images exist.
+Use the image of HEIGHT to check, defaulting to the height of the first
+specification in `fancy-splash-sizes'. If that file does not exist for
+the current theme, `fancy-splash-generate-all-images' is called. "
+  (unless (file-exists-p
+           (fancy-splash-filename
+            (car custom-enabled-themes)
+            fancy-splash-image-template
+            (or height (plist-get (car fancy-splash-sizes) :height))))
+    (fancy-splash-generate-all-images)))
+#+end_src
+*** Add option to clear cache
+#+begin_src emacs-lisp
+(defun fancy-splash-clear-cache (&optional delete-files)
+  "Clear all cached fancy splash images.
+Optionally delete all cache files and regenerate the currently relevant set."
+  (interactive (list t))
+  (dolist (size fancy-splash-sizes)
+    (unless (plist-get size :file)
+      (let ((image-file
+             (fancy-splash-filename
+              (car custom-enabled-themes)
+              (or (plist-get size :template)
+                  fancy-splash-image-template)
+              (plist-get size :height))))
+        (image-flush (create-image image-file) t))))
+  (message "Fancy splash image cache cleared!")
+  (when delete-files
+    (delete-directory fancy-splash-cache-dir t)
+    (fancy-splash-generate-all-images)
+    (message "Fancy splash images cache deleted!")))
+#+end_src
+*** Allow switching the template used
+#+begin_src emacs-lisp
+(defun fancy-splash-switch-template ()
+  "Switch the template used for the fancy splash image."
+  (interactive)
+  (let ((new (completing-read
+              "Splash template: "
+              (mapcar
+               (lambda (template)
+                 (replace-regexp-in-string "-template\\.svg$" "" template))
+               (directory-files fancy-splash-image-directory nil "-template\\.svg\\'"))
+              nil t)))
+    (setq fancy-splash-image-template
+          (expand-file-name (concat new "-template.svg") fancy-splash-image-directory))
+    (fancy-splash-clear-cache)
+    (message "") ; Clear message from `fancy-splash-clear-cache'.
+    (setq fancy-splash--last-size nil)
+    (fancy-splash-apply-appropriate-image)))
+#+end_src
+*** Ensure that the desired image exists
+#+begin_src emacs-lisp
+(defun fancy-splash-get-appropriate-size ()
+  "Find the firt `fancy-splash-sizes' with min-height of at least frame height."
+  (let ((height (frame-height)))
+    (cl-some (lambda (size) (when (>= height (plist-get size :min-height)) size))
+             fancy-splash-sizes)))
+#+end_src
+*** Apply the appropriate image to the dashboard
+#+begin_src emacs-lisp
+(setq fancy-splash--last-size nil)
+(setq fancy-splash--last-theme nil)
+
+(defun fancy-splash-apply-appropriate-image (&rest _)
+  "Ensure the appropriate splash image is applied to the dashboard.
+This function's signature is \"&rest _\" to allow it to be used
+in hooks that call functions with arguments."
+  (let ((appropriate-size (fancy-splash-get-appropriate-size)))
+    (unless (and (equal appropriate-size fancy-splash--last-size)
+                 (equal (car custom-enabled-themes) fancy-splash--last-theme))
+      (unless (plist-get appropriate-size :file)
+        (fancy-splash-ensure-theme-images-exist (plist-get appropriate-size :height)))
+      (setq fancy-splash-image
+            (or (plist-get appropriate-size :file)
+                (fancy-splash-filename (car custom-enabled-themes)
+                                       fancy-splash-image-template
+                                       (plist-get appropriate-size :height)))
+            +doom-dashboard-banner-padding (plist-get appropriate-size :padding)
+            fancy-splash--last-size appropriate-size
+            fancy-splash--last-theme (car custom-enabled-themes))
+      (+doom-dashboard-reload))))
+#+end_src
+** ASCII Banner
+*** Simple ASCII banner
+#+begin_src emacs-lisp
+(defun doom-dashboard-draw-ascii-emacs-banner-fn ()
+  (let* ((banner
+          '(",---.,-.-.,---.,---.,---."
+            "|---'| | |,---||    `---."
+            "`---'` ' '`---^`---'`---'"))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+#+end_src
+*** Add the banner as the Doom's ASCII banner function
+#+begin_src emacs-lisp
+(unless (display-graphic-p) ; for some reason this messes up the graphical splash screen atm
+  (setq +doom-dashboard-ascii-banner-fn #'doom-dashboard-draw-ascii-emacs-banner-fn))
+#+end_src
+
+** Splash Phrases
+- nonsense corporate jargon generator,
+- a selection of random developer excuses, and
+- a collection of fun but rather useless facts.
+*** Setting the local folder to put the phrase source files in
+#+begin_src emacs-lisp
+(defvar splash-phrase-source-folder
+  (expand-file-name "misc/splash-phrases" doom-private-dir)
+  "A folder of text files with a fun phrase on each line.")
+#+end_src
+*** Support for phrase systems
+1. A complete file of phrases, one phrase per line
+2. A collection of phrase-components, put together to form a phrase
+#+begin_src emacs-lisp
+(defvar splash-phrase-sources
+  (let* ((files (directory-files splash-phrase-source-folder nil "\\.txt\\'"))
+         (sets (delete-dups (mapcar
+                             (lambda (file)
+                               (replace-regexp-in-string "\\(?:-[0-9]+-\\w+\\)?\\.txt" "" file))
+                             files))))
+    (mapcar (lambda (sset)
+              (cons sset
+                    (delq nil (mapcar
+                               (lambda (file)
+                                 (when (string-match-p (regexp-quote sset) file)
+                                   file))
+                               files))))
+            sets))
+  "A list of cons giving the phrase set name, and a list of files which contain phrase components.")
+#+end_src
+*** Fix phrase set in use, and pick a random phrase source on startup
+#+begin_src emacs-lisp
+(defvar splash-phrase-set
+  (nth (random (length splash-phrase-sources)) (mapcar #'car splash-phrase-sources))
+  "The default phrase set. See `splash-phrase-sources'.")
+#+end_src
+*** Functions for changing the phrase set
+#+begin_src emacs-lisp
+(defun splash-phrase-set-random-set ()
+  "Set a new random splash phrase set."
+  (interactive)
+  (setq splash-phrase-set
+        (nth (random (1- (length splash-phrase-sources)))
+             (cl-set-difference (mapcar #'car splash-phrase-sources) (list splash-phrase-set))))
+  (+doom-dashboard-reload t))
+
+(defun splash-phrase-select-set ()
+  "Select a specific splash phrase set."
+  (interactive)
+  (setq splash-phrase-set (completing-read "Phrase set: " (mapcar #'car splash-phrase-sources)))
+  (+doom-dashboard-reload t))
+#+end_src
+*** Cache the list of lines
+#+begin_src emacs-lisp
+(defvar splash-phrase--cached-lines nil)
+#+end_src
+*** Random line pick function
+#+begin_src emacs-lisp
+(defun splash-phrase-get-from-file (file)
+  "Fetch a random line from FILE."
+  (let ((lines (or (cdr (assoc file splash-phrase--cached-lines))
+                   (cdar (push (cons file
+                                     (with-temp-buffer
+                                       (insert-file-contents (expand-file-name file splash-phrase-source-folder))
+                                       (split-string (string-trim (buffer-string)) "\n")))
+                               splash-phrase--cached-lines)))))
+    (nth (random (length lines)) lines)))
+#+end_src
+*** Generate random phrases on demand
+#+begin_src emacs-lisp
+(defun splash-phrase (&optional set)
+  "Construct a splash phrase from SET. See `splash-phrase-sources'."
+  (mapconcat
+   #'splash-phrase-get-from-file
+   (cdr (assoc (or set splash-phrase-set) splash-phrase-sources))
+   " "))
+#+end_src
+*** Split, re-centre and whitespace lines and change phrase on click
+#+begin_src emacs-lisp
+(defun splash-phrase-dashboard-formatted ()
+  "Get a splash phrase, flow it over multiple lines as needed, and fontify it."
+  (mapconcat
+   (lambda (line)
+     (+doom-dashboard--center
+      +doom-dashboard--width
+      (with-temp-buffer
+        (insert-text-button
+         line
+         'action
+         (lambda (_) (+doom-dashboard-reload t))
+         'face 'doom-dashboard-menu-title
+         'mouse-face 'doom-dashboard-menu-title
+         'help-echo "Random phrase"
+         'follow-link t)
+        (buffer-string))))
+   (split-string
+    (with-temp-buffer
+      (insert (splash-phrase))
+      (setq fill-column (min 70 (/ (* 2 (window-width)) 3)))
+      (fill-region (point-min) (point-max))
+      (buffer-string))
+    "\n")
+   "\n"))
+#+end_src
+*** More centreing and newlines
+#+begin_src emacs-lisp
+(defun splash-phrase-dashboard-insert ()
+  "Insert the splash phrase surrounded by newlines."
+  (insert "\n" (splash-phrase-dashboard-formatted) "\n"))
+#+end_src
+
+** Quick Actions
+*** Bind common actions to a single key
+The show keybindings help doesnt work as intended :(
+#+begin_src emacs-lisp
+(defun +doom-dashboard-setup-modified-keymap ()
+  (setq +doom-dashboard-mode-map (make-sparse-keymap))
+  (map! :map +doom-dashboard-mode-map
+        :desc "Find file" :ng "f" #'find-file
+        :desc "Recent files" :ng "r" #'consult-recent-file
+        :desc "Config dir" :ng "C" #'doom/open-private-config
+        :desc "Open config.org" :ng "c" (cmd! (find-file (expand-file-name "config.org" doom-private-dir)))
+        :desc "Open dotfile" :ng "." (cmd! (doom-project-find-file "~/.config/"))
+        :desc "Notes (roam)" :ng "n" #'org-roam-node-find
+        :desc "Switch buffer" :ng "b" #'+vertico/switch-workspace-buffer
+        :desc "Switch buffers (all)" :ng "B" #'consult-buffer
+        :desc "IBuffer" :ng "i" #'ibuffer
+        :desc "Previous buffer" :ng "p" #'previous-buffer
+        :desc "Set theme" :ng "t" #'consult-theme
+        :desc "Quit" :ng "Q" #'save-buffers-kill-terminal
+        :desc "Show keybindings" :ng "h" (cmd! (which-key-show-keymap '+doom-dashboard-mode-map))))
+
+(add-transient-hook! #'+doom-dashboard-mode (+doom-dashboard-setup-modified-keymap))
+(add-transient-hook! #'+doom-dashboard-mode :append (+doom-dashboard-setup-modified-keymap))
+(add-hook! 'doom-init-ui-hook :append (+doom-dashboard-setup-modified-keymap))
+#+end_src
+*** Make it easier to get to
+#+begin_src emacs-lisp
+(map! :leader :desc "Dashboard" "d" #'+doom-dashboard/open)
+#+end_src
+
+** Putting it all together
+*** Recreate the benchmark information by itself
+#+begin_src emacs-lisp
+(defun +doom-dashboard-benchmark-line ()
+  "Insert the load time line."
+  (when doom-init-time
+    (insert
+     "\n\n"
+     (propertize
+      (+doom-dashboard--center
+       +doom-dashboard--width
+       (doom-display-benchmark-h 'return))
+      'face 'doom-dashboard-loaded))))
+#+end_src
+*** No need for ~doom-display-benchmark-h~ to be shown in the minibuffer
+#+begin_src emacs-lisp
+(remove-hook 'doom-after-init-hook #'doom-display-benchmark-h)
+#+end_src
+*** Create desired dashboard
+Adds:
+- The "widget banned" (splash image)
+- The benchmark line
+- A random phrase
+Removes:
+- The shortmenu
+- The footer (github link)
+#+begin_src emacs-lisp
+(setq +doom-dashboard-functions
+      (list #'doom-dashboard-widget-banner
+            #'+doom-dashboard-benchmark-line
+            #'splash-phrase-dashboard-insert))
+#+end_src
+*** Minor dashboard tweaks
+#+begin_src emacs-lisp
+(defun +doom-dashboard-tweak (&optional _)
+  (with-current-buffer (get-buffer +doom-dashboard-name)
+    (setq-local line-spacing 0.2
+                mode-line-format nil
+                evil-normal-state-cursor (list nil))))
+#+end_src
+*** Add the tweaks as hook
+#+begin_src emacs-lisp
+(add-hook '+doom-dashboard-mode-hook #'+doom-dashboard-tweak)
+#+end_src
+*** doom-modeline workaround
+#+begin_src emacs-lisp
+(add-hook 'doom-after-init-hook #'+doom-dashboard-tweak 1)
+#+end_src
+*** Window title
+#+begin_src emacs-lisp
+(setq +doom-dashboard-name "► Doom"
+      doom-fallback-buffer-name +doom-dashboard-name)
+#+end_src
+*** Keep splash image up-to-date
+#+begin_src emacs-lisp
+(add-hook 'window-size-change-functions #'fancy-splash-apply-appropriate-image)
+(add-hook 'doom-load-theme-hook #'fancy-splash-apply-appropriate-image)
 #+end_src
