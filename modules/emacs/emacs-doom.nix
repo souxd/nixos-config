@@ -1,17 +1,46 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
-  programs.doom-emacs = {
+  programs.doom-emacs = rec {
     enable = true;
-    doomPrivateDir = ./doom.d;
     emacsPackage = pkgs.emacsNativeComp;
+    doomPrivateDir = (import ./doom.d) {
+      inherit lib;
+      inherit (pkgs) stdenv emacs coreutils;
+    };
+    # Only init/packages so we only rebuild when those change.
+    doomPackageDir = let
+      filteredPath = builtins.path {
+        path = doomPrivateDir;
+        name = "doom-private-dir-filtered";
+        filter = path: type:
+          builtins.elem (baseNameOf path) [ "init.el" "packages.el" ];
+      };
+    in pkgs.linkFarm "doom-packages-dir" [
+      {
+        name = "init.el";
+        path = "${filteredPath}/init.el";
+      }
+      {
+        name = "packages.el";
+        path = "${filteredPath}/packages.el";
+      }
+      {
+        name = "config.el";
+        path = pkgs.emptyFile;
+      }
+    ];
   };
 
-  services.emacs = {
-    enable = true;
-    # package = doom-emacs; # Not needed if you're using the Home-Manager module instead
-  };
-
-  home.packages = [ pkgs.gdb pkgs.graphviz ];
-
+  services.emacs = { enable = true; };
+  home.packages = with pkgs; [
+    python311
+    emacs-all-the-icons-fonts
+    ispell
+    mu
+    offlineimap
+    gdb
+    rnix-lsp
+    graphviz
+  ];
 }

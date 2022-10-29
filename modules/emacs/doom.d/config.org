@@ -1,0 +1,77 @@
+#+TITLE: Doom Emacs Config
+#+PROPERTY: header-args:emacs-lisp :noweb yes :results none :tangle config.el
+
+Use [[https://www.emacswiki.org/emacs/LexicalBinding][Lexical Binding]]
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
+
+* Fixes
+Make the ~doom~ CLI tool work (Nix workaround)
+#+begin_src emacs-lisp
+(setenv "EMACSDIR" "~/.emacs.d")
+#+end_src
+
+Fix Docs not working (Nix workaround)
+#+begin_src emacs-lisp
+(setq doom-modules-dir (car doom-modules-dirs)
+      doom-docs-dir (car doom-modules-dirs))
+#+end_src
+
+Magit SPC-g-g not working fix
+,#+begin_src emacs-lisp
+(defun doom-modeline-set-vcs-modeline () 1)
+#+end_src
+
+* Org
+Reasonable inline images size
+#+begin_src emacs-lisp
+(after! org
+  (setq org-image-actual-width 400))
+#+end_src
+
+** Org-Roam
+Org-Roam basic config
+#+begin_src emacs-lisp
+(setq org-roam-directory (file-truename "~/org/roam"))
+(org-roam-db-autosync-mode)
+#+end_src
+
+Org-Roam-UI
+#+begin_src emacs-lisp
+(use-package! websocket
+    :after org-roam)
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+#+end_src
+
+org-roam capture templates
+#+begin_src emacs-lisp
+(after! org-roam
+    (setq org-roam-capture-templates
+          '(("d" "default" plain "%?"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n")
+             :unnarrowed t)
+
+            ("b" "book notes" plain
+             "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n")
+             :unnarrowed t)
+
+            ("p" "project" plain
+             "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n#+filetags: Project")
+             :unnarrowed t)
+           )
+    )
+)
+#+end_src

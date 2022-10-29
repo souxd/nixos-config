@@ -1,13 +1,18 @@
-;;; config.el --- Doom Config file ;;; Comentary:
-(defun doom-modeline-set-vcs-modeline () 1)
-
-;; org-mode config
-(after! org
-  (setq org-image-actual-width 400))
-
 ;; org-roam basic config
 (setq org-roam-directory (file-truename "~/org/roam"))
 (org-roam-db-autosync-mode)
+
+;; org-roam-ui config
+(use-package! websocket
+    :after org-roam)
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 ;; org-roam capture templates
 (after! org-roam
@@ -31,15 +36,3 @@
            )
     )
 )
-
-;; org-roam-ui config
-(use-package! websocket
-    :after org-roam)
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))

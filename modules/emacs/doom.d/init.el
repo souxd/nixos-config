@@ -29,11 +29,7 @@
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
-<<<<<<< HEAD
        doom-dashboard    ; a nifty splash screen for Emacs
-=======
-       ;;doom-dashboard    ; a nifty splash screen for Emacs
->>>>>>> b758862 (	modified:   .gitignore)
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
@@ -98,17 +94,13 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-<<<<<<< HEAD
-       (lsp +eglot +peek)               ; M-x vscode
-=======
        (lsp +peek)               ; M-x vscode
->>>>>>> b758862 (	modified:   .gitignore)
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       rgb               ; creating color strings
+       ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
@@ -156,7 +148,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       nix               ; I hereby declare "nix geht mehr!"
+       (nix +lsp)              ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +roam2 +dragndrop +pretty)                 ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
@@ -182,18 +174,18 @@
        ;;zig               ; C, but simpler
 
        :email
-       ;;(mu4e +org +gmail)
+       (mu4e +org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
-       ;;irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+       irc               ; how neckbeards socialize
+       (rss +org)        ; emacs as an RSS reader
+       twitter           ; twitter client https://twitter.com/vnought
 
        :config
-       ;;literate
+       literate
        (default +bindings +smartparens))
