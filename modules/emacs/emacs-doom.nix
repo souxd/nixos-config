@@ -1,6 +1,6 @@
-{ pkgs, config, lib, ... }:
 # based on Znewman's nix-doom-emacs config
 # https://github.com/znewman01/dotfiles/blob/master/emacs/default.nix
+{ pkgs, config, lib, ... }:
 {
   programs.doom-emacs = rec {
     enable = true;
