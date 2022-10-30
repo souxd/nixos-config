@@ -1,5 +1,5 @@
 # https://github.com/nix-community/nix-doom-emacs/issues/60#issuecomment-1083630633
-{ version ? "dev", lib, stdenv, emacs, coreutils }:
+{ version ? "dev", stdenv, emacs, coreutils }:
 
 stdenv.mkDerivation {
   pname = "emacs-config";
@@ -23,7 +23,5 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp -r -t $out *
-    rm *.org env-vars
-    chmod 755 *
   '';
 }
