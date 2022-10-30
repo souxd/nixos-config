@@ -4,6 +4,9 @@
 stdenv.mkDerivation {
   pname = "emacs-config";
   inherit version;
+  src = builtins.filterSource
+    (path: type: type != "regular" || baseNameOf path != ".nix")
+    ./.;
   src = ./.;
 
   buildInputs = [ emacs coreutils ];
@@ -21,6 +24,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp -r -t $out *
+    rm *.org env-vars
     chmod 755 *
   '';
 }

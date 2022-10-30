@@ -68,7 +68,6 @@
     fd
     gcc
     libgccjit
-    ripgrep
     shellcheck
     nodejs
     yarn
