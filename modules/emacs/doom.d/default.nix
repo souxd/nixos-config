@@ -7,7 +7,6 @@ stdenv.mkDerivation {
   src = builtins.filterSource
     (path: type: type != "regular" || baseNameOf path != ".nix")
     ./.;
-  src = ./.;
 
   buildInputs = [ emacs coreutils ];
   buildPhase = ''
