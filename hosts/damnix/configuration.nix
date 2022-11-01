@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/default.nix
       ../../modules/cachix.nix
@@ -20,7 +21,7 @@
       enable = true;
       version = 2;
       device = "/dev/sda";
-    };  
+    };
   };
 
   # Enforce fstab options
@@ -40,7 +41,7 @@
 
   networking.hostName = "damnix"; # Define your hostname.
   time.timeZone = "Brazil/East";
-  
+
   system.stateVersion = "22.05";
 
 }

@@ -6,25 +6,12 @@ Use [[https://www.emacswiki.org/emacs/LexicalBinding][Lexical Binding]]
 ;;; -*- lexical-binding: t; -*-
 #+end_src
 
-* Fixes
-Make the ~doom~ CLI tool work (Nix workaround)
-#+begin_src emacs-lisp
-(setenv "EMACSDIR" "~/.emacs.d")
-#+end_src
-
-Fix Docs not working (Nix workaround)
-#+begin_src emacs-lisp
-(setq doom-modules-dir (car doom-modules-dirs)
-      doom-docs-dir (car doom-modules-dirs))
-#+end_src
-
 * Org
 Reasonable inline images size
 #+begin_src emacs-lisp
 (after! org
   (setq org-image-actual-width 400))
 #+end_src
-
 ** Org-Roam
 Org-Roam basic config
 #+begin_src emacs-lisp
@@ -480,4 +467,16 @@ Removes:
 #+begin_src emacs-lisp
 (add-hook 'window-size-change-functions #'fancy-splash-apply-appropriate-image)
 (add-hook 'doom-load-theme-hook #'fancy-splash-apply-appropriate-image)
+#+end_src
+* Fixes
+** Nix workarounds
+Make the ~doom~ CLI tool work
+#+begin_src emacs-lisp
+(setenv "EMACSDIR" "~/.emacs.d")
+#+end_src
+
+Fix Docs not working
+#+begin_src emacs-lisp
+(setq doom-modules-dir (car doom-modules-dirs)
+      doom-docs-dir (car doom-modules-dirs))
 #+end_src

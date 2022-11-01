@@ -25,27 +25,22 @@
 
   manual.manpages.enable = false;
   home.packages = with pkgs; [
-    notcurses
-    tor-browser-bundle-bin
-    gnome-feeds
     gnome.pomodoro
-    drawing
-    dos2unix
     melonDS
-    totem-pl-parser
     audacity
     reaper
     musescore
     nodePackages.musescore-downloader
     helm
+    gimp
     inkscape
+    drawing
     ffmpeg
     grapejuice
     deadbeef
     dillo
     calibre
     ripcord
-    heroic
     lutris
     hydrus
     xournalpp
@@ -69,12 +64,11 @@
     gcc
     libgccjit
     shellcheck
-    nodejs
-    yarn
     keepassxc
     wineWowPackages.waylandFull
     winetricks
     gzdoom
+    flatpak-builder
     gnumake
     cmake
     libtool
