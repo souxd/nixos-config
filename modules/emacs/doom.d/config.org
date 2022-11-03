@@ -6,58 +6,6 @@ Use [[https://www.emacswiki.org/emacs/LexicalBinding][Lexical Binding]]
 ;;; -*- lexical-binding: t; -*-
 #+end_src
 
-* Org
-Reasonable inline images size
-#+begin_src emacs-lisp
-(after! org
-  (setq org-image-actual-width 400))
-#+end_src
-** Org-Roam
-Org-Roam basic config
-#+begin_src emacs-lisp
-(setq org-roam-directory (file-truename "~/org/roam"))
-(org-roam-db-autosync-mode)
-#+end_src
-
-Org-Roam-UI
-#+begin_src emacs-lisp
-(use-package! websocket
-    :after org-roam)
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
-;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
-#+end_src
-
-org-roam capture templates
-#+begin_src emacs-lisp
-(after! org-roam
-    (setq org-roam-capture-templates
-          '(("d" "default" plain "%?"
-             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                "#+title: ${title}\n")
-             :unnarrowed t)
-
-            ("b" "book notes" plain
-             "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
-             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                "#+title: ${title}\n")
-             :unnarrowed t)
-
-            ("p" "project" plain
-             "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                "#+title: ${title}\n#+filetags: Project")
-             :unnarrowed t)
-           )
-    )
-)
-#+end_src
-
 * Dashboard
 Based on [[https://git.tecosaur.net/tec/emacs-config/][Tecosaur's Emacs config]]
 ** Splash Screen
@@ -467,6 +415,90 @@ Removes:
 #+begin_src emacs-lisp
 (add-hook 'window-size-change-functions #'fancy-splash-apply-appropriate-image)
 (add-hook 'doom-load-theme-hook #'fancy-splash-apply-appropriate-image)
+#+end_src
+* Org
+** Basic config
+*** Org directory
+#+begin_src emacs-lisp
+(setq org-directory "~/Sync/org/")
+#+end_src
+*** Reasonable inline images size
+#+begin_src emacs-lisp
+(after! org
+  (setq org-image-actual-width 400))
+#+end_src
+** Org-Roam
+*** Org-Roam basic config
+#+begin_src emacs-lisp
+(setq org-roam-directory (file-truename "~/Sync/org/roam"))
+(org-roam-db-autosync-mode)
+#+end_src
+
+*** Org-Roam-UI
+#+begin_src emacs-lisp
+(use-package! websocket
+    :after org-roam)
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+#+end_src
+
+*** Org-Roam capture templates
+#+begin_src emacs-lisp
+(after! org-roam
+    (setq org-roam-capture-templates
+          '(("d" "default" plain "%?"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n")
+             :unnarrowed t)
+
+            ("b" "book notes" plain
+             "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n")
+             :unnarrowed t)
+
+            ("p" "project" plain
+             "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+             :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                "#+title: ${title}\n#+filetags: Project")
+             :unnarrowed t)
+           )
+    )
+)
+#+end_src
+
+** Org-Agenda
+*** Org-Roam notes integration
+Only uses notes with specific tags
+#+begin_src emacs-lisp
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
+
+;; Build the agenda list the first time for the session
+(my/org-roam-refresh-agenda-list)
+#+end_src
+* RSS
+** Elfeed +org
+Automatically update feed when opening elfeed
+#+begin_src emacs-lisp
+(add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 #+end_src
 * Fixes
 ** Nix workarounds

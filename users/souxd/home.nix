@@ -82,6 +82,7 @@
     enable = true;
     shellAliases = {
       ".." = "cd ..";
+      "sudo" = "sudo ";
       "e" = "emacsclient -t";
       "nixupdate" = "sudo nixos-rebuild switch --flake .#damnix";
       "homeupdate" =
@@ -98,6 +99,7 @@
     VISUAL = "emacsclient -c";
     MOZ_USE_XINPUT2 = "1";
     MOZ_ENABLE_WAYLAND = "1";
+    WINEDLLOVERRIDES = "winemenubuilder.exe=d";
     NIX_PATH =
       "nixpkgs=${config.xdg.configHome}/nix/inputs/nixpkgs\${NIX_PATH:+:$NIX_PATH}";
   };

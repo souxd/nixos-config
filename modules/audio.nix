@@ -11,8 +11,8 @@
     pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
-  };  
+  };
 
-  environment.systemPackages = [ pkgs.pavucontrol ];
+  environment.systemPackages = with pkgs; [ pavucontrol ];
 
 }

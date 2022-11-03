@@ -16,7 +16,6 @@
   # add and enable systemd unit
   systemd = {
     packages = [ pkgs.qbittorrent-nox ];
-
     services."qbittorrent-nox@souxd" = {
       enable = true;
       serviceConfig = {

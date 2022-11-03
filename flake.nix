@@ -35,6 +35,7 @@
               nix.registry.nixpkgs.flake = nixpkgs;
             }
           ];
+          specialArgs = { inherit pkgs-stable; };
         };
       };
 

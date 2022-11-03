@@ -16,14 +16,13 @@
   };
 
   # gsconnect wont detect other devices if i dont enable these ports
-  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+  networking.firewall.allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
+  networking.firewall.allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
 
-  environment.systemPackages = [
-    pkgs.gnomeExtensions.gsconnect
-    pkgs.gnomeExtensions.tiling-assistant
-    pkgs.gnomeExtensions.vitals
-    pkgs.gnomeExtensions.openweather
+  environment.systemPackages = with pkgs; [
+    gnomeExtensions.tiling-assistant
+    gnomeExtensions.gsconnect
+    gnomeExtensions.vitals
   ];
 
 }
