@@ -52,14 +52,43 @@
   };
 
   services.emacs = { enable = true; };
-  home.packages = with pkgs; [
-    python311
-    emacs-all-the-icons-fonts
-    ispell
-    mu
-    offlineimap
-    gdb
-    rnix-lsp
-    graphviz
-  ];
+  home.packages = with pkgs;
+    # Emacs fonts, email and graph
+    [
+      emacs-all-the-icons-fonts
+      mu
+      offlineimap
+      graphviz
+    ] ++
+    # Grammar
+    [
+      languagetool
+    ] ++
+    # Nix
+    [
+      nixfmt
+      rnix-lsp
+    ] ++
+    # Shell scripting
+    [
+      shfmt
+      shellcheck
+      nodePackages.bash-language-server
+      bashdb
+    ] ++
+    # C/C++
+    [
+      gcc
+      clang
+      llvm
+      glslang
+      gnumake
+      cmake
+      gdb
+    ] ++
+    # Python
+    [
+      python311
+      black
+    ];
 }
