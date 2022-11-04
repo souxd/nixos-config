@@ -79,8 +79,7 @@
     # C/C++
     [
       gcc
-      clang
-      llvm
+      clang-tools
       glslang
       gnumake
       cmake

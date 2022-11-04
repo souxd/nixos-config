@@ -500,6 +500,12 @@ Automatically update feed when opening elfeed
 #+begin_src emacs-lisp
 (add-hook! 'elfeed-search-mode-hook #'elfeed-update)
 #+end_src
+* LSP
+** Eglot
+*** Clangd client & server
+#+begin_src emacs-lisp
+(set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
+#+end_src
 * Fixes
 ** Nix workarounds
 Make the ~doom~ CLI tool work
