@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/d832ec95bcf6d89843cade86e3001a90cfba9ecd";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";
   };
 
   outputs = { nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, ... }:
@@ -35,7 +35,6 @@
               nix.registry.nixpkgs.flake = nixpkgs;
             }
           ];
-          specialArgs = { inherit pkgs-stable; };
         };
       };
 

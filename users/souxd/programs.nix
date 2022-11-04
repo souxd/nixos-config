@@ -3,6 +3,7 @@
 {
   programs = {
     git = {
+      enable = true;
       userName = "souxd";
       userEmail = "souxd@proton.me";
     };

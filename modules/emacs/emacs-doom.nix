@@ -57,7 +57,7 @@
     [
       emacs-all-the-icons-fonts
       mu
-      offlineimap
+      isync
       graphviz
     ] ++
     # Grammar

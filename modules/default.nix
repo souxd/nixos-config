@@ -20,7 +20,6 @@
   environment.systemPackages = with pkgs; [
     nixFlakes
     man-db
-    git
     neovim
     wget
     ripgrep

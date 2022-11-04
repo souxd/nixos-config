@@ -20,6 +20,7 @@
   networking.firewall.allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
 
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.gtk-title-bar
     gnomeExtensions.tiling-assistant
     gnomeExtensions.gsconnect
     gnomeExtensions.vitals
