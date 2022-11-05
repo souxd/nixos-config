@@ -53,11 +53,17 @@
 
   services.emacs = { enable = true; };
   home.packages = with pkgs;
-    # Emacs fonts, email and graph
+    # Emacs fonts
     [
       emacs-all-the-icons-fonts
+    ] ++
+    # E-mail
+    [
       mu
       isync
+    ] ++
+    # Org-roam graph
+    [
       graphviz
     ] ++
     # Grammar
@@ -88,6 +94,11 @@
     # Python
     [
       python311
+      nodePackages.pyright
       black
+    ] ++
+    # LaTeX
+    [
+      texlive.combined.scheme-medium
     ];
 }
