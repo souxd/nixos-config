@@ -77,11 +77,6 @@
     # libs & runtimes
     [
       tinycc
-      libgccjit
-      libtool
-      binutils
-      glibc
-      lld
     ];
 
 }
