@@ -69,11 +69,11 @@
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ;;ibuffer         ; interactive buffer management
-       undo              ; persistent, smarter undo for your inevitable mistakes
+       (undo +tree)              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; the elisp shell that works everywhere
+       eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs

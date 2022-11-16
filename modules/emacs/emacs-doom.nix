@@ -59,12 +59,17 @@
     ] ++
     # E-mail
     [
-      mu
-      isync
+      notmuch
+      lieer
+      afew
     ] ++
     # Org-roam graph
     [
       graphviz
+    ] ++
+    # Spelling
+    [
+      ispell
     ] ++
     # Grammar
     [

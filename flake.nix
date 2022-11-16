@@ -1,31 +1,37 @@
 {
   inputs = {
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.05";
+    stable.url = "github:nixos/nixpkgs/nixos-22.05";
+    trunk.url = "github:nixos/nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "stable";
     };
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";
   };
 
-  outputs = { nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, ... }:
+  outputs = { nixpkgs, stable, trunk, home-manager, nix-doom-emacs, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
-      pkgs-stable = import nixpkgs-stable {
+      pkgs-stable = import stable {
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
+      pkgs-trunk = import trunk
+        {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
     in
     {
 
       nixosConfigurations = {
-        damnix = nixpkgs-stable.lib.nixosSystem {
+        damnix = stable.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/damnix/configuration.nix
@@ -51,7 +57,7 @@
             xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
             nix.registry.nixpkgs.flake = nixpkgs;
           };
-          extraSpecialArgs = { inherit pkgs-stable; };
+          extraSpecialArgs = { inherit pkgs-stable; inherit pkgs-trunk; };
         };
       };
     };

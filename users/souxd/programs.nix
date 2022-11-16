@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, pkgs-trunk, ... }:
 
 {
   programs = {
@@ -18,21 +18,18 @@
 
   manual.manpages.enable = false;
   home.packages = with pkgs;
-    # gnome apps/addons
     [
+      # Gnome apps/addons
       gnome.pomodoro
       drawing
-    ] ++
-    # games
-    [
+      # Games
       lutris
       steam
       grapejuice
+      retroarchFull
       melonDS
       gzdoom
-    ] ++
-    # audio
-    [
+      # Audio
       deadbeef
       audacity
       reaper
@@ -40,30 +37,22 @@
       nodePackages.musescore-downloader
       helm
       helvum
-    ] ++
-    # graphic
-    [
+      # Graphic
       gimp
       inkscape
       calibre
       xournalpp
       krita
       blender
-    ] ++
-    # video
-    [
+      # Video
       ffmpeg
       kdenlive
-      mediainfo
-    ] ++
-    # social
-    [
+      mediainfo # required by kdenlive
+      # Social
       ripcord
       mumble
       hexchat
-    ] ++
-    # utils
-    [
+      # Utils
       hydrus
       keepassxc
       wireguard-tools
@@ -73,10 +62,11 @@
       steam-run
       appimage-run
       mosh
-    ] ++
-    # libs & runtimes
-    [
+      # Libs & runtimes
       tinycc
+    ] ++
+    [
+      pkgs-trunk.osu-lazer
     ];
 
 }
