@@ -8,15 +8,21 @@
       ../../modules/default.nix
       ../../modules/cachix.nix
       ../../modules/locale.nix
+      ../../modules/virt-manager.nix
       ../../modules/vlan.nix
       ../../modules/qbittorrent.nix
       ../../modules/graphical.nix
       ../../modules/touchpad.nix
       ./users/souxd.nix
     ];
-
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "vm.vfs_cache_pressure=500"
+      "vm.swappiness=100"
+      "vm.dirty_background_ratio=1"
+      "vm.dirty_ratio=50"
+    ];
     loader.grub = {
       enable = true;
       version = 2;
@@ -39,7 +45,7 @@
     memoryPercent = 100;
   };
 
-  networking.hostName = "damnix"; # Define your hostname.
+  networking.hostName = "damnix";
   time.timeZone = "Brazil/East";
 
   system.stateVersion = "22.05";

@@ -9,31 +9,44 @@
       inputs.nixpkgs.follows = "stable";
     };
 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-ld.url = "github:Mic92/nix-ld/main";
+
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";
   };
 
-  outputs = { nixpkgs, stable, trunk, home-manager, nix-doom-emacs, ... }:
+  outputs = { self, nixpkgs, stable, trunk, home-manager, nix-alien, nix-doom-emacs, ... }:
     let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
-        system = "x86_64-linux";
+        inherit system;
         config.allowUnfree = true;
       };
       pkgs-stable = import stable {
-        system = "x86_64-linux";
+        inherit system;
         config.allowUnfree = true;
       };
       pkgs-trunk = import trunk
         {
-          system = "x86_64-linux";
+          inherit system;
           config.allowUnfree = true;
         };
     in
     {
 
       nixosConfigurations = {
-        damnix = stable.lib.nixosSystem {
-          system = "x86_64-linux";
+        damnix = stable.lib.nixosSystem rec {
+          inherit system;
+          specialArgs = { inherit self system; };
           modules = [
+            ({ self, system, ... }: {
+              imports = [ self.inputs.nix-ld.nixosModules.nix-ld ];
+              environment.systemPackages = with pkgs; with self.inputs.nix-alien.packages.${system}; [
+                nix-alien
+                nix-index # not necessary, but recommended
+                nix-index-update
+              ];
+            })
             ./hosts/damnix/configuration.nix
             {
               environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
