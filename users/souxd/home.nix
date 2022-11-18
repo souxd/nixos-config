@@ -11,10 +11,11 @@
 
   home.username = "souxd";
   home.homeDirectory = "/home/souxd";
-
   home.stateVersion = "22.05";
 
-  programs.home-manager.enable =
-    true; # Let Home Manager install and manage itself.
+  # workaround for https://github.com/nix-community/home-manager/issues/2942
+  nixpkgs.config.allowUnfreePredicate = _: true;
+
+  programs.home-manager.enable = true;
 
 }

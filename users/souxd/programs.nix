@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, pkgs-trunk, ... }:
+{ config, lib, pkgs, stable, trunk, nur, ... }:
 
 {
   programs = {
@@ -32,7 +32,6 @@
       # Audio
       deadbeef
       audacity
-      reaper
       musescore
       nodePackages.musescore-downloader
       helm
@@ -66,7 +65,7 @@
       tinycc
     ] ++
     [
-      pkgs-trunk.osu-lazer
+      trunk.reaper
     ];
 
 }
