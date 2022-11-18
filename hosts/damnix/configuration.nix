@@ -12,6 +12,7 @@
       ../../modules/vlan.nix
       ../../modules/qbittorrent.nix
       ../../modules/graphical.nix
+      ../../modules/graphics/hyprland.nix
       ../../modules/touchpad.nix
       ./users/souxd.nix
     ];

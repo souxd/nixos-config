@@ -1,10 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
-  programs.starship = { enable = true; };
+  home.packages = with pkgs; [ starship exa atuin ];
+
   programs.bash = {
     enable = true;
     shellAliases = {
+      "ls" = "exa";
       ".." = "cd ..";
       "sudo" = "sudo ";
       "e" = "emacsclient -t";
@@ -12,7 +14,15 @@
       "homeupdate" =
         "nix build .#homeConfigurations.souxd.activationPackage && result/activate";
     };
-    sessionVariables = { EDITOR = "emacsclient -c"; };
+    initExtra = ''
+      export ATUIN_NOBIND="true"
+      eval "$(starship init bash)"
+      eval "$(atuin init bash)"
+      bind -x '"\C-r": __atuin_history'
+    '';
+    sessionVariables = {
+      EDITOR = "emacsclient -c";
+    };
   };
 
   home.sessionVariables = rec {
