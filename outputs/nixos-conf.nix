@@ -1,7 +1,7 @@
 { inputs, system, ... }:
 
 let
-  nixosSystem = inputs.stablepkgs.lib.nixosSystem;
+  nixosSystem = inputs.nixpkgs.lib.nixosSystem;
   pkgs = inputs.nixpkgs.legacyPackages.${system};
 in
 {

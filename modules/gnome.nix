@@ -5,10 +5,6 @@
     displayManager.gdm.enable = true; # this causes input delay on wayland(?)
     desktopManager.gnome = {
       enable = true;
-      extraGSettingsOverrides = ''
-        [org.gnome.desktop.wm.keybindings]
-        activate-window-menu []
-      '';
     };
   };
 
