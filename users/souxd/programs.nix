@@ -10,24 +10,20 @@
     firefox = {
       enable = true;
       package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-        forceWayland = true;
         extraPolicies = { ExtensionSettings = { }; };
       };
     };
   };
 
-  manual.manpages.enable = false;
   home.packages = with pkgs;
     [
       # Gnome apps/addons
       gnome.pomodoro
       drawing
       # Games
-      lutris
       steam
       grapejuice
       retroarchFull
-      melonDS
       gzdoom
       # Audio
       deadbeef

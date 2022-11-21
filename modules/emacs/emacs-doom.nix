@@ -33,18 +33,6 @@
           path = pkgs.emptyFile;
         }
         {
-          name = "config.org";
-          path = pkgs.emptyFile;
-        }
-        {
-          name = "default.nix";
-          path = pkgs.emptyFile;
-        }
-        {
-          name = "env-vars";
-          path = pkgs.emptyFile;
-        }
-        {
           name = "misc";
           path = pkgs.emptyDirectory;
         }

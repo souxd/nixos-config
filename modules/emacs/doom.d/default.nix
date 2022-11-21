@@ -4,9 +4,7 @@
 stdenv.mkDerivation {
   pname = "emacs-config";
   inherit version;
-  src = builtins.filterSource
-    (path: type: type != "directory" || baseNameOf path != ".nix")
-    ./.;
+  src = lib.sourceByRegex ./. [ "config.org" "init.el" "packages.el" "misc$" ];
 
   buildInputs = [ emacs coreutils ];
   buildPhase = ''
@@ -22,6 +20,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out
-    cp -r -t $out *
+    cp -r -t $out {*el,misc}
   '';
 }
