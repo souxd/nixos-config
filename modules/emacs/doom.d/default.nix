@@ -4,7 +4,9 @@
 stdenv.mkDerivation {
   pname = "emacs-config";
   inherit version;
-  src = lib.sourceByRegex ./. [ "config.org" "init.el" "packages.el" "misc$" ];
+  src = builtins.filterSource
+    (path: type: type != "directory" || baseNameOf path != ".nix")
+    ./.;
 
   buildInputs = [ emacs coreutils ];
   buildPhase = ''

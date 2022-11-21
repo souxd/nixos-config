@@ -5,7 +5,7 @@
     ./shell.nix
     ./programs.nix
     ./services.nix
-    ../../modules/emacs/emacs-doom.nix
+    ../../modules/emacs/doom-emacs.nix
     ../../modules/discord.nix
   ];
 
