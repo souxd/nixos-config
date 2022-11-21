@@ -41,57 +41,39 @@
 
   services.emacs = { enable = true; };
   home.packages = with pkgs;
-    # Emacs fonts
     [
+      # Emacs fonts
       emacs-all-the-icons-fonts
-    ] ++
-    # E-mail
-    [
+      # E-mail
       notmuch
       lieer
       afew
-    ] ++
-    # Org-roam graph
-    [
+      # Org-roam graph
       graphviz
-    ] ++
-    # Spelling
-    [
+      # Spelling
       ispell
-    ] ++
-    # Grammar
-    [
+      # Grammar
       languagetool
-    ] ++
-    # Nix
-    [
+      # Nix
       nixfmt
       rnix-lsp
-    ] ++
-    # Shell scripting
-    [
+      # Shell scripting
       shfmt
       shellcheck
       nodePackages.bash-language-server
       bashdb
-    ] ++
-    # C/C++
-    [
+      # C/C++
       gcc
       clang-tools
       glslang
       gnumake
       cmake
       gdb
-    ] ++
-    # Python
-    [
+      # Python
       python311
       nodePackages.pyright
       black
-    ] ++
-    # LaTeX
-    [
+      # LaTeX
       texlive.combined.scheme-medium
     ];
 }

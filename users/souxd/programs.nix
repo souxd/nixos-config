@@ -17,21 +17,22 @@
 
   home.packages = with pkgs;
     [
-      # Gnome apps/addons
+      # Gnome Apps/Addons
       gnome.pomodoro
       drawing
-      # Games
+      # Launchers & Games
       steam
       grapejuice
       retroarchFull
       gzdoom
-      # Audio
+      # Audio & Music
       deadbeef
       audacity
       musescore
       nodePackages.musescore-downloader
       helm
       helvum
+      trunk.reaper
       # Graphic
       gimp
       inkscape
@@ -57,11 +58,8 @@
       steam-run
       appimage-run
       mosh
-      # Libs & runtimes
+      # Libs & Runtimes
       tinycc
-    ] ++
-    [
-      trunk.reaper
     ];
 
 }
