@@ -20,6 +20,8 @@ let
     configuration = {
       xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       nix.registry.nixpkgs.flake = nixpkgs;
+      nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
+      nixpkgs.overlays = [ emacs-overlay.overlay ];
     };
     extraSpecialArgs = { inherit stable; inherit trunk; inherit nur; };
     extraModules = [{ inherit imports; }];
