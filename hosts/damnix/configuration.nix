@@ -3,12 +3,12 @@
 {
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/default.nix
       ../../modules/cachix.nix
       ../../modules/locale.nix
       ../../modules/virt-manager.nix
+      #../../modules/adb.nix
       ../../modules/vlan.nix
       ../../modules/qbittorrent.nix
       ../../modules/graphical.nix
