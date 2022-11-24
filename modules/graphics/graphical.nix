@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./audio.nix ./gnome.nix ];
+  imports = [ ../audio.nix ];
 
   hardware.opengl = {
     enable = true;
@@ -17,5 +17,4 @@
   services.flatpak.enable = true;
 
   programs.xwayland.enable = true;
-
 }

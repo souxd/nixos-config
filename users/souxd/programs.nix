@@ -25,6 +25,7 @@
       grapejuice
       retroarchFull
       gzdoom
+      runelite
       # Audio & Music
       deadbeef
       audacity

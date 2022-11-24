@@ -5,8 +5,9 @@
     ./shell.nix
     ./programs.nix
     ./services.nix
-    ../../modules/emacs/doom-emacs.nix
-    ../../modules/discord.nix
+    ../../home-modules/nix-direnv.nix
+    ../../home-modules/emacs/doom-emacs.nix
+    ../../home-modules/discord.nix
   ];
 
   programs.home-manager.enable = true;

@@ -5,13 +5,14 @@
     [
       ./hardware-configuration.nix
       ../../modules/default.nix
+      ../../modules/nix-direnv.nix
       ../../modules/cachix.nix
       ../../modules/locale.nix
       ../../modules/virt-manager.nix
       #../../modules/adb.nix
       ../../modules/vlan.nix
       ../../modules/qbittorrent.nix
-      ../../modules/graphical.nix
+      ../../modules/graphics/gnome.nix
       ../../modules/graphics/hyprland.nix
       ../../modules/touchpad.nix
       ./users/souxd.nix
