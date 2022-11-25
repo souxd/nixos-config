@@ -245,7 +245,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "stablepkgs"
+          "nixpkgs"
         ]
       },
       "locked": {

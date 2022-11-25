@@ -9,7 +9,7 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
-      inputs.nixpkgs.follows = "stablepkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-alien.url = "github:thiagokokada/nix-alien";
