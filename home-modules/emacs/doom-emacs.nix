@@ -4,7 +4,8 @@
 {
   programs.doom-emacs = rec {
     enable = true;
-    emacsPackage = pkgs.emacsPgtkNativeComp;
+    # unstable emacsPackage = pkgs.emacsPgtkNativeComp;
+    emacsPackage = pkgs.emacsNativeComp;
     doomPrivateDir = (import ./doom.d) {
       inherit lib;
       inherit (pkgs) stdenv emacs coreutils;

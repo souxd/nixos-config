@@ -7,15 +7,17 @@
     trunkpkgs.url = "github:nixos/nixpkgs";
     nurpkgs.url = "github:nix-community/NUR";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    sops-nix.url = "github:Mic92/sops-nix"; # just for testing
 
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld.url = "github:Mic92/nix-ld/main";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-22.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";

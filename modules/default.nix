@@ -19,6 +19,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     nixFlakes
+    age
     man-db
     neovim
     wget

@@ -34,6 +34,8 @@
       helm
       helvum
       trunk.reaper
+      trunk.yabridge
+      trunk.yabridgectl
       # Graphic
       gimp
       inkscape
