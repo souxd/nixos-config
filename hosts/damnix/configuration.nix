@@ -9,6 +9,8 @@
       ../../modules/cachix.nix
       ../../modules/locale.nix
       ../../modules/virt-manager.nix
+      ../../modules/podman.nix
+      ../../modules/distrobox.nix
       #../../modules/adb.nix
       ../../modules/vlan.nix
       ../../modules/qbittorrent.nix

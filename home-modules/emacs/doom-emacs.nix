@@ -76,5 +76,7 @@
       black
       # LaTeX
       texlive.combined.scheme-medium
+      # Yaml
+      nodePackages.yaml-language-server
     ];
 }
