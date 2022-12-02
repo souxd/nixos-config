@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   nix = {
@@ -7,7 +7,6 @@
       experimental-features = nix-command flakes
     '';
 
-    #registry.nixpkgs.flake = nixpkgs;
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;
@@ -16,8 +15,12 @@
     };
   };
 
+  environment.etc."nix/inputs/nixpkgs".source = inputs.nixpkgs.outPath;
+  nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with inputs.nix-alien.packages.${system}; [
     nixFlakes
     age
     man-db
@@ -25,6 +28,9 @@
     wget
     ripgrep
     fd
+    nix-alien
+    nix-index
+    nix-index-update
   ];
 
   environment.shellAliases = { nix-query = "nix-store -q --references /run/current-system/sw | rg -v man | sed 's/^[^-]*-//g' | sed 's/-[0-9].*//g' | rg -v '^nix' | sort -u"; };
