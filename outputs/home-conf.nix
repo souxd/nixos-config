@@ -7,9 +7,12 @@ let
   pkg-config = { inherit system; config.allowUnfreePredicate = _: true; };
   stable = import stablepkgs pkg-config;
   trunk = import trunkpkgs pkg-config;
-  nur = import nurpkgs pkg-config;
+  nur = import nurpkgs {
+    inherit pkgs;
+    nurpkgs = pkgs;
+  };
 
-  imports = [ ../users/souxd/home.nix nix-doom-emacs.hmModule ];
+  imports = [ ../home/user/souxd/default.nix nix-doom-emacs.hmModule ];
 
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;
@@ -21,9 +24,12 @@ let
       xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       nix.registry.nixpkgs.flake = nixpkgs;
       nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
-      nixpkgs.overlays = [ emacs-overlay.overlay ];
+      nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
     };
-    extraSpecialArgs = { inherit stable; inherit trunk; inherit nur; };
+    extraSpecialArgs = {
+      inherit stable; inherit trunk;
+      ff-addons = nur.repos.rycee.firefox-addons;
+    };
     extraModules = [{ inherit imports; }];
   };
 in

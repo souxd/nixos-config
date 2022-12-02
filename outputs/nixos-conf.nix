@@ -11,8 +11,7 @@ in
     modules = [
       inputs.sops-nix.nixosModules.sops
       inputs.nix-ld.nixosModules.nix-ld
-      inputs.hyprland.nixosModules.default
-      ../hosts/damnix/configuration.nix
+      ../system/host/damnix/default.nix
       {
         environment.etc."nix/inputs/nixpkgs".source = inputs.nixpkgs.outPath;
         nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];

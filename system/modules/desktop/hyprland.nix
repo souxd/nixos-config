@@ -2,5 +2,6 @@
 
 {
   imports = [ ./graphical.nix ];
+
   programs.hyprland.enable = true;
 }

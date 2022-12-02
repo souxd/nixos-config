@@ -12,8 +12,6 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-ld.url = "github:Mic92/nix-ld/main";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";

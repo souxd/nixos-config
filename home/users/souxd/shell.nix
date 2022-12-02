@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ starship exa atuin ];
+  home.packages = with pkgs; [ starship atuin ];
 
   programs.bash = {
     enable = true;

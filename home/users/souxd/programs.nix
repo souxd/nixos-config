@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stable, trunk, nur, ... }:
+{ config, lib, pkgs, stable, trunk, ... }:
 
 {
   programs = {
@@ -6,12 +6,6 @@
       enable = true;
       userName = "souxd";
       userEmail = "souxd@proton.me";
-    };
-    firefox = {
-      enable = true;
-      package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-        extraPolicies = { ExtensionSettings = { }; };
-      };
     };
   };
 
@@ -27,6 +21,7 @@
       gzdoom
       runelite
       # Audio & Music
+      mumble
       deadbeef
       audacity
       musescore
@@ -64,5 +59,4 @@
       # Libs & Runtimes
       tinycc
     ];
-
 }

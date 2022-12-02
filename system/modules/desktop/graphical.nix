@@ -1,6 +1,21 @@
-{ pkgs, config, ... }:
+{ config, pkgs, ... }:
 
 {
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  services.xserver = {
+    enable = true;
+    layout = "br"; # Configure keymap in X11
+  };
+
+  services.flatpak.enable = true;
+
+  programs.xwayland.enable = true;
+
   sound.enable = false;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -14,5 +29,4 @@
   };
 
   environment.systemPackages = with pkgs; [ pavucontrol ];
-
 }
