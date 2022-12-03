@@ -9,6 +9,7 @@ in
     extensions = with ff-addons; [
       auto-tab-discard
       ublock-origin
+      leechblock-ng
       i-dont-care-about-cookies
       unpaywall
       tridactyl

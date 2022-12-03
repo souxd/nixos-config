@@ -12,7 +12,7 @@ let
     nurpkgs = pkgs;
   };
 
-  imports = [ ../home/user/souxd/default.nix nix-doom-emacs.hmModule ];
+  imports = [ ../home/users/souxd/default.nix nix-doom-emacs.hmModule ];
 
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;
