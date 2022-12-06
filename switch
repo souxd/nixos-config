@@ -1,3 +1,37 @@
 #!/usr/bin/env sh
 
-sudo nixos-rebuild switch --flake .#"$1"
+# help function
+Help() {
+    echo "Rebuilds Home-Manager and NixOS (see -s)."
+    echo
+    echo "Usage: $0 [-h] [-s] argument"
+    echo "options:"
+    echo "-h     Print this help."
+    echo "-s     Rebuild NixOS. Specify a machine."
+}
+
+# if no input return:
+[ $# -eq 0 ] && {
+    echo "Usage: $0 [-h] [-s] argument" >&2
+    exit 1
+}
+
+# get options
+while getopts ":hs:" opt; do
+    case $opt in
+        h)
+            Help
+            exit
+            ;;
+        s)
+            sudo nixos-rebuild switch --flake .#"$2"
+            exit
+            ;;
+        *)
+            echo "Usage: $0 [-h] [-s] argument" >&2
+            exit 1
+            ;;
+    esac
+done
+
+nix build .#homeConfigurations."$1".activationPackage && result/activate

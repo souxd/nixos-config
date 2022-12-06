@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-nix build .#homeConfigurations."$1".activationPackage && result/activate
