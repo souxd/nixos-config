@@ -4,8 +4,7 @@
 {
   programs.doom-emacs = rec {
     enable = true;
-    # unstable emacsPackage = pkgs.emacsPgtkNativeComp;
-    emacsPackage = pkgs.emacsNativeComp;
+    emacsPackage = pkgs.emacsPgtk;
     doomPrivateDir = (import ./doom.d) {
       inherit lib;
       inherit (pkgs) stdenv emacs coreutils;
@@ -64,10 +63,8 @@
       nodePackages.bash-language-server
       bashdb
       # C/C++
-      gcc
       clang-tools
       glslang
-      gnumake
       cmake
       gdb
       # Python

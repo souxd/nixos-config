@@ -56,7 +56,5 @@
       steam-run
       appimage-run
       mosh
-      # Libs & Runtimes
-      tinycc
     ];
 }
