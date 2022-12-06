@@ -30,7 +30,6 @@
         }
       );
 
-      # nix build .#homeConfigurations.<user>.activationPackage
       homeConfigurations = (
         import ./outputs/home-conf.nix {
           inherit inputs system;
