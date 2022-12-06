@@ -12,12 +12,9 @@ in
       leechblock-ng
       i-dont-care-about-cookies
       unpaywall
-      tridactyl
       terms-of-service-didnt-read
-      df-youtube
       sponsorblock
       return-youtube-dislikes
-      keepassxc-browser
       don-t-fuck-with-paste
       h264ify
     ];
