@@ -6,13 +6,7 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      "ls" = "exa";
-      ".." = "cd ..";
       "sudo" = "sudo ";
-      "e" = "emacsclient -t";
-      "nixupdate" = "sudo nixos-rebuild switch --flake .#damnix";
-      "homeupdate" =
-        "nix build .#homeConfigurations.souxd.activationPackage && result/activate";
     };
     initExtra = ''
       export ATUIN_NOBIND="true"
@@ -20,9 +14,6 @@
       eval "$(atuin init bash)"
       bind -x '"\C-r": __atuin_history'
     '';
-    sessionVariables = {
-      EDITOR = "emacsclient -c";
-    };
     bashrcExtra = ''
       nixify() {
         if [ ! -e ./.envrc ]; then
@@ -38,7 +29,6 @@
         ];
       }
       EOF
-          ${EDITOR:-vim} default.nix
         fi
       }
       flakify() {
@@ -48,7 +38,6 @@
           echo "use flake" > .envrc
           direnv allow
         fi
-        ${EDITOR:-vim} flake.nix
       }
     '';
   };
