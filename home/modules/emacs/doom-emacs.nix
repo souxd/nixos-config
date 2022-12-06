@@ -44,16 +44,6 @@
     [
       # Emacs fonts
       emacs-all-the-icons-fonts
-      # E-mail
-      notmuch
-      lieer
-      afew
-      # Org-roam graph
-      graphviz
-      # Spelling
-      ispell
-      # Grammar
-      languagetool
       # Nix
       nixfmt
       rnix-lsp
@@ -73,7 +63,5 @@
       black
       # LaTeX
       texlive.combined.scheme-medium
-      # Yaml
-      nodePackages.yaml-language-server
     ];
 }
