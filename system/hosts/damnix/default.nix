@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -6,6 +6,7 @@
     ./users.nix
     ../../configuration.nix
     ../../modules/qbittorrent.nix
+    ../../modules/desktop/crocus.nix
     ../../modules/desktop/gnome.nix
     ../../modules/drawing.nix
     ../../modules/zerotier.nix
