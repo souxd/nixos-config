@@ -1,19 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ starship atuin ];
 
+  programs.starship.enable = true;
   programs.bash = {
     enable = true;
     shellAliases = {
       "sudo" = "sudo ";
     };
-    initExtra = ''
-      export ATUIN_NOBIND="true"
-      eval "$(starship init bash)"
-      eval "$(atuin init bash)"
-      bind -x '"\C-r": __atuin_history'
-    '';
     bashrcExtra = ''
       nixify() {
         if [ ! -e ./.envrc ]; then
@@ -46,6 +40,7 @@
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
     XDG_DATA_HOME = "\${HOME}/.local/share";
+    XDG_STATE_HOME = "\${HOME}/.local/state";
     EDITOR = "emacsclient -c";
     VISUAL = "emacsclient -c";
     MOZ_USE_XINPUT2 = "1";
