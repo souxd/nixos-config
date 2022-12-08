@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stable, trunk, ... }:
+{ config, pkgs, stable, trunk, ... }:
 
 {
   programs = {

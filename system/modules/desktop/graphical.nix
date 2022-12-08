@@ -12,10 +12,6 @@
     layout = "br"; # Configure keymap in X11
   };
 
-  services.flatpak.enable = true;
-
-  programs.xwayland.enable = true;
-
   sound.enable = false;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -28,5 +24,9 @@
     wireplumber.enable = true;
   };
 
+  services.flatpak.enable = true;
+  programs.xwayland.enable = true;
+
+  environment.variables = { XDG_SESSION_TYPE = "wayland"; };
   environment.systemPackages = with pkgs; [ pavucontrol ];
 }

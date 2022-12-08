@@ -1,4 +1,4 @@
-{ pkgs, specialArgs, ... }:
+{ config, specialArgs, ... }:
 
 let
   inherit (specialArgs) ff-addons;
