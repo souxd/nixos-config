@@ -7,6 +7,7 @@ in
   programs.firefox = {
     enable = true;
     extensions = with ff-addons; [
+      tridactyl
       auto-tab-discard
       ublock-origin
       leechblock-ng
