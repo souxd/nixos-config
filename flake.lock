@@ -324,9 +324,27 @@
         "type": "github"
       }
     },
+    "nix-gaming": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1670592559,
+        "narHash": "sha256-DSBRgAOsafwRwd6XcsLSFswVQutI2nVSDsSKAmUcspQ=",
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "rev": "465d2c65aafce2ea2bcd0576a55054374435ed28",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fufexan",
+        "repo": "nix-gaming",
+        "type": "github"
+      }
+    },
     "nix-ld": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "utils": "utils"
       },
       "locked": {
@@ -422,6 +440,22 @@
     },
     "nixpkgs_4": {
       "locked": {
+        "lastModified": 1663491030,
+        "narHash": "sha256-MVsfBhE9US5DvLtBAaTRjwYdv1tLO8xjahM8qLXTgTo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "767542707d394ff15ac1981e903e005ba69528b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
+      "locked": {
         "lastModified": 1668423401,
         "narHash": "sha256-mMkOwAdnP2BEAnOodHdi9WmTgUfLuE57u5oymQJ1bNA=",
         "owner": "NixOS",
@@ -435,7 +469,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1670242877,
         "narHash": "sha256-jBLh7dRHnbfvPPA9znOC6oQfKrCPJ0El8Zoe0BqnCjQ=",
@@ -451,7 +485,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1670086663,
         "narHash": "sha256-hT8C8AQB74tdoCPwz4nlJypLMD7GI2F5q+vn+VE/qQk=",
@@ -600,8 +634,9 @@
         "home-manager": "home-manager",
         "nix-alien": "nix-alien",
         "nix-doom-emacs": "nix-doom-emacs",
+        "nix-gaming": "nix-gaming",
         "nix-ld": "nix-ld",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "nurpkgs": "nurpkgs",
         "sops-nix": "sops-nix",
         "stablepkgs": "stablepkgs",
@@ -642,7 +677,7 @@
     },
     "sops-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {

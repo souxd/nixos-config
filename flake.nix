@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
     stablepkgs.url = "github:nixos/nixpkgs/nixos-22.05";
-    trunkpkgs.url = "github:nixos/nixpkgs";
     nurpkgs.url = "github:nix-community/NUR";
 
     sops-nix.url = "github:Mic92/sops-nix"; # just for testing
@@ -19,6 +18,8 @@
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs/";
+
+    nix-gaming.url = github:fufexan/nix-gaming;
   };
 
   outputs = inputs:

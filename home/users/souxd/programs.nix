@@ -1,4 +1,4 @@
-{ config, pkgs, stable, trunk, ... }:
+{ config, pkgs, stable, ... }:
 
 {
   programs = {
@@ -14,23 +14,16 @@
       # Gnome Apps/Addons
       gnome.pomodoro
       drawing
-      # Launchers & Games
-      steam
-      grapejuice
-      retroarchFull
-      gzdoom
-      runelite
       # Audio & Music
       mumble
       deadbeef
       audacity
       musescore
-      nodePackages.musescore-downloader
       helm
       helvum
-      trunk.reaper
-      trunk.yabridge
-      trunk.yabridgectl
+      reaper
+      yabridge
+      yabridgectl
       # Graphic
       gimp
       inkscape
@@ -45,9 +38,7 @@
       # Social
       ripcord
       mumble
-      hexchat
       # Utils
-      hydrus
       keepassxc
       wireguard-tools
       wineWowPackages.waylandFull

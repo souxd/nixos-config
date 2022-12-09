@@ -6,7 +6,6 @@ let
   pkgs = nixpkgs.legacyPackages.${system};
   pkg-config = { inherit system; config.allowUnfreePredicate = _: true; };
   stable = import stablepkgs pkg-config;
-  trunk = import trunkpkgs pkg-config;
   nur = import nurpkgs {
     inherit pkgs;
     nurpkgs = pkgs;
@@ -29,6 +28,7 @@ let
     extraSpecialArgs = {
       inherit stable; inherit trunk;
       ff-addons = nur.repos.rycee.firefox-addons;
+      gaming = nix-gaming;
     };
     extraModules = [{ inherit imports; }];
   };
