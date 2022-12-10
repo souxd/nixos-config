@@ -1,9 +1,8 @@
 { pkgs, config, ... }:
 
 {
-  imports = [ ./graphical.nix ];
-
   services.xserver = {
+    enable = true;
     displayManager.gdm.enable = true; # Unsure if this causes input delay on wayland(?)
     desktopManager.gnome = {
       enable = true;

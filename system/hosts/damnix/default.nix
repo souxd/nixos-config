@@ -6,6 +6,7 @@
     ./users.nix
     ../../configuration.nix
     ../../modules/qbittorrent.nix
+    ../../modules/desktop/graphical.nix
     ../../modules/desktop/crocus.nix
     ../../modules/desktop/gnome.nix
     ../../modules/drawing.nix

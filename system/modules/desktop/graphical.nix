@@ -1,16 +1,15 @@
 { config, pkgs, ... }:
 
 {
+  security.polkit.enable = true; # needed if using WMs through home-manager
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
   };
 
-  services.xserver = {
-    enable = true;
-    layout = "br"; # Configure keymap in X11
-  };
+  services.xserver.layout = "br"; # Configure keymap in X11
 
   sound.enable = false;
   hardware.pulseaudio.enable = false;
@@ -18,6 +17,7 @@
   services.pipewire = {
     enable = true;
     audio.enable = true;
+    alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
@@ -27,6 +27,5 @@
   services.flatpak.enable = true;
   programs.xwayland.enable = true;
 
-  environment.variables = { XDG_SESSION_TYPE = "wayland"; };
   environment.systemPackages = with pkgs; [ pavucontrol ];
 }
