@@ -11,11 +11,6 @@
 
   home.packages = with pkgs;
     [
-      # Gnome Apps/Addons
-      gnome.pomodoro
-      drawing
-      # Audio & Music
-      mumble
       deadbeef
       audacity
       musescore
