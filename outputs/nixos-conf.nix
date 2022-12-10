@@ -9,8 +9,8 @@ in
     inherit system;
     specialArgs = { inherit inputs; };
     modules = [
-      inputs.sops-nix.nixosModules.sops
       inputs.nix-ld.nixosModules.nix-ld
+      inputs.sops-nix.nixosModules.sops
       ../system/hosts/damnix/default.nix
     ];
   };
