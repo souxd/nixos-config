@@ -26,7 +26,7 @@ let
       nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
     };
     extraSpecialArgs = {
-      inherit stable; inherit trunk;
+      inherit stable;
       ff-addons = nur.repos.rycee.firefox-addons;
       gaming = nix-gaming;
     };
