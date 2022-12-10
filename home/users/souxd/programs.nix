@@ -25,6 +25,7 @@
       yabridge
       yabridgectl
       # Graphic
+      imagemagick
       gimp
       inkscape
       calibre
