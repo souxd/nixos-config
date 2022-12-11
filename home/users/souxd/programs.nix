@@ -35,6 +35,8 @@
       ripcord
       mumble
       # Utils
+      rtsp-simple-server
+      wolfssl
       keepassxc
       wireguard-tools
       wineWowPackages.waylandFull
