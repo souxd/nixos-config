@@ -7,8 +7,11 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [ vaapiIntel ];
   };
 
+  # configure keymap
+  environment.sessionVariables = { XKB_DEFAULT_LAYOUT = "br"; };
   services.xserver.layout = "br"; # Configure keymap in X11
 
   sound.enable = false;
@@ -24,8 +27,16 @@
     wireplumber.enable = true;
   };
 
-  services.flatpak.enable = true;
   programs.xwayland.enable = true;
 
-  environment.systemPackages = with pkgs; [ pavucontrol ];
+  services.flatpak.enable = true;
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  environment.systemPackages = with pkgs; [ pulseaudio pavucontrol ];
 }

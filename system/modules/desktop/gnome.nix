@@ -12,7 +12,6 @@
   services = {
     udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
     gnome = {
-      core-developer-tools.enable = true;
       tracker.enable = true;
       tracker-miners.enable = true;
     };

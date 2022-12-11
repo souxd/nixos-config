@@ -8,13 +8,13 @@
     ../../modules/qbittorrent.nix
     ../../modules/desktop/graphical.nix
     ../../modules/desktop/crocus.nix
-    ../../modules/desktop/gnome.nix
     ../../modules/drawing.nix
     ../../modules/zerotier.nix
   ];
 
   networking.hostName = "damnix";
   time.timeZone = "Brazil/East";
+  environment.sessionVariables = { TZ = "Brazil/East"; };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

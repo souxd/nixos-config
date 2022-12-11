@@ -40,58 +40,183 @@ let
         gsettings set $gnome_schema gtk-theme 'Dracula'
       '';
   };
+
 in
 {
+  imports = [ ./foot.nix ];
+
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    foot
-    sway
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
     dbus-sway-environment
     configure-gtk
     wayland
     glib # gsettings
     dracula-theme # gtk theme
-    gnome3.adwaita-icon-theme # default gnome cursors
-    swaylock
+    # gnome3.adwaita-icon-theme # default gnome cursors
     swayidle
+    autotiling
     grim # screenshot
-    slurp # screenshot selection
+    slurp # region select
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
-    wofi
-    mako
+    wofi # launch menu
+    mako # notification daemon
+    pcmanfm # file manager
+    gnome.file-roller # archive manager
+    mpv # video player
+    imv # image viewer
   ];
 
-  services.dbus.enable = true;
-  xdg.portal = {
+  # cursor theme
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
+  xdg.mimeApps = {
     enable = true;
-    wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    defaultApplications = {
+      "inode/directory" = "pcmanfm.desktop";
+      "image/gif" = "imv.desktop";
+      "image/png" = "imv.desktop";
+      "image/jpeg" = "imv.desktop";
+    };
   };
 
   wayland.windowManager.sway = {
     enable = true;
-    xwayland = true;
-    wrapperfeatures.gtk = true;
+    wrapperFeatures.gtk = true;
     config = rec {
+      output."*".bg = "${../../assets/wallpapers/1920x1080-green_frog.jpg} fill";
       modifier = "Mod4";
+      floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "wofi";
+      menu = "wofi --show drun | xargs swaymsg exec --";
       # Use as default terminal
-      terminal = "foot";
+      terminal = "footclient";
+      # navkeys
+      left = "h";
+      down = "j";
+      up = "k";
+      right = "l";
+
+
+      fonts = {
+        names = [ "FiraCode Nerd Font" ];
+        size = 11.0;
+      };
+
+      defaultWorkspace = "workspace number 1";
+
       startup = [
         # Launch on start
         { command = "dbus-sway-environment"; }
         { command = "configure-gtk"; }
+        { command = "autotiling"; always = true; }
+        { command = "foot --server"; }
         { command = "firefox"; }
-        { command = "emacsclient -c"; }
       ];
+
+      assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
+
       keybindings = {
-        # screenshot
-        "$mod+c" = "exec grim  -g '$(slurp)' /tmp/$(date +'%H:%M:%S.png')";
+        "${modifier}+Return" = "exec ${terminal}";
+        "${modifier}+d" = "exec ${menu}";
+
         # audio
-        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
-        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
+        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'";
+        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'";
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+
+        # screen capture
+
+        "${modifier}+Print" = "exec grim - | wl-copy";
+        "${modifier}+g" = ''exec grim -g "$(slurp)" - | wl-copy'';
+        "${modifier}+Shift+g" = ''exec grim -g "$(slurp)"'';
+        "${modifier}+Shift+Print" = "exec grim";
+
+        "${modifier}+Shift+c" = "reload";
+
+        "${modifier}+Shift+q" = "kill";
+        "${modifier}+Shift+e" = "exec swaymsg exit";
+
+        "${modifier}+f" = "fullscreen";
+        "${modifier}+e" = "layout toggle split";
+        "${modifier}+s" = "layout stacking";
+        "${modifier}+w" = "layout tabbed";
+
+        "${modifier}+Left" = "focus left";
+        "${modifier}+Down" = "focus down";
+        "${modifier}+Up" = "focus up";
+        "${modifier}+Right" = "focus right";
+        "${modifier}+${left}" = "focus left";
+        "${modifier}+${down}" = "focus down";
+        "${modifier}+${up}" = "focus up";
+        "${modifier}+${right}" = "focus right";
+
+        "${modifier}+Shift+Left" = "move left";
+        "${modifier}+Shift+Down" = "move down";
+        "${modifier}+Shift+Up" = "move up";
+        "${modifier}+Shift+Right" = "move right";
+        "${modifier}+Shift+${left}" = "move left";
+        "${modifier}+Shift+${down}" = "move down";
+        "${modifier}+Shift+${up}" = "move up";
+        "${modifier}+Shift+${right}" = "move right";
+
+        "${modifier}+1" = "workspace number 1";
+        "${modifier}+2" = "workspace number 2";
+        "${modifier}+3" = "workspace number 3";
+        "${modifier}+4" = "workspace number 4";
+        "${modifier}+5" = "workspace number 5";
+        "${modifier}+6" = "workspace number 6";
+        "${modifier}+7" = "workspace number 7";
+        "${modifier}+8" = "workspace number 8";
+        "${modifier}+9" = "workspace number 9";
+        "${modifier}+0" = "workspace number 10";
+
+        "${modifier}+Shift+1" = "move container to workspace number 1";
+        "${modifier}+Shift+2" = "move container to workspace number 2";
+        "${modifier}+Shift+3" = "move container to workspace number 3";
+        "${modifier}+Shift+4" = "move container to workspace number 4";
+        "${modifier}+Shift+5" = "move container to workspace number 5";
+        "${modifier}+Shift+6" = "move container to workspace number 6";
+        "${modifier}+Shift+7" = "move container to workspace number 7";
+        "${modifier}+Shift+8" = "move container to workspace number 8";
+        "${modifier}+Shift+9" = "move container to workspace number 9";
+        "${modifier}+Shift+0" = "move container to workspace number 10";
+
+        "${modifier}+n" = "focus output left";
+        "${modifier}+m" = "focus output right";
+
+        "${modifier}+Shift+n" = "move output left";
+        "${modifier}+Shift+m" = "move output right";
+
+        "${modifier}+Tab" = "move workspace to output right";
+        "${modifier}+Shift+Tab" = "move workspace to output left";
+
+        "${modifier}+t" = "input type:touchpad events disabled";
+        "${modifier}+Shift+t" = "input type:touchpad events enabled";
+
+        "${modifier}+Shift+space" = "floating toggle";
+        "${modifier}+space" = "focus mode_toggle";
+
+        "${modifier}+a" = "focus parent";
+        "${modifier}+c" = "focus child";
+
+        "${modifier}+Shift+minus" = "move scratchpad";
+        "${modifier}+minus" = "scratchpad show";
+
+        "${modifier}+r" = ''mode "resize"'';
+      };
+      modes.resize = {
+        "Left" = "resize shrink width 10px";
+        "Down" = "resize grow height 10px";
+        "Up" = "resize shrink height 10px";
+        "Right" = "resize grow width 10px";
+        "${left}" = "resize shrink width 10px";
+        "${down}" = "resize grow height 10px";
+        "${up}" = "resize shrink height 10px";
+        "${right}" = "resize grow width 10px";
+
+        "Return" = ''mode "default"'';
+        "Escape" = ''mode "default"'';
       };
     };
   };

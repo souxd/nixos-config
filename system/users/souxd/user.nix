@@ -3,6 +3,6 @@
 
   users.users.souxd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "adbusers" ];
+    extraGroups = [ "wheel" "libvirtd" "adbusers" "video" "audio" ];
   };
 }
