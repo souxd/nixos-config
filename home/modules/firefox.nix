@@ -2,6 +2,13 @@
 
 let
   inherit (specialArgs) ff-addons;
+
+  # disable the annoying floating icon with camera and mic when on a call
+  disableWebRtcIndicator = ''
+    #webrtcIndicator {
+      display: none;
+    }
+  '';
 in
 {
   programs.firefox = {
@@ -30,6 +37,7 @@ in
         "extensions.update.enabled" = false;
         "extension.activeThemeID" = "firefox-compact-dark@mozilla.org";
       };
+      userChrome = disableWebRtcIndicator;
     };
   };
 }
