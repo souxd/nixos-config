@@ -47,8 +47,9 @@ in
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
     noto-fonts-cjk-sans # asian characters
+    noto-fonts-emoji # google emojis
     dbus-sway-environment
     configure-gtk
     wayland
