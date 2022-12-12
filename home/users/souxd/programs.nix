@@ -32,18 +32,14 @@
       kdenlive
       mediainfo # required by kdenlive
       # Social
-      ripcord
       mumble
       # Utils
-      rtsp-simple-server
-      wolfssl
-      keepassxc
-      wireguard-tools
-      wineWowPackages.waylandFull
-      winetricks
-      flatpak-builder
       steam-run
       appimage-run
+      keepassxc
       mosh
+      rtsp-simple-server
+      wolfssl
+      wineWowPackages.waylandFull
     ];
 }
