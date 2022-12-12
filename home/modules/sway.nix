@@ -48,6 +48,7 @@ in
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    noto-fonts-cjk-sans # asian characters
     dbus-sway-environment
     configure-gtk
     wayland
