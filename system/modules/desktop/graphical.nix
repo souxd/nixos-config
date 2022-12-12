@@ -38,5 +38,5 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  environment.systemPackages = with pkgs; [ pulseaudio pavucontrol ];
+  environment.systemPackages = with pkgs; [ pulseaudio playerctl pavucontrol ];
 }

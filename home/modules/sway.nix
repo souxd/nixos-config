@@ -92,7 +92,7 @@ in
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "wofi --show drun | xargs swaymsg exec --";
+      menu = "wofi -I --show drun | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys
@@ -129,6 +129,7 @@ in
         "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'";
         "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'";
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+        "XF86AudioPlay" = "exec playerctl play-pause";
 
         # screen capture
         "${modifier}+Print" = "exec grim - | wl-copy -t image/png";
