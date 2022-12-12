@@ -9,7 +9,6 @@
     ../../modules/nix-direnv.nix
     ../../modules/emacs/doom-emacs.nix
     ../../modules/firefox.nix
-    ../../modules/discord.nix
     ../../modules/gaming.nix
   ];
 
