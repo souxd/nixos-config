@@ -58,6 +58,7 @@ in
     autotiling
     grim # screenshot
     slurp # region select
+    wf-recorder # screenrecorder
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
     wofi # launch menu
     mako # notification daemon
@@ -65,6 +66,7 @@ in
     gnome.file-roller # archive manager
     mpv # video player
     imv # image viewer
+    oneko # silly cat
   ];
 
   # cursor theme
@@ -110,6 +112,7 @@ in
         { command = "dbus-sway-environment"; }
         { command = "configure-gtk"; }
         { command = "autotiling"; always = true; }
+        { command = "oneko"; always = true; }
         { command = "foot --server"; }
         { command = "firefox"; }
       ];
@@ -126,16 +129,13 @@ in
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
 
         # screen capture
-
-        "${modifier}+Print" = "exec grim - | wl-copy";
-        "${modifier}+g" = ''exec grim -g "$(slurp)" - | wl-copy'';
-        "${modifier}+Shift+g" = ''exec grim -g "$(slurp)"'';
-        "${modifier}+Shift+Print" = "exec grim";
+        "${modifier}+Print" = "exec grim - | wl-copy -t image/png";
+        "${modifier}+g" = ''exec grim -g "$(slurp)" - | wl-copy -t image/png'';
 
         "${modifier}+Shift+c" = "reload";
 
         "${modifier}+Shift+q" = "kill";
-        "${modifier}+Shift+e" = "exec swaymsg exit";
+        "${modifier}+Shift+e" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
         "${modifier}+f" = "fullscreen";
         "${modifier}+e" = "layout toggle split";
@@ -203,7 +203,7 @@ in
         "${modifier}+Shift+minus" = "move scratchpad";
         "${modifier}+minus" = "scratchpad show";
 
-        "${modifier}+r" = ''mode "resize"'';
+        "${modifier}+r" = '' mode "resize" '';
       };
       modes.resize = {
         "Left" = "resize shrink width 10px";
@@ -215,8 +215,10 @@ in
         "${up}" = "resize shrink height 10px";
         "${right}" = "resize grow width 10px";
 
-        "Return" = ''mode "default"'';
-        "Escape" = ''mode "default"'';
+        "Return" = ''
+          mode "default" '';
+        "Escape" = ''
+          mode "default" '';
       };
     };
   };
