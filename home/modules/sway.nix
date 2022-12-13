@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   # bash script to let dbus know about important env variables and
@@ -14,8 +14,6 @@ let
 
     text = ''
       dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
     '';
   };
 
@@ -45,24 +43,21 @@ in
 {
   imports = [ ./foot.nix ];
 
-  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    dbus-sway-environment
+    configure-gtk
     (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
     noto-fonts-cjk-sans # asian characters
     noto-fonts-emoji # google emojis
-    dbus-sway-environment
-    configure-gtk
     wayland
+    libsForQt5.qtwayland
     glib # gsettings
     dracula-theme # gtk theme
     # gnome3.adwaita-icon-theme # default gnome cursors
     swayidle
-    autotiling
-    grim # screenshot
-    slurp # region select
     wf-recorder # screenrecorder
+    swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
-    wofi # launch menu
     mako # notification daemon
     pcmanfm # file manager
     gnome.file-roller # archive manager
@@ -71,8 +66,25 @@ in
     oneko # silly cat
   ];
 
+  systemd.user.services =
+    let
+      mkService = lib.recursiveUpdate {
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+    in
+    {
+      gammastep = mkService {
+        Unit.Description = "Night time color filter";
+        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
+      };
+    };
+
+  # enable custom fonts
+  fonts.fontconfig.enable = true;
   # cursor theme
   home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  # for wob
+  home.sessionVariables = { WOBSOCK = "\${XDG_RUNTIME_DIR}/wob.sock"; };
 
   xdg.mimeApps = {
     enable = true;
@@ -88,11 +100,31 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
     config = rec {
+
       output."*".bg = "${../../assets/wallpapers/1920x1080-green_frog.jpg} fill";
+
+      fonts = {
+        names = [ "FiraCode Nerd Font" ];
+        size = 11.0;
+      };
+
+      defaultWorkspace = "workspace number 1";
+      assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
+
+      startup = [
+        # Launch on start
+        { command = "dbus-sway-environment"; }
+        { command = "configure-gtk"; }
+        { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
+        { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
+        { command = "foot --server"; }
+        { command = "firefox"; }
+      ];
+
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "wofi -I --show drun | xargs swaymsg exec --";
+      menu = "${pkgs.wofi}/bin/wofi -I --show drun | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys
@@ -101,39 +133,19 @@ in
       up = "k";
       right = "l";
 
-
-      fonts = {
-        names = [ "FiraCode Nerd Font" ];
-        size = 11.0;
-      };
-
-      defaultWorkspace = "workspace number 1";
-
-      startup = [
-        # Launch on start
-        { command = "dbus-sway-environment"; }
-        { command = "configure-gtk"; }
-        { command = "autotiling"; always = true; }
-        { command = "oneko"; always = true; }
-        { command = "foot --server"; }
-        { command = "firefox"; }
-      ];
-
-      assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
-
       keybindings = {
         "${modifier}+Return" = "exec ${terminal}";
         "${modifier}+d" = "exec ${menu}";
 
         # audio
-        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'";
-        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'";
-        "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
-        "XF86AudioPlay" = "exec playerctl play-pause";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK";
+        "XF86AudioMute" = ''exec ${pkgs.pamixer}/bin/pamixer --toggle-mute && ( [ "\$(${pkgs.pamixer}/bin/pamixer - -get-mute) " = "true" ] && echo 0 > $WOBSOCK ) || ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK'';
+        "XF86AudioPlay " = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
 
         # screen capture
-        "${modifier}+Print" = "exec grim - | wl-copy -t image/png";
-        "${modifier}+g" = ''exec grim -g "$(slurp)" - | wl-copy -t image/png'';
+        "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim - | swappy -f -";
+        "${modifier}+g" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | swappy -f -'';
 
         "${modifier}+Shift+c" = "reload";
 
@@ -224,5 +236,9 @@ in
           mode "default" '';
       };
     };
+
+    extraConfig = ''
+      for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+    '';
   };
 }
