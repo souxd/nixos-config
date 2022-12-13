@@ -7,7 +7,7 @@
     ../../configuration.nix
     ../../modules/qbittorrent.nix
     ../../modules/desktop/graphical.nix
-    ../../modules/desktop/crocus.nix
+    ./crocus.nix
     ../../modules/drawing.nix
     ../../modules/zerotier.nix
   ];
