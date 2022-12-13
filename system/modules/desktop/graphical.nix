@@ -20,7 +20,6 @@
   services.pipewire = {
     enable = true;
     audio.enable = true;
-    alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
@@ -30,6 +29,7 @@
   programs.xwayland.enable = true;
 
   services.flatpak.enable = true;
+
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
@@ -37,6 +37,4 @@
     # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-
-  environment.systemPackages = with pkgs; [ pulseaudio playerctl pavucontrol ];
 }
