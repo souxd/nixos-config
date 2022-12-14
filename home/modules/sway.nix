@@ -1,22 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  # bash script to let dbus know about important env variables and
-  # propagate them to relevent services run at the end of sway config
-  # see
-  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
-  # note: this is pretty much the same as  /etc/sway/config.d/nixos.conf but also restarts
-  # some user services to make sure they have the correct environment variables
-  dbus-sway-environment = pkgs.writeTextFile {
-    name = "dbus-sway-environment";
-    destination = "/bin/dbus-sway-environment";
-    executable = true;
-
-    text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-    '';
-  };
-
   # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
   # the suggested way to set gtk settings is with gsettings
@@ -39,13 +23,24 @@ let
       '';
   };
 
+  # start custom systemd services
+  services-start = pkgs.writeTextFile {
+    name = "services-start";
+    destination = "/bin/services-start";
+    executable = true;
+    text = ''
+      systemctl --user stop gammastep foot
+      systemctl --user start gammastep foot
+    '';
+  };
+
 in
 {
   imports = [ ./foot.nix ];
 
   home.packages = with pkgs; [
-    dbus-sway-environment
     configure-gtk
+    services-start
     (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
     noto-fonts-cjk-sans # asian characters
     noto-fonts-emoji # google emojis
@@ -68,10 +63,29 @@ in
 
   # enable custom fonts
   fonts.fontconfig.enable = true;
-  # cursor theme
-  home.file." .icons/default ".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
   # for wob
   home.sessionVariables = { WOBSOCK = "\${XDG_RUNTIME_DIR}/wob.sock"; };
+
+  # cursor
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.vanilla-dmz;
+    name = "Vanilla-DMZ";
+  };
+
+  systemd.user.services =
+    let
+      mkService = lib.recursiveUpdate {
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+    in
+    {
+      gammastep = mkService {
+        Unit.Description = "Night time color filter";
+        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
+      };
+    };
 
   xdg.mimeApps = {
     enable = true;
@@ -100,12 +114,10 @@ in
 
       startup = [
         # Launch on start
-        { command = "dbus-sway-environment"; }
         { command = "configure-gtk"; }
+        { command = "services-start"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
-        { command = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000"; always = true; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
-        { command = "foot --server"; always = true; }
         { command = "firefox"; }
       ];
 
