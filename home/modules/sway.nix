@@ -66,23 +66,10 @@ in
     oneko # silly cat
   ];
 
-  systemd.user.services =
-    let
-      mkService = lib.recursiveUpdate {
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-    in
-    {
-      gammastep = mkService {
-        Unit.Description = "Night time color filter";
-        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
-      };
-    };
-
   # enable custom fonts
   fonts.fontconfig.enable = true;
   # cursor theme
-  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  home.file." .icons/default ".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
   # for wob
   home.sessionVariables = { WOBSOCK = "\${XDG_RUNTIME_DIR}/wob.sock"; };
 
@@ -116,8 +103,9 @@ in
         { command = "dbus-sway-environment"; }
         { command = "configure-gtk"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
+        { command = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000"; always = true; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
-        { command = "foot --server"; }
+        { command = "foot --server"; always = true; }
         { command = "firefox"; }
       ];
 
@@ -144,6 +132,7 @@ in
         "XF86AudioPlay " = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
 
         # screen capture
+        "Print" = "exec ${pkgs.grim}/bin/grim - | wl-copy -t image/png";
         "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim - | swappy -f -";
         "${modifier}+g" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | swappy -f -'';
 
