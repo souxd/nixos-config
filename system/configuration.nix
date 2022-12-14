@@ -2,12 +2,12 @@
 
 {
   imports =
-    [
-      ./modules/essentials.nix
-      ./modules/nix-direnv.nix
-      ./modules/cachix/cachix.nix
-      ./modules/locale.nix
-    ];
+    (map (p: ../modules/system + p) [
+      /essentials.nix
+      /nix-direnv.nix
+      /cachix/cachix.nix
+      /locale.nix
+    ]);
 
   system.stateVersion = "22.05";
 }

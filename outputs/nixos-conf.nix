@@ -11,7 +11,7 @@ in
     modules = [
       inputs.nix-ld.nixosModules.nix-ld
       inputs.sops-nix.nixosModules.sops
-      ../system/hosts/damnix/default.nix
+      ../system/damnix/default.nix
     ];
   };
 }

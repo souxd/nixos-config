@@ -3,14 +3,15 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./users.nix
-    ../../configuration.nix
-    ../../modules/qbittorrent.nix
-    ../../modules/desktop/graphical.nix
     ./crocus.nix
-    ../../modules/drawing.nix
-    ../../modules/zerotier.nix
-  ];
+    ./users.nix
+    ../configuration.nix
+  ] ++
+  (map (p: ../../modules/system + p) [
+    /qbittorrent.nix
+    /desktop/graphical.nix
+    /drawing.nix
+  ]);
 
   networking.hostName = "damnix";
   time.timeZone = "Brazil/East";

@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
-  # the suggested way to set gtk settings is with gsettings
-  # for gsettings to work, we need to tell it where the schemas are
+  # for gsettings to work, tell it where the schemas are
   # using the XDG_DATA_DIR environment variable
   # run at the end of sway config
   configure-gtk = pkgs.writeTextFile {
@@ -124,7 +122,7 @@ in
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "${pkgs.wofi}/bin/wofi -I --show drun | xargs swaymsg exec --";
+      menu = "${pkgs.tofi}/bin/tofi-drun  | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys

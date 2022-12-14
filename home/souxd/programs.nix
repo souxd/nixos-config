@@ -41,5 +41,6 @@
       rtsp-simple-server
       wolfssl
       wineWowPackages.waylandFull
+      winetricks
     ];
 }
