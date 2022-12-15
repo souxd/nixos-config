@@ -1,26 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
-  # for gsettings to work, tell it where the schemas are
-  # using the XDG_DATA_DIR environment variable
-  # run at the end of sway config
-  configure-gtk = pkgs.writeTextFile {
-    name = "configure-gtk";
-    destination = "/bin/configure-gtk";
-    executable = true;
-    text =
-      let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in
-      ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Dracula'
-      '';
-  };
-
   # start custom systemd services
   services-start = pkgs.writeTextFile {
     name = "services-start";
@@ -31,23 +11,30 @@ let
       systemctl --user start gammastep foot
     '';
   };
-
 in
 {
-  imports = [ ./foot.nix ];
+  systemd.user.services =
+    let
+      mkService = lib.recursiveUpdate {
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+    in
+    {
+      gammastep = mkService {
+        Unit.Description = "Night time color filter";
+        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
+      };
+    };
+
+  imports = [ ./theme.nix ./foot.nix ];
 
   home.packages = with pkgs; [
-    configure-gtk
     services-start
     (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
     noto-fonts-cjk-sans # asian characters
     noto-fonts-emoji # google emojis
     wayland
     libsForQt5.qtwayland
-    glib # gsettings
-    dracula-theme # gtk theme
-    # gnome3.adwaita-icon-theme # default gnome cursors
-    swayidle
     wf-recorder # screenrecorder
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
@@ -61,29 +48,8 @@ in
 
   # enable custom fonts
   fonts.fontconfig.enable = true;
-  # for wob
+  # tells wob where the sock is
   home.sessionVariables = { WOBSOCK = "\${XDG_RUNTIME_DIR}/wob.sock"; };
-
-  # cursor
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.vanilla-dmz;
-    name = "Vanilla-DMZ";
-  };
-
-  systemd.user.services =
-    let
-      mkService = lib.recursiveUpdate {
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-    in
-    {
-      gammastep = mkService {
-        Unit.Description = "Night time color filter";
-        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
-      };
-    };
 
   xdg.mimeApps = {
     enable = true;
@@ -112,7 +78,6 @@ in
 
       startup = [
         # Launch on start
-        { command = "configure-gtk"; }
         { command = "services-start"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
@@ -122,7 +87,7 @@ in
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "${pkgs.tofi}/bin/tofi-drun  | xargs swaymsg exec --";
+      menu = "${pkgs.tofi}/bin/tofi-drun | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys
@@ -132,8 +97,13 @@ in
       right = "l";
 
       keybindings = {
+        # basics
         "${modifier}+Return" = "exec ${terminal}";
         "${modifier}+d" = "exec ${menu}";
+        "${modifier}+Shift+e" = "exec emacsclient -c";
+
+        # screen lock
+        "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
         # audio
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK";
@@ -149,7 +119,7 @@ in
         "${modifier}+Shift+c" = "reload";
 
         "${modifier}+Shift+q" = "kill";
-        "${modifier}+Shift+e" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
+        "${modifier}+Shift+Escape" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
         "${modifier}+f" = "fullscreen";
         "${modifier}+e" = "layout toggle split";

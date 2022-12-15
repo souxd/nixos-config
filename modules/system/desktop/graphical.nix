@@ -2,6 +2,7 @@
 
 {
   security.polkit.enable = true; # needed if using WMs through home-manager
+  security.pam.services.swaylock = { }; # fix swaylock not accepting user password
 
   hardware.opengl = {
     enable = true;
@@ -27,6 +28,8 @@
   };
 
   programs.xwayland.enable = true;
+
+  programs.dconf.enable = true;
 
   services.flatpak.enable = true;
 
