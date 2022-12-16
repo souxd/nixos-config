@@ -1,3 +1,4 @@
+# preferred wayland terminal
 { config, ... }:
 
 {

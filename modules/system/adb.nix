@@ -1,3 +1,4 @@
+# android debug bridge, add your user to adbusers if needed
 { config, ... }:
 
 {

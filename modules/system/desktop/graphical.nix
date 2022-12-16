@@ -1,3 +1,4 @@
+# needed for (graphical) desktop usage
 { config, pkgs, ... }:
 
 {
@@ -8,16 +9,13 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ vaapiIntel ];
+    extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
-  # configure keymap
-  environment.sessionVariables = { XKB_DEFAULT_LAYOUT = "br"; };
-  services.xserver.layout = "br"; # Configure keymap in X11
+  sound.enable = false; # pipewire misbehaves with this option set
+  hardware.pulseaudio.enable = false; # unset since using pipewire
 
-  sound.enable = false;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  security.rtkit.enable = true; # optional but recommended
   services.pipewire = {
     enable = true;
     audio.enable = true;
@@ -29,7 +27,7 @@
 
   programs.xwayland.enable = true;
 
-  programs.dconf.enable = true;
+  programs.dconf.enable = true; # gtk theming needs this to work well
 
   services.flatpak.enable = true;
 

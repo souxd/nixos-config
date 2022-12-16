@@ -2,15 +2,17 @@
 
 {
   imports = [
+    ../configuration.nix
     ./hardware-configuration.nix
     ./crocus.nix
     ./users.nix
-    ../configuration.nix
   ] ++
   (map (p: ../../modules/system + p) [
+    /br-locale.nix
     /qbittorrent.nix
     /desktop/graphical.nix
     /drawing.nix
+    /squid.nix
   ]);
 
   networking.hostName = "damnix";

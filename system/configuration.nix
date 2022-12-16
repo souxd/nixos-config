@@ -1,3 +1,4 @@
+# default settings for all my hosts
 { config, ... }:
 
 {
@@ -6,7 +7,6 @@
       /essentials.nix
       /nix-direnv.nix
       /cachix/cachix.nix
-      /locale.nix
     ]);
 
   system.stateVersion = "22.05";

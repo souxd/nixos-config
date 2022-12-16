@@ -1,5 +1,6 @@
+# podman wrapper
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ distrobox ];
+  environment.systemPackages = [ pkgs.distrobox ];
 }

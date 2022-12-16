@@ -1,17 +1,13 @@
-{ config, pkgs, ... }:
-
 ### qBittorrent-nox
 # Bittorrent client, web UI exposed via :8080
-# site: https://www.qbittorrent.org/
-# repo: https://github.com/qbittorrent/qBittorrent
 # docs: https://github.com/qbittorrent/qBittorrent/wiki
-
 # Note: you will need to set the user up manually
 # (default credentials: `admin`, `adminadmin`)
+{ config, pkgs, ... }:
 
 {
 
-  environment.systemPackages = with pkgs; [ qbittorrent-nox ];
+  environment.systemPackages = [ pkgs.qbittorrent-nox ];
 
   # add and enable systemd unit
   systemd = {

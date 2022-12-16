@@ -73,6 +73,14 @@ in
         size = 11.0;
       };
 
+      colors.focused = rec {
+        border = "#83abd4AA";
+        indicator = border;
+        background = "#DDDDDD";
+        childBorder = border;
+        text = "#121212";
+      };
+
       defaultWorkspace = "workspace number 1";
       assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
 

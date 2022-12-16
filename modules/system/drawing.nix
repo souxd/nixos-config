@@ -1,3 +1,4 @@
+# enable OTD driver for my wacom drawing table
 { config, ... }:
 
 {

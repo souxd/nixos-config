@@ -1,3 +1,4 @@
+# settings i consider important for any hosts
 { config, pkgs, inputs, ... }:
 
 {
@@ -15,6 +16,7 @@
     };
   };
 
+  # channels and registry on flakes
   environment.etc."nix/inputs/nixpkgs".source = inputs.nixpkgs.outPath;
   nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
@@ -28,10 +30,12 @@
     wget
     ripgrep
     fd
+    # makes non-nix bins easier to use
     nix-alien
     nix-index
     nix-index-update
   ];
 
+  # list packages installed on host
   environment.shellAliases = { nix-query = "nix-store -q --references /run/current-system/sw | rg -v man | sed 's/^[^-]*-//g' | sed 's/-[0-9].*//g' | rg -v '^nix' | sort -u"; };
 }

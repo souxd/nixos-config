@@ -1,3 +1,4 @@
+# my preferred gtk and pointer themes
 { config, lib, pkgs, ... }:
 
 {

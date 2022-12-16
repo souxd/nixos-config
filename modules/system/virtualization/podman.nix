@@ -1,3 +1,4 @@
+# daemonless, rootless containers
 { config, pkgs, ... }:
 
 {
@@ -13,5 +14,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ podman-compose ];
+  environment.systemPackages = [ pkgs.podman-compose ];
 }
