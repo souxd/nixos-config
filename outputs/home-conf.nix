@@ -27,8 +27,9 @@ let
     };
     extraSpecialArgs = {
       inherit stable;
-      ff-addons = nur.repos.rycee.firefox-addons;
       gaming = nix-gaming;
+      wolfenstein = nur.repos.c0deaddict;
+      ff-addons = nur.repos.rycee.firefox-addons;
     };
     extraModules = [{ inherit imports; }];
   };
