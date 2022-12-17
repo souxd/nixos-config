@@ -12,7 +12,6 @@
     /qbittorrent.nix
     /desktop/graphical.nix
     /drawing.nix
-    /squid.nix
   ]);
 
   networking.hostName = "damnix";
