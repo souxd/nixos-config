@@ -89,6 +89,7 @@ in
         { command = "services-start"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
+        { command = "keepassxc"; }
         { command = "firefox"; }
       ];
 
