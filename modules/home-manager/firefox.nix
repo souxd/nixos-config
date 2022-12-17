@@ -27,22 +27,20 @@ in
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-beta-bin;
 
     extensions = with ff-addons; [
       tridactyl
       auto-tab-discard
       ublock-origin
+      redirector
       leechblock-ng
       i-dont-care-about-cookies
       unpaywall
       terms-of-service-didnt-read
-      sponsorblock
-      return-youtube-dislikes
       don-t-fuck-with-paste
-      h264ify
     ];
 
-    package = pkgs.firefox-beta-bin;
 
     profiles.default = {
       id = 0;
