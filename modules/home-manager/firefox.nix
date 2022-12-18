@@ -33,12 +33,14 @@ in
       tridactyl
       auto-tab-discard
       ublock-origin
+      decentraleyes
       redirector
       leechblock-ng
       i-dont-care-about-cookies
       unpaywall
       terms-of-service-didnt-read
       don-t-fuck-with-paste
+      violentmonkey
     ];
 
 
