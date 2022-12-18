@@ -15,7 +15,6 @@
   sound.enable = false; # pipewire misbehaves with this option set
   hardware.pulseaudio.enable = false; # unset since using pipewire
 
-  security.rtkit.enable = true; # optional but recommended
   services.pipewire = {
     enable = true;
     audio.enable = true;

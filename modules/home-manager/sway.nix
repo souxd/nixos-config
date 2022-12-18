@@ -115,10 +115,17 @@ in
         "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
         # audio
+        "${modifier}+q" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ui 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK";
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -ud 2 && ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK";
         "XF86AudioMute" = ''exec ${pkgs.pamixer}/bin/pamixer --toggle-mute && ( [ "\$(${pkgs.pamixer}/bin/pamixer - -get-mute) " = "true" ] && echo 0 > $WOBSOCK ) || ${pkgs.pamixer}/bin/pamixer --get-volume > $WOBSOCK'';
-        "XF86AudioPlay " = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+
+        # mpd
+        "${modifier}+XF86AudioRaiseVolume" = "exec ${pkgs.mpc-cli}/bin/mpc volume +5";
+        "${modifier}+XF86AudioLowerVolume" = "exec ${pkgs.mpc-cli}/bin/mpc volume -5";
+        "${modifier}+XF86AudioPlay" = "exec ${pkgs.mpc-cli}/bin/mpc toggle";
+        "${modifier}+XF86AudioMute" = "exec ${pkgs.mpc-cli}/bin/mpc next";
 
         # screen capture
         "Print" = "exec ${pkgs.grim}/bin/grim - | wl-copy -t image/png";

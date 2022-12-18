@@ -12,6 +12,7 @@
     /emacs/doom-emacs.nix
     /firefox.nix
     /gaming.nix
+    /mpd.nix
   ]);
 
   programs.home-manager.enable = true;

@@ -11,7 +11,6 @@
 
   home.packages = with pkgs;
     [
-      deadbeef
       audacity
       musescore
       helm
