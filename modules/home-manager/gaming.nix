@@ -2,12 +2,11 @@
 { pkgs, specialArgs, ... }:
 
 let
-  inherit (specialArgs) gaming wolfenstein;
+  inherit (specialArgs) gaming mlpnur;
 in
 
 with pkgs;
 with gaming.packages.${pkgs.system};
-with wolfenstein;
 
 {
   home.packages = [
@@ -23,6 +22,5 @@ with wolfenstein;
     # wolfenstein
     lzwolf
     iortcw_sp
-    enemyterritory
   ];
 }
