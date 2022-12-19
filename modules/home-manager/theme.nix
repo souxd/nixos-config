@@ -1,7 +1,15 @@
 # my preferred gtk and pointer themes
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
+  # enable custom fonts
+  fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
+    noto-fonts-cjk-sans # asian characters
+    noto-fonts-emoji # google emojis
+  ];
+
   home.pointerCursor = {
     x11.enable = true;
     package = pkgs.vanilla-dmz;

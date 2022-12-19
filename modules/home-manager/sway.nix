@@ -30,9 +30,6 @@ in
 
   home.packages = with pkgs; [
     services-start
-    (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
-    noto-fonts-cjk-sans # asian characters
-    noto-fonts-emoji # google emojis
     wayland
     libsForQt5.qtwayland
     wf-recorder # screenrecorder
@@ -46,8 +43,6 @@ in
     oneko # silly cat
   ];
 
-  # enable custom fonts
-  fonts.fontconfig.enable = true;
   # tells wob where the sock is
   home.sessionVariables = { WOBSOCK = "\${XDG_RUNTIME_DIR}/wob.sock"; };
 
@@ -66,7 +61,7 @@ in
     wrapperFeatures.gtk = true;
     config = rec {
 
-      output."*".bg = "${../../assets/wallpapers/1920x1080-green_frog.jpg} fill";
+      output."*".bg = "${../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
 
       fonts = {
         names = [ "FiraCode Nerd Font" ];
@@ -83,6 +78,7 @@ in
 
       defaultWorkspace = "workspace number 1";
       assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
+      assigns = { "10: misc" = [{ class = "^Ymuse$"; }]; };
 
       startup = [
         # Launch on start
@@ -91,6 +87,7 @@ in
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
         { command = "keepassxc"; }
         { command = "firefox"; }
+        { command = "ymuse"; }
       ];
 
       modifier = "Mod4";

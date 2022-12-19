@@ -13,6 +13,7 @@
     /firefox.nix
     /gaming.nix
     /mpd.nix
+    /libreoffice.nix
   ]);
 
   programs.home-manager.enable = true;
