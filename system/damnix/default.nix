@@ -15,6 +15,8 @@
     /virtualization/docker.nix
   ]);
 
+  networking.firewall.enable = true;
+
   networking.hostName = "damnix";
   time.timeZone = "Brazil/East";
   environment.sessionVariables = { TZ = "Brazil/East"; };
