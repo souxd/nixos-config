@@ -23,7 +23,6 @@
     nurpkgs.url = "github:nix-community/NUR";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-ld.url = "github:Mic92/nix-ld/main";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
