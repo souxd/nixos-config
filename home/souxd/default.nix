@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../configuration.nix
     ./shell.nix
     ./programs.nix
     ./services.nix
@@ -14,6 +15,7 @@
     /gaming.nix
     /mpd.nix
     /libreoffice.nix
+    /srb2bld.nix
   ]);
 
   programs.home-manager.enable = true;
