@@ -12,6 +12,7 @@
     /qbittorrent.nix
     /desktop/graphical.nix
     /drawing.nix
+    /virtualization/docker.nix
   ]);
 
   networking.hostName = "damnix";
