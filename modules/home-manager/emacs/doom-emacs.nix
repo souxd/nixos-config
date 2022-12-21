@@ -62,6 +62,6 @@
       nodePackages.pyright
       black
       # LaTeX
-      texlive.combined.scheme-medium
+      # texlive.combined.scheme-medium # broken on doom-emacs (30)
     ];
 }
