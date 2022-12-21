@@ -88,12 +88,13 @@ in
         { command = "keepassxc"; }
         { command = "firefox"; }
         { command = "ymuse"; }
+        { command = "beebeep"; }
       ];
 
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "${pkgs.tofi}/bin/tofi-drun | xargs swaymsg exec --";
+      menu = "${pkgs.tofi}/bin/tofi-drun --font ${pkgs.fira-code}/share/fonts/truetype/FiraCode-VF.tff | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys

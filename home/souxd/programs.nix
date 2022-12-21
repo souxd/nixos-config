@@ -1,5 +1,8 @@
-{ config, pkgs, stable, ... }:
+{ config, pkgs, specialArgs, stable, ... }:
 
+let
+  inherit (specialArgs) souxd;
+in
 {
   programs = {
     git = {
@@ -25,14 +28,17 @@
       calibre
       xournalpp
       krita
+      souxd.glaxnimate
       blender
       # Video
       ffmpeg
-      kdenlive
+      libsForQt5.kdenlive
       mediainfo # required by kdenlive
       # Social
       mumble
+      souxd.beebeep
       # Utils
+      gh
       steam-run
       appimage-run
       keepassxc

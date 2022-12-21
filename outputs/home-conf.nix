@@ -27,6 +27,7 @@ let
     };
     extraSpecialArgs = {
       inherit stable;
+      souxd = nur.repos.souxd;
       ff-addons = nur.repos.rycee.firefox-addons;
       gaming = nix-gaming;
     };
