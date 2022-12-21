@@ -15,7 +15,6 @@
     /gaming.nix
     /mpd.nix
     /libreoffice.nix
-    /srb2bld.nix
   ]);
 
   programs.home-manager.enable = true;
