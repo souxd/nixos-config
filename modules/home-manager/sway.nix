@@ -26,7 +26,7 @@ in
       };
     };
 
-  imports = [ ./theme.nix ./foot.nix ./mako.nix ./mpv.conf ];
+  imports = [ ./theme.nix ./foot.nix ./mako.nix ./mpv.nix ];
 
   home.packages = with pkgs; [
     services-start
