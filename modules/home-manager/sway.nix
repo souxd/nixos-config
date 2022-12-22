@@ -79,8 +79,9 @@ in
       };
 
       defaultWorkspace = "workspace number 1";
-      assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
-      assigns = { "10: misc" = [{ class = "^Ymuse$"; }]; };
+      assigns = { "1: web" = [{ app_id = "firefox-beta"; }]; };
+      assigns = { "3: hydrus" = [{ app_id = "python3"; }]; };
+      assigns = { "10: misc" = [{ app_id = "ymuse"; }]; };
 
       startup = [
         # Launch on start
@@ -91,6 +92,7 @@ in
         { command = "firefox"; }
         { command = "ymuse"; }
         { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
+        { command = "hydrus-client"; }
       ];
 
       modifier = "Mod4";
