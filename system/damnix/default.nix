@@ -12,7 +12,6 @@
     /qbittorrent.nix
     /desktop/graphical.nix
     /drawing.nix
-    /virtualization/docker.nix
   ]);
 
   networking.firewall.enable = true;
