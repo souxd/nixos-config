@@ -26,7 +26,7 @@ in
       };
     };
 
-  imports = [ ./theme.nix ./foot.nix ];
+  imports = [ ./theme.nix ./foot.nix ./mako.nix ./mpv.conf ];
 
   home.packages = with pkgs; [
     services-start
@@ -35,10 +35,8 @@ in
     wf-recorder # screenrecorder
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
-    mako # notification daemon
     pcmanfm # file manager
     gnome.file-roller # archive manager
-    mpv # video player
     imv # image viewer
     oneko # silly cat
   ];
@@ -76,6 +74,10 @@ in
         text = "#121212";
       };
 
+      seat = {
+        "*" = { hide_cursor = "when-typing enable"; };
+      };
+
       defaultWorkspace = "workspace number 1";
       assigns = { "1: web" = [{ class = "^Firefox$"; }]; };
       assigns = { "10: misc" = [{ class = "^Ymuse$"; }]; };
@@ -88,7 +90,7 @@ in
         { command = "keepassxc"; }
         { command = "firefox"; }
         { command = "ymuse"; }
-        { command = "beebeep"; }
+        { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
       ];
 
       modifier = "Mod4";
