@@ -14,6 +14,9 @@ in
 
   home.packages = with pkgs;
     [
+      ## Media
+      hydrus
+      # Audio
       audacity
       musescore
       helm
@@ -37,7 +40,8 @@ in
       # Social
       mumble
       souxd.beebeep
-      # Utils
+
+      ## Utils
       gh
       steam-run
       appimage-run
