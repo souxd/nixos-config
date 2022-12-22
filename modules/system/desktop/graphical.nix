@@ -15,14 +15,6 @@
   sound.enable = false; # pipewire misbehaves with this option set
   hardware.pulseaudio.enable = false; # unset since using pipewire
 
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    wireplumber.enable = true;
-  };
 
   programs.xwayland.enable = true;
 
@@ -36,5 +28,17 @@
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  security.rtkit.enable = true; # optional, but recommended
+
+  # audio settings
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
   };
 }
