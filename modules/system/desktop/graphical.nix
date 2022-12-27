@@ -8,12 +8,10 @@
   hardware.opengl = {
     enable = true;
     driSupport = true;
-    driSupport32Bit = true;
+    driSupport32Bit = true; # for old games
     extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
-  sound.enable = false; # pipewire misbehaves with this option set
-  hardware.pulseaudio.enable = false; # unset since using pipewire
 
 
   programs.xwayland.enable = true;
@@ -32,13 +30,17 @@
 
   security.rtkit.enable = true; # optional, but recommended
 
-  # audio settings
+  ## audio settings
+  sound.enable = false; # pipewire misbehaves with this option set
+  hardware.pulseaudio.enable = false; # unset, using pipewire
+  # pipewire
   services.pipewire = {
     enable = true;
     audio.enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.support32Bit = true; # for old games
     pulse.enable = true;
+    jack.enable = true; # for apps that requires jack
     wireplumber.enable = true;
   };
 }
