@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   # start custom systemd services
@@ -7,24 +7,24 @@ let
     destination = "/bin/services-start";
     executable = true;
     text = ''
-      systemctl --user stop gammastep foot
-      systemctl --user start gammastep foot
+      systemctl --user stop gammastep
+      systemctl --user start gammastep
     '';
   };
 in
 {
-  systemd.user.services =
-    let
-      mkService = lib.recursiveUpdate {
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-    in
-    {
-      gammastep = mkService {
-        Unit.Description = "Night time color filter";
-        Service.ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
-      };
+  systemd.user.services.gammastep = {
+    Unit = {
+      Description = "Night time color filter";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
+    Service = {
+      ExecStart = "${pkgs.gammastep}/bin/gammastep -m wayland -l 7:-34 -t 6500:3000";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+  };
 
   imports = [ ./theme.nix ./foot.nix ./mako.nix ./mpv.nix ];
 
@@ -79,20 +79,21 @@ in
       };
 
       defaultWorkspace = "workspace number 1";
-      assigns = { "1: web" = [{ app_id = "firefox-beta"; }]; };
-      assigns = { "3: hydrus" = [{ app_id = "python3"; }]; };
-      assigns = { "10: misc" = [{ app_id = "ymuse"; }]; };
+      assigns = { "1" = [{ app_id = "firefox-beta"; }]; };
+      assigns = { "3" = [{ app_id = "python3"; }]; };
+      assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [
         # Launch on start
-        { command = "services-start"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
+        { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
         { command = "keepassxc"; }
         { command = "firefox"; }
         { command = "ymuse"; }
         { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
         { command = "hydrus-client"; }
+        { command = "gnome-clocks"; } # FIXME gapplication-service
       ];
 
       modifier = "Mod4";
@@ -225,7 +226,9 @@ in
     };
 
     extraConfig = ''
-      for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+                  for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+            for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
+      for_window [title="souxd - BeeBEEP"] move to scratchpad
     '';
   };
 }

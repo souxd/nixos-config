@@ -1,10 +1,11 @@
 # preferred wayland terminal
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.foot = {
     enable = true;
-    server.enable = true;
+    # FIXME sends start requests too quick when restarting
+    server.enable = false;
     settings = {
       main = {
         font = "FiraCode Nerd Font:size=11";

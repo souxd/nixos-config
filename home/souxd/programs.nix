@@ -42,13 +42,19 @@ in
       souxd.beebeep
 
       ## Utils
-      gh
+      # nix
       steam-run
       appimage-run
+      # passwords
       keepassxc
+      # clock
+      gnome.gnome-clocks
+      # git, remove, ssh
+      gh
       mosh
       rtsp-simple-server
       wolfssl
+      # compatibility
       wineWowPackages.waylandFull
       winetricks
     ];
