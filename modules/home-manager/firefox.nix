@@ -3,11 +3,9 @@
 let
   inherit (specialArgs) ff-addons;
 
-  # disable the annoying floating icon with camera and mic when on a call
+  # FIXME disable the annoying floating icon with camera and mic when on a call
   disableWebRtcIndicator = ''
-    #webrtcIndicator {
-      display: none;
-    }
+    #webrtcIndicator { display: none !important; }
   '';
 
   sharedSettings = {
@@ -38,7 +36,6 @@ in
       leechblock-ng
       i-dont-care-about-cookies
       unpaywall
-      terms-of-service-didnt-read
       don-t-fuck-with-paste
       violentmonkey
     ];
