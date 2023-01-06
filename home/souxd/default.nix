@@ -9,12 +9,14 @@
   ] ++
   (map (p: ../../modules/home-manager + p) [
     /nix-direnv.nix
-    /sway.nix
+    /desktop/sway.nix
     /emacs/doom-emacs.nix
-    /firefox.nix
-    /gaming.nix
-    /mpd.nix
-    /libreoffice.nix
+    /media/gaming.nix
+    /media/mpd.nix
+    /media/obs.nix
+    /office/libreoffice.nix
+    /office/zathura.nix
+    /web-browsers/firefox.nix
   ]);
 
   programs.home-manager.enable = true;

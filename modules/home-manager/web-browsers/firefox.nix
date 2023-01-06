@@ -28,15 +28,15 @@ in
     package = pkgs.firefox-beta-bin;
 
     extensions = with ff-addons; [
+      multi-account-containers
       tridactyl
       auto-tab-discard
       ublock-origin
-      decentraleyes
+      localcdn
+      clearurls
       redirector
-      leechblock-ng
       i-dont-care-about-cookies
       unpaywall
-      don-t-fuck-with-paste
       violentmonkey
     ];
 

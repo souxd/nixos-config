@@ -10,17 +10,20 @@ with gaming.packages.${pkgs.system};
 
 {
   home.packages = [
-    # launchers
+    ## launchers
+    runelite # runescape
+    grapejuice # roblox
+    retroarchFull # emulators
+    prismlauncher # minecraft
+    minetest
     steam
-    runelite
-    grapejuice
-    retroarchFull
     # doom
     gzdoom
-    #nix-gaming pkgs
-    osu-lazer-bin
     # wolfenstein
     lzwolf
     iortcw_sp
+
+    ## nix-gaming pkgs
+    osu-lazer-bin
   ];
 }

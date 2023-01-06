@@ -19,9 +19,9 @@ in
       # Audio
       audacity
       musescore
-      helm
       helvum
       reaper
+      helm
       yabridge
       yabridgectl
       # Graphic
@@ -31,6 +31,7 @@ in
       calibre
       xournalpp
       krita
+      libresprite
       souxd.glaxnimate
       blender
       # Video
@@ -39,12 +40,16 @@ in
       mediainfo # required by kdenlive
       # Social
       mumble
+      dino # xmpp
+      ripcord
       souxd.beebeep
 
       ## Utils
       # nix
       steam-run
       appimage-run
+      # doom editor
+      sladeUnstable
       # passwords
       keepassxc
       # clock
@@ -55,7 +60,10 @@ in
       rtsp-simple-server
       wolfssl
       # compatibility
+      bottles
       wineWowPackages.waylandFull
       winetricks
+      # jvm
+      graalvm17-ce
     ];
 }

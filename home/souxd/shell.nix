@@ -7,6 +7,11 @@
     MOZ_USE_XINPUT2 = "1";
     MOZ_ENABLE_WAYLAND = "1";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d";
+    LV2_PATH = "/home/souxd/.nix-profile/lib/lv2";
+    VST_PATH = "/home/souxd/.nix-profile/lib/vst";
+    LXVST_PATH = "/home/souxd/.nix-profile/lib/lxvst";
+    LADSPA_PATH = "/home/souxd/.nix-profile/lib/ladspa";
+    DSSI_PATH = "/home/souxd/.nix-profile/lib/dssi";
   };
 
   programs.starship.enable = true;

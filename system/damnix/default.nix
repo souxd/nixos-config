@@ -9,9 +9,13 @@
   ] ++
   (map (p: ../../modules/system + p) [
     /br-locale.nix
-    /qbittorrent.nix
-    /desktop/graphical.nix
     /drawing.nix
+    /printing.nix
+    /networking/qbittorrent.nix
+    /networking/i2p.nix
+    /networking/hamachi.nix
+    /networking/zerotier.nix
+    /desktop/graphical.nix
   ]);
 
   networking.firewall.enable = true;
