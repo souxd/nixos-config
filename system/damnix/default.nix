@@ -7,7 +7,7 @@
     ./crocus.nix
     ./users.nix
   ] ++
-  (map (p: ../../modules/system + p) [
+  (map (p: ../../modules/nixos + p) [
     /br-locale.nix
     /drawing.nix
     /printing.nix
