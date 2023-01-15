@@ -26,7 +26,7 @@ in
     };
   };
 
-  imports = [ ./theme.nix ./foot.nix ./mako.nix ./mpv.nix ];
+  imports = [ ./theme.nix ./foot.nix ./mako.nix ../media/mpv.nix ];
 
   home.packages = with pkgs; [
     services-start
@@ -60,7 +60,7 @@ in
     wrapperFeatures.gtk = true;
     config = rec {
 
-      output."*".bg = "${../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
+      output."*".bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
 
       fonts = {
         names = [ "FiraCode Nerd Font" ];
@@ -81,7 +81,7 @@ in
       #};
 
       defaultWorkspace = "workspace number 1";
-      assigns = { "1" = [{ app_id = "firefox-beta"; }]; };
+      assigns = { "1" = [{ app_id = "firefox-beta"; } { app_id = "qutebrowser"; }]; };
       assigns = { "3" = [{ app_id = "python3"; }]; };
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
