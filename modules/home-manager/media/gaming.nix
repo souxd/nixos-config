@@ -12,6 +12,7 @@ with gaming.packages.${pkgs.system};
   home.packages = [
     ## launchers
     runelite # runescape
+    openmw # morrowind
     grapejuice # roblox
     retroarchFull # emulators
     prismlauncher # minecraft
