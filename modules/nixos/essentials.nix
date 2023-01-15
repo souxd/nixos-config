@@ -27,6 +27,7 @@
     age
     man-db
     neovim
+    htop
     wget
     ripgrep
     fd
