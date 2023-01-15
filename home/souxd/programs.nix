@@ -16,8 +16,11 @@ in
     [
       ## Media
       hydrus
+      yt-dlp # extract videos
+      streamlink # extract streams
+      # web-browser
+      palemoon
       # Audio
-      audacity
       musescore
       helvum
       reaper
@@ -37,7 +40,7 @@ in
       # Video
       ffmpeg
       libsForQt5.kdenlive
-      mediainfo # required by kdenlive
+      mediainfo # optional: kdenlive
       # Social
       mumble
       dino # xmpp
