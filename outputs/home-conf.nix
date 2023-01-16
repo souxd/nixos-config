@@ -23,6 +23,9 @@ let
       xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       nix.registry.nixpkgs.flake = nixpkgs;
       nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
+      nixpkgs.config.permittedInsecurePackages = [
+        "python-2.7.18.6"
+      ];
       nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
     };
     extraSpecialArgs = {
