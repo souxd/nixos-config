@@ -14,6 +14,7 @@
     /networking/i2p.nix
     /networking/hamachi.nix
     /networking/zerotier.nix
+    /networking/kdeconnect.nix
     /desktop/graphical.nix
     /desktop/drawing.nix
   ]);
