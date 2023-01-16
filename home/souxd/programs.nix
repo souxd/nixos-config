@@ -67,6 +67,6 @@ in
       wineWowPackages.waylandFull
       winetricks
       # jvm
-      graalvm17-ce
+      adoptopenjdk-jre-hotspot-bin-16
     ];
 }
