@@ -8,16 +8,17 @@
     ./users.nix
   ] ++
   (map (p: ../../modules/nixos + p) [
-    /br-locale.nix
-    /drawing.nix
     /printing.nix
+    /locale/br-locale.nix
     /networking/qbittorrent.nix
     /networking/i2p.nix
     /networking/hamachi.nix
     /networking/zerotier.nix
     /desktop/graphical.nix
+    /desktop/drawing.nix
   ]);
 
+  # disable if not needed
   networking.firewall.enable = true;
 
   networking.hostName = "damnix";
@@ -25,31 +26,45 @@
   environment.sessionVariables = { TZ = "Brazil/East"; };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "vm.vfs_cache_pressure=500"
-      "vm.swappiness=100"
-      "vm.dirty_background_ratio=1"
-      "vm.dirty_ratio=50"
-    ];
     loader.grub = {
       enable = true;
       version = 2;
       device = "/dev/sda";
     };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.compressor=zstd"
+      "zswap.zpool=z3fold"
+      "vm.swappiness=50"
+      "vm.vfs_cache_pressure=150"
+      /* params for zram
+        "vm.vfs_cache_pressure=500"
+        "vm.swappiness=100"
+        "vm.dirty_background_ratio=1"
+        "vm.dirty_ratio=50"
+      */
+    ];
+
+    initrd.kernelModules = [ "zstd" "z3fold" ];
   };
 
+  swapDevices = [{ device = "/swap/swapfile"; }];
+
+  # Enforce fstab options
   fileSystems = {
-    # Enforce fstab options
     "/".options = [ "compress=zstd" ];
     "/home".options = [ "compress=zstd" ];
     "/nix".options = [ "compress=zstd" "noatime" ];
     "/swap".options = [ "noatime" ];
   };
 
-  zramSwap = {
+  /* use zswap, more ram to run apps
+    zramSwap = {
     enable = true;
     algorithm = "zstd";
     memoryPercent = 100;
-  };
+    };
+  */
 }
