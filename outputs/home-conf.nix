@@ -36,6 +36,7 @@ let
     };
     extraModules = [{ inherit imports; }];
   };
+
 in
 {
   souxd = mkHome;

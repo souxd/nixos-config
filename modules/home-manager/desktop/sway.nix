@@ -97,6 +97,7 @@ in
         { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
         { command = "hydrus-client"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
+        { command = "kdeconnect-app"; }
       ];
 
       modifier = "Mod4";
@@ -115,7 +116,7 @@ in
         let
           soundctl = "${pkgs.pamixer}/bin/pamixer";
           mpc = "${pkgs.mpc-cli}/bin/mpc";
-          grim = "${pkgs.grim}/bin/grim";
+          grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
         in
         {
           # basics
@@ -140,9 +141,9 @@ in
           "${modifier}+XF86AudioMute" = "exec ${mpc} next";
 
           # screen capture
-          "Print" = "exec ${grim} - | wl-copy -t image/png";
-          "${modifier}+Print" = "exec ${grim} - | swappy -f -";
-          "${modifier}+g" = ''exec ${grim} -g "$(${pkgs.slurp}/bin/slurp)" - | swappy -f -'';
+          "Print" = "exec ${grimshot} copy screen";
+          "${modifier}+Print" = "exec ${grimshot} save screen - | swappy -f -";
+          "${modifier}+g" = ''exec ${grimshot} save window - | swappy -f -'';
 
           "${modifier}+Shift+c" = "reload";
 
@@ -235,8 +236,10 @@ in
     };
 
     extraConfig = ''
-                  for_window [app_id="com.github.wwmm.easyeffects"] floating enable
-            for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
+      for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+      for_window [app_id="pavucontrol"] floating enable
+      for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
+      for_window [app_id="org.kde.kdeconnect.app"] move to scratchpad
       for_window [title="souxd - BeeBEEP"] move to scratchpad
     '';
   };
