@@ -19,13 +19,14 @@
 
   inputs = {
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
-    stablepkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+    stablepkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nurpkgs.url = "github:nix-community/NUR";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.05";
+      # master branch for newest modules
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
