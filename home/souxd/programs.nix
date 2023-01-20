@@ -31,7 +31,6 @@ in
       imagemagick
       gimp
       inkscape
-      calibre
       xournalpp
       krita
       libresprite
