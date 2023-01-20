@@ -35,11 +35,6 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      "zswap.enabled=1"
-      "zswap.compressor=zstd"
-      "zswap.zpool=z3fold"
-      "vm.swappiness=50"
-      "vm.vfs_cache_pressure=150"
       /* params for zram
         "vm.vfs_cache_pressure=500"
         "vm.swappiness=100"
@@ -53,6 +48,21 @@
 
   swapDevices = [{ device = "/swap/swapfile"; }];
 
+  systemd.services.zswap = {
+    description = "Enable ZSwap, set to ZSTD and Z3FOLD";
+    enable = true;
+    wantedBy = [ "basic.target" ];
+    path = [ pkgs.bash ];
+    serviceConfig = {
+      ExecStart = ''${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters&& \
+          echo 1 > enabled&& \
+          echo 20 > max_pool_percent&& \
+          echo zstd > compressor&& \
+          echo z3fold > zpool'
+        '';
+      Type = "simple";
+    };
+  };
   # Enforce fstab options
   fileSystems = {
     "/".options = [ "compress=zstd" ];
