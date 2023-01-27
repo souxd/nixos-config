@@ -19,10 +19,10 @@ in
       yt-dlp # extract videos
       streamlink # extract streams
       # web-browser
-      palemoon
+      stable.palemoon
       # Audio
       musescore
-      helvum
+      stable.helvum
       reaper
       helm
       yabridge
@@ -65,7 +65,7 @@ in
       bottles
       wineWowPackages.waylandFull
       winetricks
-      # jvm
-      adoptopenjdk-jre-hotspot-bin-16
+      # jvm for old games
+      adoptopenjdk-hotspot-bin-8
     ];
 }
