@@ -11,30 +11,32 @@ let
     nurpkgs = pkgs;
   };
 
-  imports = [ ../home/souxd/default.nix nix-doom-emacs.hmModule ];
 
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;
-    inherit system;
-    stateVersion = "22.05";
-    username = "souxd";
-    homeDirectory = "/home/souxd";
-    configuration = {
-      xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
-      nix.registry.nixpkgs.flake = nixpkgs;
-      nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
-      nixpkgs.config.permittedInsecurePackages = [
-        "python-2.7.18.6"
-      ];
-      nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
-    };
+    modules = [
+      nix-doom-emacs.hmModule
+      ../home/souxd/default.nix
+      {
+        home = {
+          stateVersion = "22.05";
+          username = "souxd";
+          homeDirectory = "/home/souxd";
+        };
+
+        nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
+        nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
+        nixpkgs.config.permittedInsecurePackages = [ "python-2.7.18.6" ];
+        nix.registry.nixpkgs.flake = nixpkgs;
+        xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+      }
+    ];
     extraSpecialArgs = {
       inherit stable;
-      souxd = nur.repos.souxd;
       ff-addons = nur.repos.rycee.firefox-addons;
       gaming = nix-gaming;
+      souxd = nur.repos.souxd;
     };
-    extraModules = [{ inherit imports; }];
   };
 
 in
