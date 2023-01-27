@@ -35,15 +35,15 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      /* params for zram
+      # zram
+      /*"zswap.enabled=0"
         "vm.vfs_cache_pressure=500"
         "vm.swappiness=100"
         "vm.dirty_background_ratio=1"
         "vm.dirty_ratio=50"
       */
     ];
-
-    initrd.kernelModules = [ "zstd" "z3fold" ];
+    kernelModules = [ "zstd" "z3fold" ];
   };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
@@ -55,14 +55,15 @@
     path = [ pkgs.bash ];
     serviceConfig = {
       ExecStart = ''${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters&& \
-          echo 1 > enabled&& \
-          echo 20 > max_pool_percent&& \
-          echo zstd > compressor&& \
-          echo z3fold > zpool'
-        '';
+    echo 1 > enabled&& \
+    echo 20 > max_pool_percent&& \
+    echo zstd > compressor&& \
+    echo z3fold > zpool'
+    '';
       Type = "simple";
     };
   };
+
   # Enforce fstab options
   fileSystems = {
     "/".options = [ "compress=zstd" ];

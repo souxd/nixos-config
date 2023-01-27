@@ -12,13 +12,12 @@
     extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
-
-
   programs.xwayland.enable = true;
 
   programs.dconf.enable = true; # gtk theming needs this to work well
 
   services.flatpak.enable = true;
+  fonts.fontDir.enable = true; # fix flatpak fonts
 
   services.dbus.enable = true;
   xdg.portal = {
