@@ -97,7 +97,7 @@ in
         { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
         { command = "hydrus-client"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
-        { command = "kdeconnect-app"; }
+        #{ command = "kdeconnect-app"; }
       ];
 
       modifier = "Mod4";
