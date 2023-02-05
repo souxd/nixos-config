@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, stable, ... }:
 
 {
   home.packages = with pkgs; [
-    libreoffice
+    stable.libreoffice
     hunspell
     hunspellDicts.en_US
   ];

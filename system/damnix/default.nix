@@ -10,6 +10,7 @@
   (map (p: ../../modules/nixos + p) [
     /printing.nix
     /locale/br-locale.nix
+    /virtualization/podman.nix
     /networking/qbittorrent.nix
     /networking/i2p.nix
     /networking/hamachi.nix
@@ -19,8 +20,12 @@
     /desktop/drawing.nix
   ]);
 
+  programs.wireshark.enable = true;
   # disable if not needed
   networking.firewall.enable = true;
+  # zandronum
+  networking.firewall.allowedTCPPortRanges = [{ from = 10666; to = 10670; }];
+  networking.firewall.allowedUDPPortRanges = [{ from = 10666; to = 10670; }];
 
   networking.hostName = "damnix";
   time.timeZone = "Brazil/East";
@@ -33,7 +38,7 @@
       device = "/dev/sda";
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen; # i do some gaming so...
     kernelParams = [
       # zram
       /*"zswap.enabled=0"
@@ -79,4 +84,5 @@
     memoryPercent = 100;
     };
   */
+
 }

@@ -50,6 +50,8 @@ in
       # nix
       steam-run
       appimage-run
+      # network
+      wireshark
       # doom editor
       sladeUnstable
       # passwords
@@ -63,7 +65,7 @@ in
       wolfssl
       # compatibility
       bottles
-      wineWowPackages.waylandFull
+      wineWowPackages.stagingFull
       winetricks
       # jvm for old games
       adoptopenjdk-hotspot-bin-8

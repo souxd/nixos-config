@@ -1,6 +1,9 @@
 # VLAN i use for convenience
-{ config, ... }:
+{ config, stable, ... }:
 
 {
-  services.zerotierone.enable = true;
+  services.zerotierone = {
+    enable = true;
+    package = stable.zerotierone;
+  };
 }
