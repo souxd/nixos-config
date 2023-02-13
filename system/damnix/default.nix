@@ -10,8 +10,9 @@
   (map (p: ../../modules/nixos + p) [
     /printing.nix
     /locale/br-locale.nix
+    /virtualization/virt-manager.nix
     /virtualization/podman.nix
-    /networking/qbittorrent.nix
+    /networking/transmission.nix
     /networking/i2p.nix
     /networking/hamachi.nix
     /networking/zerotier.nix
@@ -38,7 +39,7 @@
       device = "/dev/sda";
     };
 
-    kernelPackages = pkgs.linuxPackages_zen; # i do some gaming so...
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       # zram
       /*"zswap.enabled=0"
