@@ -69,5 +69,7 @@ in
       winetricks
       # jvm for old games
       adoptopenjdk-hotspot-bin-8
+      # create liveusb drives
+      unetbootin
     ];
 }
