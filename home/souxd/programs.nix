@@ -20,6 +20,7 @@ in
       streamlink # extract streams
       # web-browser
       stable.palemoon
+      qutebrowser
       # Audio
       musescore
       stable.helvum
@@ -37,7 +38,7 @@ in
       souxd.glaxnimate
       blender
       # Video
-      ffmpeg
+      ffmpeg-full
       libsForQt5.kdenlive
       mediainfo # optional: kdenlive
       # Social
@@ -46,30 +47,33 @@ in
       ripcord
       souxd.beebeep
 
+      ## Network
+      wireshark
+      transgui
+
+      ## Editors
+      sladeUnstable
+
       ## Utils
-      # nix
+      # Nix
       steam-run
       appimage-run
-      # network
-      wireshark
-      # doom editor
-      sladeUnstable
-      # passwords
+      # Passwords
       keepassxc
-      # clock
+      # Clock
       gnome.gnome-clocks
-      # git, remove, ssh
+      # Git, remove, ssh
       gh
       mosh
       rtsp-simple-server
       wolfssl
-      # compatibility
+      # Compatibility
       bottles
       wineWowPackages.stagingFull
       winetricks
-      # jvm for old games
+      # JVM for old games
       adoptopenjdk-hotspot-bin-8
-      # create liveusb drives
+      # Create liveusb drives
       unetbootin
     ];
 }
