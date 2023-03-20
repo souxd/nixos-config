@@ -2,15 +2,60 @@
 
 let
   # start custom systemd services
-  services-start = pkgs.writeTextFile {
-    name = "services-start";
-    destination = "/bin/services-start";
-    executable = true;
-    text = ''
+  services-start = pkgs.writeShellScriptBin "services-start"
+    ''
       systemctl --user stop gammastep
       systemctl --user start gammastep
     '';
+
+  env-nsxiv = pkgs.writeShellScriptBin "env-nsxiv"
+    ''
+      #!/usr/bin/env sh
+      NSXIV_OPTS="-a -q"
+      exec ${pkgs.nsxiv}/bin/nsxiv $NSXIV_OPTS "$@"      
+    '';
+  env-nsxivDesktopItem = pkgs.makeDesktopItem {
+    name = "env-nsxiv";
+    desktopName = "New suckless image viewer";
+    exec = "${env-nsxiv}/bin/env-nsxiv";
   };
+
+  nsxiv-url = pkgs.writeShellScriptBin "nsxiv-url"
+    ''
+      #!/usr/bin/env sh
+
+      cache_dir="${TMPDIR:-/tmp}/nsxiv"
+
+      die() {
+        [ -n "$1" ] && printf '%s\n' "$*" >&2;
+        exit 1
+      }
+
+      cleanup() {
+        rm -f -- "$cache_dir"/*
+      }
+
+      get_image() (
+        cd "$cache_dir" && curl -sSLO "$1"
+      )
+
+      ### main ###
+
+      [ -z "$1" ] && die "No arguments given"
+      trap cleanup EXIT
+      [ -d "$cache_dir" ] || mkdir -p -- "$cache_dir" || die
+      while [ -n "$1" ]; do
+        case "$1" in
+          *://*.*) get_image "$1" ;;
+          *) echo "Invalid url: $1" >&2 ;;
+        esac
+        shift
+      done
+
+      [ "$(find "$cache_dir" -type f -print | wc -l)" -ne 0 ] &&
+      ${pkgs.nsxiv}/bin/nsxiv -a -p "$cache_dir"
+    '';
+
 in
 {
   systemd.user.services.gammastep = {
@@ -26,7 +71,7 @@ in
     };
   };
 
-  imports = [ ./theme.nix ./foot.nix ./mako.nix ../media/mpv.nix ];
+  imports = [ ./theme.nix ./foot.nix ./mako.nix ./nnn.nix ../media/mpv.nix ];
 
   home.packages = with pkgs; [
     services-start
@@ -35,9 +80,11 @@ in
     wf-recorder # screenrecorder
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
+    cliphist # clipboard manager, supports images
     pcmanfm # file manager
     gnome.file-roller # archive manager
-    imv # image viewer
+    feh # faster image viewer
+    env-nsxiv env-nsxivDesktopItem nsxiv-url # image viewer (supports gif etc)
     oneko # silly cat
   ];
 
@@ -47,11 +94,14 @@ in
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = "pcmanfm.desktop";
-      "image/gif" = "imv.desktop";
-      "image/png" = "imv.desktop";
-      "image/jpeg" = "imv.desktop";
-      "image/webp" = "imv.desktop";
+      "inode/directory" = "nnn.desktop";
+      "image/jpeg" = "feh.desktop";
+      "image/gif" = "env-nsxiv.desktop";
+      "image/bmp" = "feh.desktop";
+      "image/png" = "feh.desktop";
+      "image/tiff" = "feh.desktop";
+      "image/webp" = "env-nsxiv.desktop";
+      "image/avif" = "env-nsxiv.desktop";
     };
   };
 
@@ -59,6 +109,13 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
     config = rec {
+
+      input = {
+        "1133:49271:Logitech_USB_Optical_Mouse" = {
+          accel_profile = "flat";
+	  pointer_accel = "0.5";
+        };
+      };
 
       output."*".bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
 
@@ -75,19 +132,21 @@ in
         text = "#121212";
       };
 
-      #seat = {
+      /*
+      seat = {
       # FIXME makes games that requires mouse almost unplayable
-      #"*" = { hide_cursor = "8000"; };
-      #};
+      "*" = { hide_cursor = "8000"; };
+      };
+      */
 
       defaultWorkspace = "workspace number 1";
-      assigns = { "1" = [{ app_id = "firefox-beta"; } { app_id = "qutebrowser"; }]; };
       assigns = { "3" = [{ app_id = "python3"; }]; };
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [
         # Launch on start
         { command = "services-start"; }
+	{ command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
         { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
@@ -103,7 +162,7 @@ in
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "${pkgs.tofi}/bin/tofi-drun --font ${pkgs.fira-code}/share/fonts/truetype/FiraCode-VF.tff | xargs swaymsg exec --";
+      menu = "${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b";
       # Use as default terminal
       terminal = "footclient";
       # navkeys
@@ -122,7 +181,11 @@ in
           # basics
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-          "${modifier}+Shift+e" = "exec emacsclient -c";
+          "${modifier}+Shift+e" = "exec ${terminal} emacsclient -t";
+
+	  # clipboard manager
+	  "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b | cliphist decode | wl-copy";
+	  "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b | cliphist delete";
 
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
