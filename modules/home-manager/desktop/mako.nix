@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  programs.mako = {
+  services.mako = {
     enable = true;
 
     font = "FiraCode Nerd Font";
