@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  nix.settings.max-jobs = 2;
+
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
@@ -13,7 +15,7 @@
     /virtualization/virt-manager.nix
     /virtualization/podman.nix
     /networking/transmission.nix
-    /networking/i2p.nix
+    /networking/i2pd.nix
     /networking/hamachi.nix
     /networking/zerotier.nix
     /networking/kdeconnect.nix
@@ -40,6 +42,9 @@
     };
 
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches = [
+      { name = "intel-gfx_memleak_fix"; patch = ./Possible-regression-in-drm-i915-driver-memleak.patch; }
+    ];
     kernelParams = [
       # zram
       /*"zswap.enabled=0"
