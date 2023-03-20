@@ -32,6 +32,7 @@ let
       }
     ];
     extraSpecialArgs = {
+      inherit inputs;
       inherit stable;
       ff-addons = nur.repos.rycee.firefox-addons;
       gaming = nix-gaming;
