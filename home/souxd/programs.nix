@@ -16,14 +16,15 @@ in
     [
       ## Media
       hydrus
+      #souxd.flashplayer-standalone
       yt-dlp # extract videos
       streamlink # extract streams
+      nicotine-plus
       # web-browser
       stable.palemoon
-      qutebrowser
+      (stable.qutebrowser.override { enableWideVine = true; })
       # Audio
       musescore
-      stable.helvum
       reaper
       helm
       yabridge
@@ -36,9 +37,12 @@ in
       krita
       libresprite
       souxd.glaxnimate
-      blender
+      stable.blender
       # Video
+      vapoursynth
+      vapoursynth-editor
       ffmpeg-full
+      mkvtoolnix
       libsForQt5.kdenlive
       mediainfo # optional: kdenlive
       # Social
@@ -49,7 +53,6 @@ in
 
       ## Network
       wireshark
-      transgui
 
       ## Editors
       sladeUnstable
@@ -68,7 +71,6 @@ in
       rtsp-simple-server
       wolfssl
       # Compatibility
-      bottles
       wineWowPackages.stagingFull
       winetricks
       # JVM for old games
@@ -76,4 +78,15 @@ in
       # Create liveusb drives
       unetbootin
     ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "org.palemoon.palemoon.desktop";
+      "x-scheme-handler/http" = "palemoon.desktop";
+      "x-scheme-handler/https" = "palemoon.desktop";
+      "x-scheme-handler/about" = "palemoon.desktop";
+      "x-scheme-handler/unknown" = "palemoon.desktop";
+    };
+  };
 }

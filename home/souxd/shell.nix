@@ -17,9 +17,11 @@
   programs.starship.enable = true;
   programs.bash = {
     enable = true;
+
     shellAliases = {
       "sudo" = "sudo ";
     };
+
     bashrcExtra = ''
       nixify() {
         if [ ! -e ./.envrc ]; then

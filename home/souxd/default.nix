@@ -13,7 +13,6 @@
     /emacs/doom-emacs.nix
     /media/gaming.nix
     /media/mpd.nix
-    /media/obs.nix
     /office/libreoffice.nix
     /office/zathura.nix
   ]);
