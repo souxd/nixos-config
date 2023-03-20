@@ -4,7 +4,8 @@
 {
   programs.doom-emacs = rec {
     enable = true;
-    emacsPackage = pkgs.emacsPgtk;
+    emacsPackage = pkgs.emacsUnstable-nox;
+
     doomPrivateDir = (import ./doom.d) {
       inherit lib;
       inherit (pkgs) stdenv emacs coreutils;
@@ -46,12 +47,12 @@
       emacs-all-the-icons-fonts
       # Nix
       nixfmt
-      rnix-lsp
+      #rnix-lsp
       # Shell scripting
       shfmt
-      shellcheck
-      nodePackages.bash-language-server
-      bashdb
+      #shellcheck
+      #nodePackages.bash-language-server
+      #bashdb
       # C/C++
       clang-tools
       glslang
