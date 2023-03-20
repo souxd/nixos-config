@@ -1,4 +1,4 @@
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/../patch/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/patch/drivers/gpu/drm/i915/gem/i915_gem_mman.c
 index d445e2d..9f004ff 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
