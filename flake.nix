@@ -40,5 +40,10 @@
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
+
+    nnn-plugins = {
+      url = "github:jarun/nnn";
+      flake = false;
+    };
   };
 }
