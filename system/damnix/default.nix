@@ -6,7 +6,7 @@
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
-    ./crocus.nix
+    ./mods.nix
     ./users.nix
   ] ++
   (map (p: ../../modules/nixos + p) [
@@ -42,9 +42,6 @@
     };
 
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelPatches = [
-      { name = "intel-gfx_memleak_fix"; patch = ./Possible-regression-in-drm-i915-driver-memleak.patch; }
-    ];
     kernelParams = [
       # zram
       /*"zswap.enabled=0"
@@ -54,26 +51,9 @@
         "vm.dirty_ratio=50"
       */
     ];
-    kernelModules = [ "zstd" "z3fold" ];
   };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
-
-  systemd.services.zswap = {
-    description = "Enable ZSwap, set to ZSTD and Z3FOLD";
-    enable = true;
-    wantedBy = [ "basic.target" ];
-    path = [ pkgs.bash ];
-    serviceConfig = {
-      ExecStart = ''${pkgs.bash}/bin/bash -c 'cd /sys/module/zswap/parameters&& \
-    echo 1 > enabled&& \
-    echo 20 > max_pool_percent&& \
-    echo zstd > compressor&& \
-    echo z3fold > zpool'
-    '';
-      Type = "simple";
-    };
-  };
 
   # Enforce fstab options
   fileSystems = {
