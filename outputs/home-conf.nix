@@ -8,14 +8,14 @@ let
   stable = import stablepkgs pkg-config;
   nur = import nurpkgs {
     inherit pkgs;
-    nurpkgs = pkgs;
+    nurpkgs = pkgs ;
   };
 
 
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;
     modules = [
-      nix-doom-emacs.hmModule
+      # nix-doom-emacs.hmModule
       ../home/souxd/default.nix
       {
         home = {
@@ -35,7 +35,6 @@ let
       inherit inputs;
       inherit stable;
       ff-addons = nur.repos.rycee.firefox-addons;
-      gaming = nix-gaming;
       souxd = nur.repos.souxd;
     };
   };

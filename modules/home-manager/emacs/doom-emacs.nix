@@ -2,6 +2,7 @@
 # https://github.com/znewman01/dotfiles/blob/master/emacs/default.nix
 { pkgs, config, lib, ... }:
 {
+  services.emacs.enable = true;
   programs.doom-emacs = rec {
     enable = true;
     emacsPackage = pkgs.emacsUnstable-nox;
@@ -40,7 +41,6 @@
       ];
   };
 
-  services.emacs = { enable = true; };
   home.packages = with pkgs;
     [
       # Emacs fonts

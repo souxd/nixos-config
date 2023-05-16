@@ -1,7 +1,19 @@
-# lightweight torrent daemon
-{ config, pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
+  services.irqbalance.enable = true;
+
+  services.i2pd = {
+    enable = true;
+    port = 10123;
+  };
+
+  services.logmein-hamachi.enable = true;
+
+  services.zerotierone = {
+    enable = true;
+  };
+
   services.transmission = {
     enable = true;
     settings = {

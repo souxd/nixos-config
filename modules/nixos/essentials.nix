@@ -31,6 +31,7 @@
     neovim
     htop
     wget
+    fzf
     ripgrep
     fd
     # makes non-nix bins easier to use

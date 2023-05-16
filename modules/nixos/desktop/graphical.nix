@@ -8,8 +8,6 @@
   hardware.opengl = {
     enable = true;
     driSupport = true;
-    driSupport32Bit = true; # for old games
-    extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
   programs.xwayland.enable = true;
@@ -19,7 +17,11 @@
   services.flatpak.enable = true;
   fonts.fontDir.enable = true; # fix flatpak fonts
 
-  services.dbus.enable = true;
+  services.dbus = {
+    enable = true;
+    implementation = "broker";
+  };
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;

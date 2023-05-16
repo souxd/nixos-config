@@ -2,33 +2,33 @@
 
 {
   nix.settings.max-jobs = 2;
+  nix.settings.cores = 2;
+
+  services.xserver.videoDrivers = [
+    "crocus"
+    "i915"
+    "modesetting"
+    "fbdev"
+  ];
+  hardware.opengl = {
+    driSupport32Bit = true; # for old games
+    extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding
+    extraPackages32 = [ pkgs.vaapiIntel ]; # enable vaapi decoding
+  };
 
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
     ./mods.nix
+    ./programs.nix
     ./users.nix
-  ] ++
-  (map (p: ../../modules/nixos + p) [
+    ./services.nix
+  ] ++ (map (p: ../../modules/nixos + p) [
     /printing.nix
     /locale/br-locale.nix
-    /virtualization/virt-manager.nix
-    /virtualization/podman.nix
-    /networking/transmission.nix
-    /networking/i2pd.nix
-    /networking/hamachi.nix
-    /networking/zerotier.nix
-    /networking/kdeconnect.nix
     /desktop/graphical.nix
     /desktop/drawing.nix
   ]);
-
-  programs.wireshark.enable = true;
-  # disable if not needed
-  networking.firewall.enable = true;
-  # zandronum
-  networking.firewall.allowedTCPPortRanges = [{ from = 10666; to = 10670; }];
-  networking.firewall.allowedUDPPortRanges = [{ from = 10666; to = 10670; }];
 
   networking.hostName = "damnix";
   time.timeZone = "Brazil/East";
@@ -37,38 +37,23 @@
   boot = {
     loader.grub = {
       enable = true;
-      version = 2;
       device = "/dev/sda";
+      extraConfig = ''
+        nowatchdog
+        nmi_watchdog=0
+      '';
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      # zram
-      /*"zswap.enabled=0"
-        "vm.vfs_cache_pressure=500"
-        "vm.swappiness=100"
-        "vm.dirty_background_ratio=1"
-        "vm.dirty_ratio=50"
-      */
-    ];
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
 
   # Enforce fstab options
   fileSystems = {
-    "/".options = [ "compress=zstd" ];
-    "/home".options = [ "compress=zstd" ];
-    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/".options = [ "compress=zstd:2" ];
+    "/home".options = [ "compress=zstd:2" ];
+    "/nix".options = [ "compress=zstd:2" "noatime" ];
     "/swap".options = [ "noatime" ];
   };
-
-  /* use zswap, more ram to run apps
-    zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 100;
-    };
-  */
-
 }

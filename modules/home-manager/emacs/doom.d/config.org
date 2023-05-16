@@ -6,6 +6,8 @@ Use [[https://www.emacswiki.org/emacs/LexicalBinding][Lexical Binding]]
 ;;; -*- lexical-binding: t; -*-
 #+end_src
 
+* Doom Theme
+(setq doom-theme 'tangodark)
 * Dashboard
 Based on [[https://git.tecosaur.net/tec/emacs-config/][Tecosaur's Emacs config]]
 ** Splash Screen

@@ -5,11 +5,12 @@
     enable = true;
     scripts = with pkgs; [
       mpvScripts.mpris
-      mpvScripts.autoload
     ];
     config = {
+      screenshot-directory = "~/Pictures/mpv";
+
       ## VIDEO ##
-      vo = "gpu-next";
+      vo = "gpu";
       gpu-context = "wayland";
       hwdec = "auto-safe";
       # profile = "gpu-hq";

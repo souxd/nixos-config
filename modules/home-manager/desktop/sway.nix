@@ -24,7 +24,7 @@ let
     ''
       #!/usr/bin/env sh
 
-      cache_dir="${TMPDIR:-/tmp}/nsxiv"
+      cache_dir="/tmp/nsxiv"
 
       die() {
         [ -n "$1" ] && printf '%s\n' "$*" >&2;
@@ -71,21 +71,22 @@ in
     };
   };
 
-  imports = [ ./theme.nix ./foot.nix ./mako.nix ./nnn.nix ../media/mpv.nix ];
+  imports = [ ./theme.nix ./foot.nix ./mako.nix ../media/mpv.nix ];
 
   home.packages = with pkgs; [
     services-start
     wayland
     libsForQt5.qtwayland
     wf-recorder # screenrecorder
+    slurp # region select
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
     cliphist # clipboard manager, supports images
+    xclip # for some clipboard usecases in xwayland clients
     pcmanfm # file manager
     gnome.file-roller # archive manager
     feh # faster image viewer
     env-nsxiv env-nsxivDesktopItem nsxiv-url # image viewer (supports gif etc)
-    oneko # silly cat
   ];
 
   # tells wob where the sock is
@@ -94,7 +95,7 @@ in
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "inode/directory" = "nnn.desktop";
+      "inode/directory" = "pcmanfm.desktop";
       "image/jpeg" = "feh.desktop";
       "image/gif" = "env-nsxiv.desktop";
       "image/bmp" = "feh.desktop";
@@ -110,15 +111,6 @@ in
     wrapperFeatures.gtk = true;
     config = rec {
 
-      input = {
-        "1133:49271:Logitech_USB_Optical_Mouse" = {
-          accel_profile = "flat";
-	  pointer_accel = "0.5";
-        };
-      };
-
-      output."*".bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
-
       fonts = {
         names = [ "FiraCode Nerd Font" ];
         size = 11.0;
@@ -132,37 +124,18 @@ in
         text = "#121212";
       };
 
-      /*
-      seat = {
-      # FIXME makes games that requires mouse almost unplayable
-      "*" = { hide_cursor = "8000"; };
-      };
-      */
-
-      defaultWorkspace = "workspace number 1";
-      assigns = { "3" = [{ app_id = "python3"; }]; };
-      assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
-
       startup = [
-        # Launch on start
         { command = "services-start"; }
-	{ command = "wl-paste --watch cliphist store"; }
+	      { command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
         { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
-        { command = "keepassxc"; }
-        { command = "firefox"; }
-        { command = "ymuse"; }
-        { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
-        { command = "hydrus-client"; }
-        { command = "gnome-clocks"; } # FIXME gapplication-service
-        #{ command = "kdeconnect-app"; }
       ];
 
       modifier = "Mod4";
       floating.modifier = "Mod4";
       # Use as default launcher menu
-      menu = "${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b";
+      menu = "${pkgs.dmenu}/bin/dmenu_path | ${pkgs.wmenu}/bin/wmenu -b | xargs swaymsg exec --";
       # Use as default terminal
       terminal = "footclient";
       # navkeys
@@ -181,17 +154,15 @@ in
           # basics
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-          "${modifier}+Shift+e" = "exec ${terminal} emacsclient -t";
 
-	  # clipboard manager
-	  "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b | cliphist decode | wl-copy";
-	  "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu-wayland}/bin/dmenu-wl_run -i -b | cliphist delete";
+	        # clipboard manager
+	        "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu}/bin/dmenu -b | cliphist decode | wl-copy";
+	        "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu}/bin/dmenu -b | cliphist delete";
 
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
           # audio
-          "${modifier}+q" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
           "XF86AudioRaiseVolume" = "exec ${soundctl} -ui 2 && ${soundctl} --get-volume > $WOBSOCK";
           "XF86AudioLowerVolume" = "exec ${soundctl} -ud 2 && ${soundctl} --get-volume > $WOBSOCK";
           "XF86AudioMute" = ''exec ${soundctl} --toggle-mute && ( [ "\$(${soundctl} - -get-mute) " = "true" ] && echo 0 > $WOBSOCK ) || ${soundctl} --get-volume > $WOBSOCK'';
@@ -202,6 +173,9 @@ in
           "${modifier}+XF86AudioLowerVolume" = "exec ${mpc} volume -5";
           "${modifier}+XF86AudioPlay" = "exec ${mpc} toggle";
           "${modifier}+XF86AudioMute" = "exec ${mpc} next";
+
+          # calculator
+          "XF86Calculator" = "exec ${pkgs.speedcrunch}/bin/speedcrunch";
 
           # screen capture
           "Print" = "exec ${grimshot} copy screen";
@@ -282,14 +256,22 @@ in
           "${modifier}+r" = '' mode "resize" '';
         };
       modes.resize = {
-        "Left" = "resize shrink width 10px";
-        "Down" = "resize grow height 10px";
-        "Up" = "resize shrink height 10px";
-        "Right" = "resize grow width 10px";
-        "${left}" = "resize shrink width 10px";
-        "${down}" = "resize grow height 10px";
-        "${up}" = "resize shrink height 10px";
-        "${right}" = "resize grow width 10px";
+        "Right" = "resize shrink width 50px";
+        "Up" = "resize grow height 50px";
+        "Down" = "resize shrink height 50px";
+        "Left" = "resize grow width 50px";
+        "${right}" = "resize shrink width 50px";
+        "${up}" = "resize grow height 50px";
+        "${down}" = "resize shrink height 50px";
+        "${left}" = "resize grow width 50px";
+        "Shift+Right" = "resize shrink width 10px";
+        "Shift+Up" = "resize grow height 10px";
+        "Shift+Down" = "resize shrink height 10px";
+        "Shift+Left" = "resize grow width 10px";
+        "Shift+${right}" = "resize shrink width 10px";
+        "Shift+${up}" = "resize grow height 10px";
+        "Shift+${down}" = "resize shrink height 10px";
+        "Shift+${left}" = "resize grow width 10px";
 
         "Return" = ''
           mode "default" '';
@@ -297,13 +279,5 @@ in
           mode "default" '';
       };
     };
-
-    extraConfig = ''
-      for_window [app_id="com.github.wwmm.easyeffects"] floating enable
-      for_window [app_id="pavucontrol"] floating enable
-      for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
-      for_window [app_id="org.kde.kdeconnect.app"] move to scratchpad
-      for_window [title="souxd - BeeBEEP"] move to scratchpad
-    '';
   };
 }

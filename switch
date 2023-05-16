@@ -34,4 +34,4 @@ while getopts ":hs:" opt; do
     esac
 done
 
-nix build .#homeConfigurations."$1".activationPackage && result/activate
+NIXPKGS_ALLOW_BROKEN=1 NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNFREE=1 nix build --impure .#homeConfigurations."$1".activationPackage && result/activate

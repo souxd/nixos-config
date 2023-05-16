@@ -37,9 +37,13 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    # not in use
+    # nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    prjc-patches = {
+      url = "gitlab:alfredchen/projectc";
+      flake = false;
+    };
 
     nnn-plugins = {
       url = "github:jarun/nnn";

@@ -1,9 +1,7 @@
 { config, pkgs, specialArgs, stable, ... }:
 
-let
-  inherit (specialArgs) souxd;
-in
-{
+let inherit (specialArgs) souxd;
+in {
   programs = {
     git = {
       enable = true;
@@ -12,81 +10,98 @@ in
     };
   };
 
-  home.packages = with pkgs;
-    [
-      ## Media
-      hydrus
-      #souxd.flashplayer-standalone
-      yt-dlp # extract videos
-      streamlink # extract streams
-      nicotine-plus
-      # web-browser
-      stable.palemoon
-      (stable.qutebrowser.override { enableWideVine = true; })
-      # Audio
-      musescore
-      reaper
-      helm
-      yabridge
-      yabridgectl
-      # Graphic
-      imagemagick
-      gimp
-      inkscape
-      xournalpp
-      krita
-      libresprite
-      souxd.glaxnimate
-      stable.blender
-      # Video
-      vapoursynth
-      vapoursynth-editor
-      ffmpeg-full
-      mkvtoolnix
-      libsForQt5.kdenlive
-      mediainfo # optional: kdenlive
-      # Social
-      mumble
-      dino # xmpp
-      ripcord
-      souxd.beebeep
+  home.packages = with pkgs; [
+    ## Media
+    hydrus
+    souxd.flashplayer
+    souxd.flashplayer-standalone
+    yt-dlp # extract videos
+    streamlink # extract streams
+    nicotine-plus
+    # games
+    godot_4
+    retroarchFull
+    prismlauncher
+    doomseeker
+    souxd.zandronum-dev
+    quake3e
+    # Web-browser
+    souxd.avx-palemoon-bin
+    # Audio
+    ymuse
+    musescore
+    reaper
+    helm
+    yabridge
+    yabridgectl
+    # E-books
+    calibre
+    # Graphic
+    imagemagick
+    gimp
+    inkscape
+    xournalpp
+    krita
+    libresprite
+    # Video
+    vapoursynth
+    vapoursynth-editor
+    ffmpeg_6-full
+    olive-editor
+    # Social
+    mumble
+    dino # xmpp
+    ripcord
+    souxd.beebeep
 
-      ## Network
-      wireshark
+    ## Network
+    wireshark
 
-      ## Editors
-      sladeUnstable
+    ## Editors
+    sladeUnstable # doom editor
+    # Lunarvim, unwrapped
+    gcc
+    gnumake
+    pythonPackages.pip
+    python
+    nodejs
+    cargo
 
-      ## Utils
-      # Nix
-      steam-run
-      appimage-run
-      # Passwords
-      keepassxc
-      # Clock
-      gnome.gnome-clocks
-      # Git, remove, ssh
-      gh
-      mosh
-      rtsp-simple-server
-      wolfssl
-      # Compatibility
-      wineWowPackages.stagingFull
-      winetricks
-      # JVM for old games
-      adoptopenjdk-hotspot-bin-8
-      # Create liveusb drives
-      unetbootin
-    ];
+    ## Utils
+    xterm
+    # Nix
+    steam-run
+    appimage-run
+    # Passwords
+    keepassxc
+    # Clock & Calendar
+    gnome.gnome-clocks
+    calcurse
+    # Git, remove, ssh
+    gh
+    mosh
+    mediamtx
+    wolfssl
+    # Compatibility
+    wineWowPackages.stagingFull
+    winetricks
+    # JVM for old games
+    adoptopenjdk-hotspot-bin-8
+    # Create liveusb drives
+    unetbootin
+  ];
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = "org.palemoon.palemoon.desktop";
-      "x-scheme-handler/http" = "palemoon.desktop";
-      "x-scheme-handler/https" = "palemoon.desktop";
-      "x-scheme-handler/about" = "palemoon.desktop";
-      "x-scheme-handler/unknown" = "palemoon.desktop";
+      "text/plain" = "lvim.desktop";
+      "text/html" = "palemoon-bin.desktop";
+      "video/mkv" = "mpv.desktop";
+      "video/webm" = "mpv.desktop";
+      "x-scheme-handler/http" = "palemoon-bin.desktop";
+      "x-scheme-handler/https" = "palemoon-bin.desktop";
+      "x-scheme-handler/about" = "palemoon-bin.desktop";
+      "x-scheme-handler/unknown" = "palemoon-bin.desktop";
     };
   };
 }
