@@ -155,9 +155,11 @@ in
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
 
-	        # clipboard manager
-	        "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu}/bin/dmenu_run -b | cliphist decode | wl-copy";
-	        "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu}/bin/dmenu_run -b | cliphist delete";
+	  /* FIXME: cliphist list gets ignored
+	  # clipboard manager
+	  "${modifier}+v" = "cliphist list | dmenu -b | cliphist decode | wl-copy";
+	  "${modifier}+b" = "cliphist list | dmenu -b | cliphist delete";
+	  */
 
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
