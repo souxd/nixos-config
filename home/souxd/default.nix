@@ -9,6 +9,9 @@ let
 in
 {
   home.packages = [ lvimDesktopItem ];
+  home.sessionVariables = {
+    XKB_DEFAULT_OPTIONS = "ctrl:swapcaps";
+  };
 
   imports = [
     ../configuration.nix
