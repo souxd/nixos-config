@@ -156,8 +156,8 @@ in
           "${modifier}+d" = "exec ${menu}";
 
 	        # clipboard manager
-	        "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu}/bin/dmenu -b | cliphist decode | wl-copy";
-	        "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu}/bin/dmenu -b | cliphist delete";
+	        "${modifier}+Shift+v" = "cliphist list | ${pkgs.dmenu}/bin/dmenu_run -b | cliphist decode | wl-copy";
+	        "${modifier}+Shift+b" = "cliphist list | ${pkgs.dmenu}/bin/dmenu_run -b | cliphist delete";
 
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
