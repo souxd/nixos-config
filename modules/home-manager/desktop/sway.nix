@@ -153,6 +153,7 @@ in
         {
           # basics
           "${modifier}+Return" = "exec ${terminal}";
+          "${modifier}+Ctrl+m" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
 
 	  /* FIXME: cliphist list gets ignored
@@ -258,26 +259,30 @@ in
           "${modifier}+r" = '' mode "resize" '';
         };
       modes.resize = {
-        "Right" = "resize shrink width 50px";
+        "Left" = "resize shrink width 50px";
         "Up" = "resize grow height 50px";
         "Down" = "resize shrink height 50px";
-        "Left" = "resize grow width 50px";
-        "${right}" = "resize shrink width 50px";
+        "Right" = "resize grow width 50px";
+        "${left}" = "resize shrink width 50px";
         "${up}" = "resize grow height 50px";
         "${down}" = "resize shrink height 50px";
-        "${left}" = "resize grow width 50px";
-        "Shift+Right" = "resize shrink width 10px";
+        "${right}" = "resize grow width 50px";
+        "Shift+Left" = "resize shrink width 10px";
         "Shift+Up" = "resize grow height 10px";
         "Shift+Down" = "resize shrink height 10px";
-        "Shift+Left" = "resize grow width 10px";
-        "Shift+${right}" = "resize shrink width 10px";
+        "Shift+Right" = "resize grow width 10px";
+        "Shift+${left}" = "resize shrink width 10px";
         "Shift+${up}" = "resize grow height 10px";
         "Shift+${down}" = "resize shrink height 10px";
-        "Shift+${left}" = "resize grow width 10px";
+        "Shift+${right}" = "resize grow width 10px";
 
         "Return" = ''
           mode "default" '';
         "Escape" = ''
+          mode "default" '';
+        "Ctrl+m" = ''
+          mode "default" '';
+        "Ctrl+bracketleft" = ''
           mode "default" '';
       };
     };

@@ -27,6 +27,7 @@ in {
     quake3e
     # Web-browser
     souxd.avx-palemoon-bin
+    tor-browser-bundle-bin
     # Audio
     ymuse
     musescore

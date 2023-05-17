@@ -5,7 +5,7 @@
 
   services.i2pd = {
     enable = true;
-    port = 10123;
+    proto.httpProxy.enable = true;
   };
 
   services.logmein-hamachi.enable = true;
