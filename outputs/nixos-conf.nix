@@ -12,7 +12,7 @@ in
     specialArgs = { inherit inputs; inherit stable; };
     modules = [
       inputs.disko.nixosModules.disko
-      inputs.sops-nix.nixosModules.sops
+      # inputs.sops-nix.nixosModules.sops
       ../system/damnix/default.nix
     ];
   };

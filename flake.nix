@@ -34,11 +34,15 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    /* not in use
     sops-nix.url = "github:Mic92/sops-nix";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    # not in use
-    # nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    not in use
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
     prjc-patches = {
       url = "gitlab:alfredchen/projectc";
@@ -49,5 +53,6 @@
       url = "github:jarun/nnn";
       flake = false;
     };
+  */
   };
 }
