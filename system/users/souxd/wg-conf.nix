@@ -3,7 +3,7 @@
 {
   networking.firewall = {
     allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
-    allowedTCPPorts = [ 6476 ]; # for beebeep file transfer
+    allowedTCPPorts = [ 51820 6476 ]; # for beebeep file transfer
   };
   # Enable WireGuard
   networking.wireguard.interfaces = {

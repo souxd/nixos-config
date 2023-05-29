@@ -3,7 +3,7 @@
 {
   home.sessionVariables = {
     EDITOR = "nvim";
-    VISUAL = "footclient nvim";
+    VISUAL = "emacsclient -c";
     MOZ_USE_XINPUT2 = "1";
     MOZ_ENABLE_WAYLAND = "1";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d";

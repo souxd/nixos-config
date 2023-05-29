@@ -1,6 +1,8 @@
 { config, ... }:
 
 {
+  home.sessionVariables = { WLR_DRM_NO_ATOMIC = "1"; };
+
   imports = (map (p: ../../../modules/home-manager + p) [
     /desktop/sway.nix
   ]);
@@ -14,7 +16,12 @@
           pointer_accel = "0.5";
         };
       };
-      output."*".bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
+      output = {
+        "HDMI-A-1" = {
+	  subpixel = "rgb";
+          bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
+        };
+      };
 
       defaultWorkspace = "workspace number 1";
 
@@ -30,6 +37,10 @@
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
       ];
+
+      keybindings = let modifier = "Mod4"; in {
+        "${modifier}+Ctrl+e" = "exec emacsclient -c";
+      };
     };
 
     extraConfig = ''

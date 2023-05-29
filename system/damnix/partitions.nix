@@ -38,13 +38,14 @@
                 # Subvolume name is different from mountpoint
                 "/root" = {
                   mountpoint = "/";
+                  mountOptions = [ "compress=zstd:2" ];
                 };
                 # Mountpoints inferred from subvolume name
                 "/home" = {
-                  mountOptions = [ "compress=zstd" ];
+                  mountOptions = [ "compress=zstd:2" ];
                 };
                 "/nix" = {
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [ "compress=zstd:2" "noatime" ];
                 };
                 "/swap" = {
                   mountOptions = [ "noatime" ];

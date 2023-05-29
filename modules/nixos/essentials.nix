@@ -28,6 +28,7 @@
     nixFlakes
     age
     man-db
+    file
     neovim
     htop
     wget

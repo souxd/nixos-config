@@ -8,6 +8,7 @@
     ./programs.nix
     ./services.nix
     ./desktop/sway.nix
+    ./emacs/custom.nix
     # noticeable lag on damnix
     # ./desktop/hyprland.nix
   ] ++

@@ -37,10 +37,12 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    /* not in use
+    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=bbf5f5da6bd4c6e002dd766b8c337a0c40f7c467";
+
     sops-nix.url = "github:Mic92/sops-nix";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    /* not in use
+
     not in use
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 

@@ -126,8 +126,8 @@ in
 
       startup = [
         { command = "services-start"; }
-	      { command = "wl-paste --watch cliphist store"; }
-        { command = "${pkgs.autotiling}/bin/autotiling"; always = true; }
+	{ command = "wl-paste --watch cliphist store"; }
+        { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
         { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
       ];

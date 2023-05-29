@@ -31,6 +31,7 @@
   ]);
 
   networking.hostName = "damnix";
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
   time.timeZone = "Brazil/East";
   environment.sessionVariables = { TZ = "Brazil/East"; };
 

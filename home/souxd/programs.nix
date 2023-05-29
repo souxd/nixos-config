@@ -1,4 +1,4 @@
-{ config, pkgs, specialArgs, stable, ... }:
+{ config, pkgs, specialArgs, ... }:
 
 let inherit (specialArgs) souxd;
 in {
@@ -14,7 +14,6 @@ in {
     ## Media
     hydrus
     souxd.flashplayer
-    souxd.flashplayer-standalone
     yt-dlp # extract videos
     streamlink # extract streams
     nicotine-plus
@@ -25,8 +24,10 @@ in {
     doomseeker
     souxd.zandronum-dev
     quake3e
+    dwarf-fortress-packages.dwarf-fortress-full
     # Web-browser
     souxd.avx-palemoon-bin
+    souxd.flashplayer-standalone
     tor-browser-bundle-bin
     # Audio
     ymuse
@@ -52,7 +53,7 @@ in {
     # Social
     mumble
     dino # xmpp
-    ripcord
+    souxd.ripcord-patched
     souxd.beebeep
 
     ## Network
@@ -80,7 +81,7 @@ in {
     calcurse
     # Git, remove, ssh
     gh
-    mosh
+    zellij
     mediamtx
     wolfssl
     # Compatibility
@@ -95,6 +96,7 @@ in {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      "application/pdf" = "org.pwmt.zathura.desktop";
       "text/plain" = "lvim.desktop";
       "text/html" = "palemoon-bin.desktop";
       "video/mkv" = "mpv.desktop";
