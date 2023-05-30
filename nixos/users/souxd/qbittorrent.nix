@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  import = [ ../../../modules/nixos/virtualization/qbittorrent.nix ];
+  import = [ ../modules/virtualization/qbittorrent.nix ];
   # add and enable systemd unit
   systemd = {
     packages = [ pkgs.qbittorrent-nox ];

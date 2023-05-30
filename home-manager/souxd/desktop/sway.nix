@@ -3,7 +3,7 @@
 {
   home.sessionVariables = { WLR_DRM_NO_ATOMIC = "1"; };
 
-  imports = (map (p: ../../../modules/home-manager + p) [
+  imports = (map (p: ../../modules + p) [
     /desktop/sway.nix
   ]);
 

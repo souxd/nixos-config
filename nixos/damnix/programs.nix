@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  imports = (map (p: ../../modules/nixos + p) [
+  imports = (map (p: ../modules + p) [
     /virtualization/virt-manager.nix
     /virtualization/podman.nix
   ]);

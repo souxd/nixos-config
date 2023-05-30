@@ -17,7 +17,7 @@ let
     modules = [
       hyprland.homeManagerModules.default
       # nix-doom-emacs.hmModule
-      ../home/souxd/default.nix
+      ../home-manager/souxd/default.nix
       {
         home = {
           stateVersion = "22.05";

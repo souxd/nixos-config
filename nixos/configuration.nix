@@ -3,7 +3,7 @@
 
 {
   imports =
-    (map (p: ../modules/nixos + p) [
+    (map (p: ./modules + p) [
       /essentials.nix
       /nix-direnv.nix
       /cachix/cachix.nix

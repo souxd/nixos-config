@@ -13,7 +13,7 @@ in
     modules = [
       inputs.disko.nixosModules.disko
       # inputs.sops-nix.nixosModules.sops
-      ../system/damnix/default.nix
+      ../nixos/damnix/default.nix
     ];
   };
 }

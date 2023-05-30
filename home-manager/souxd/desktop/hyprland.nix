@@ -2,7 +2,7 @@
 { config, ... }:
 
 {
-  imports = (map (p: ../../../modules/home-manager + p) [
+  imports = (map (p: ../../modules + p) [
     /desktop/hyprland.nix
   ]);
 

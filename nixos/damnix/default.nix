@@ -23,7 +23,7 @@
     ./programs.nix
     ./users.nix
     ./services.nix
-  ] ++ (map (p: ../../modules/nixos + p) [
+  ] ++ (map (p: ../modules + p) [
     /printing.nix
     /locale/br-locale.nix
     /desktop/graphical.nix

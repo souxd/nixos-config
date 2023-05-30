@@ -12,7 +12,7 @@
     # noticeable lag on damnix
     # ./desktop/hyprland.nix
   ] ++
-  (map (p: ../../modules/home-manager + p) [
+  (map (p: ../modules + p) [
     /nix-direnv.nix
     /media/mpd.nix
     /office/libreoffice.nix

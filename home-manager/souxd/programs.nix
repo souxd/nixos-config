@@ -24,7 +24,6 @@ in {
     doomseeker
     souxd.zandronum-dev
     quake3e
-    dwarf-fortress-packages.dwarf-fortress-full
     # Web-browser
     souxd.avx-palemoon-bin
     souxd.flashplayer-standalone

@@ -11,7 +11,7 @@
       );
 
       homeConfigurations = (
-        import ./outputs/home-conf.nix {
+        import ./outputs/hm-conf.nix {
           inherit inputs system;
         }
       );
@@ -37,7 +37,7 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=bbf5f5da6bd4c6e002dd766b8c337a0c40f7c467";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     sops-nix.url = "github:Mic92/sops-nix";
 
