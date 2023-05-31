@@ -22,7 +22,7 @@ in {
     retroarchFull
     prismlauncher
     doomseeker
-    souxd.zandronum-dev
+    souxd.zandronum-dev-bin
     quake3e
     # Web-browser
     souxd.avx-palemoon-bin
