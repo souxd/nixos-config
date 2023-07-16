@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, specialArgs, ... }:
+let inherit (specialArgs) souxd; in
 
 {
-  home.packages = [ pkgs.xdg-utils pkgs.xdg-user-dirs ];
+  home.packages = [ pkgs.xdg-utils ];
+
   xdg.userDirs = {
     enable = true;
     createDirectories = true;

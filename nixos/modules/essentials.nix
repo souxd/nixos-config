@@ -29,7 +29,7 @@
     age
     man-db
     file
-    neovim
+    vim
     htop
     wget
     fzf

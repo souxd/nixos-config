@@ -1,34 +1,62 @@
-{ config, pkgs, specialArgs, ... }:
+{ config, pkgs, lib, specialArgs, ... }:
 
 let inherit (specialArgs) souxd;
+  x11Doomseeker = pkgs.writeShellScriptBin "doomseeker"
+    ''
+      #!/usr/bin/env sh
+      env LC_ALL=C QT_QPA_PLATFORM=xcb ${pkgs.doomseeker}/bin/doomseeker
+    '';
+
+  x11Slade = pkgs.writeShellScriptBin "slade"
+    ''
+      #!/usr/bin/env sh
+      env GDK_BACKEND=x11 ${pkgs.sladeUnstable}/bin/slade
+    '';
 in {
   programs = {
     git = {
       enable = true;
-      userName = "souxd";
-      userEmail = "souxd@proton.me";
+      delta.enable = true;
+      extraConfig = {
+        core.editor = "nvim";
+      };
+    };
+
+    gpg.enable = true;
+
+    neovim = {
+      enable = true;
+      extraConfig = ''
+        set tabstop=2
+        set shiftwidth=2
+        set expandtab
+        set smartindent
+      '';
     };
   };
 
   home.packages = with pkgs; [
     ## Media
-    hydrus
-    souxd.flashplayer
+    # FIXME swftools buildphase is broken
+    (hydrus.override { enableSwftools = false; })
+    souxd.flashplayer-standalone
     yt-dlp # extract videos
     streamlink # extract streams
     nicotine-plus
     # games
-    godot_4
-    retroarchFull
     prismlauncher
-    doomseeker
-    souxd.zandronum-dev-bin
-    quake3e
+    x11Doomseeker
+    souxd.zandronum-dev
+    melonDS
+    duckstation
+    snes9x-gtk
     # Web-browser
+    lynx
     souxd.avx-palemoon-bin
-    souxd.flashplayer-standalone
+    souxd.flashplayer
     tor-browser-bundle-bin
     # Audio
+    mpc-cli
     ymuse
     musescore
     reaper
@@ -45,13 +73,15 @@ in {
     krita
     libresprite
     # Video
-    vapoursynth
+    (vapoursynth.withPlugins [ffms])
     vapoursynth-editor
     ffmpeg_6-full
     olive-editor
     # Social
-    mumble
-    dino # xmpp
+    gajim # XMPP
+    mirage-im # Matrix
+    mumble # VoIP
+    weechat # IRC
     souxd.ripcord-patched
     souxd.beebeep
 
@@ -59,22 +89,17 @@ in {
     wireshark
 
     ## Editors
-    sladeUnstable # doom editor
-    # Lunarvim, unwrapped
-    gcc
-    gnumake
-    pythonPackages.pip
-    python
-    nodejs
-    cargo
+    x11Slade # doom editor
 
     ## Utils
+    byobu
     xterm
     # Nix
     steam-run
     appimage-run
     # Passwords
     keepassxc
+    pinentry-curses
     # Clock & Calendar
     gnome.gnome-clocks
     calcurse
@@ -90,20 +115,41 @@ in {
     adoptopenjdk-hotspot-bin-8
     # Create liveusb drives
     unetbootin
+    # extractors
+    unrar
+    p7zip
+    unzip
   ];
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/pdf" = "org.pwmt.zathura.desktop";
-      "text/plain" = "lvim.desktop";
-      "text/html" = "palemoon-bin.desktop";
-      "video/mkv" = "mpv.desktop";
-      "video/webm" = "mpv.desktop";
-      "x-scheme-handler/http" = "palemoon-bin.desktop";
-      "x-scheme-handler/https" = "palemoon-bin.desktop";
-      "x-scheme-handler/about" = "palemoon-bin.desktop";
-      "x-scheme-handler/unknown" = "palemoon-bin.desktop";
+  xdg.mimeApps = let
+    browser = [ "avx-palemoon-bin.desktop" ];
+
+    associations = {
+      "inode/directory" = [ "pcmanfm.desktop" ];
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      "application/vnd.microsoft.portable-executable" = [ "wine.desktop" ];
+      "application/vnd.adobe.flash.movie" = [ "flashplayer-standalone.desktop" ];
+      "text/plain" = [ "emacsclient.desktop" ];
+      "video/mkv" = [ "mpv.desktop" ];
+      "video/webm" = [ "mpv.desktop" ];
+      "text/html" = browser;
+      "x-scheme-handler/http" = browser;
+      "x-scheme-handler/https" = browser;
+      "x-scheme-handler/ftp" = browser;
+      "x-scheme-handler/chrome" = browser;
+      "x-scheme-handler/about" = browser;
+      "x-scheme-handler/unknown" = browser;
+      "application/x-extension-htm" = browser;
+      "application/x-extension-html" = browser;
+      "application/x-extension-shtml" = browser;
+      "application/xhtml+xml" = browser;
+      "application/x-extension-xhtml" = browser;
+      "application/x-extension-xht" = browser;
     };
+  in {
+    enable = true;
+    associations.added = associations;
+    defaultApplications = associations;
   };
+  xdg.mime.enable = true;
 }

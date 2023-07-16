@@ -14,10 +14,6 @@
       gpu-context = "wayland";
       hwdec = "auto-safe";
       profile = "gpu-hq";
-      scale = "catmull_rom";
-      cscale = "catmull_rom";
-      dscale = "catmull_rom";
-      tone-mapping = "spline";
 
       ## AUDIO ##
       ao = "pipewire";

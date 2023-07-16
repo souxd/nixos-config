@@ -25,7 +25,7 @@
     ./services.nix
   ] ++ (map (p: ../modules + p) [
     /printing.nix
-    /locale/br-locale.nix
+    /locale/locale.nix
     /desktop/graphical.nix
     /desktop/drawing.nix
   ]);

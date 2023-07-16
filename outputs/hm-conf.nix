@@ -3,14 +3,13 @@
 with inputs;
 
 let
+  pkgConfig = { inherit system; config.allowUnfreePredicate = _: true; };
   pkgs = nixpkgs.legacyPackages.${system};
-  pkg-config = { inherit system; config.allowUnfreePredicate = _: true; };
-  stable = import stablepkgs pkg-config;
+  stable = import stablepkgs pkgConfig;
   nur = import nurpkgs {
-    inherit pkgs;
-    nurpkgs = pkgs ;
+  inherit pkgs;
+  nurpkgs = pkgs ;
   };
-
 
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;

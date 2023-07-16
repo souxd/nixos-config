@@ -146,45 +146,36 @@ in
 
       keybindings =
         let
-          soundctl = "${pkgs.pamixer}/bin/pamixer";
-          mpc = "${pkgs.mpc-cli}/bin/mpc";
           grimshot = "${pkgs.sway-contrib.grimshot}/bin/grimshot";
         in
         {
-          # basics
+          ## basics
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Ctrl+m" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-
 	  /* FIXME: cliphist list gets ignored
 	  # clipboard manager
 	  "${modifier}+v" = "cliphist list | dmenu -b | cliphist decode | wl-copy";
 	  "${modifier}+b" = "cliphist list | dmenu -b | cliphist delete";
 	  */
-
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
-          # audio
-          "XF86AudioRaiseVolume" = "exec ${soundctl} -ui 2 && ${soundctl} --get-volume > $WOBSOCK";
-          "XF86AudioLowerVolume" = "exec ${soundctl} -ud 2 && ${soundctl} --get-volume > $WOBSOCK";
-          "XF86AudioMute" = ''exec ${soundctl} --toggle-mute && ( [ "\$(${soundctl} - -get-mute) " = "true" ] && echo 0 > $WOBSOCK ) || ${soundctl} --get-volume > $WOBSOCK'';
+          ## audio
+          "XF86AudioRaiseVolume" = ''exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
+          "XF86AudioLowerVolume" = ''exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
+          "XF86AudioMute" = ''exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
           "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
 
-          # mpd
-          "${modifier}+XF86AudioRaiseVolume" = "exec ${mpc} volume +5";
-          "${modifier}+XF86AudioLowerVolume" = "exec ${mpc} volume -5";
-          "${modifier}+XF86AudioPlay" = "exec ${mpc} toggle";
-          "${modifier}+XF86AudioMute" = "exec ${mpc} next";
-
+	  ## utils
           # calculator
           "XF86Calculator" = "exec ${pkgs.speedcrunch}/bin/speedcrunch";
-
           # screen capture
           "Print" = "exec ${grimshot} copy screen";
           "${modifier}+Print" = "exec ${grimshot} save screen - | swappy -f -";
           "${modifier}+g" = ''exec ${grimshot} save window - | swappy -f -'';
 
+          ## sway
           "${modifier}+Shift+c" = "reload";
 
           "${modifier}+Shift+q" = "kill";
