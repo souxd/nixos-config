@@ -18,7 +18,7 @@
           pointer_accel = "0.5";
         };
         "1118:1861:Microsoft_Microsoft___2.4GHz_Transceiver_v8.0" = {
-          repeat_delay = "200";
+          repeat_delay = "250";
           xkb_numlock = "enabled";
         };
       };
