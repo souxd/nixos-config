@@ -35,6 +35,8 @@
     fzf
     ripgrep
     fd
+    byobu
+    tmux
     # makes non-nix bins easier to use
     nix-alien
     nix-index

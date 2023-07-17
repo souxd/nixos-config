@@ -1,6 +1,6 @@
 { config, pkgs, lib, specialArgs, ... }:
 
-let inherit (specialArgs) souxd;
+let
   x11Doomseeker = pkgs.writeShellScriptBin "doomseeker"
     ''
       #!/usr/bin/env sh
@@ -38,22 +38,23 @@ in {
   home.packages = with pkgs; [
     ## Media
     # FIXME swftools buildphase is broken
-    (hydrus.override { enableSwftools = false; })
-    souxd.flashplayer-standalone
+    hydrus
+    flashplayer-standalone
     yt-dlp # extract videos
     streamlink # extract streams
     nicotine-plus
     # games
     prismlauncher
     x11Doomseeker
-    souxd.zandronum-dev
+    zandronum-dev-bin
     melonDS
     duckstation
     snes9x-gtk
+    sm64ex-coop
     # Web-browser
     lynx
-    souxd.avx-palemoon-bin
-    souxd.flashplayer
+    avx-palemoon-bin
+    flashplayer
     tor-browser-bundle-bin
     # Audio
     mpc-cli
@@ -82,8 +83,8 @@ in {
     mirage-im # Matrix
     mumble # VoIP
     weechat # IRC
-    souxd.ripcord-patched
-    souxd.beebeep
+    ripcord-patched
+    beebeep
 
     ## Network
     wireshark
@@ -92,12 +93,12 @@ in {
     x11Slade # doom editor
 
     ## Utils
-    byobu
     xterm
     # Nix
     steam-run
     appimage-run
     # Passwords
+    libsecret
     keepassxc
     pinentry-curses
     # Clock & Calendar
@@ -109,7 +110,7 @@ in {
     mediamtx
     wolfssl
     # Compatibility
-    wineWowPackages.stagingFull
+    wineWowPackages.waylandFull
     winetricks
     # JVM for old games
     adoptopenjdk-hotspot-bin-8
@@ -127,8 +128,9 @@ in {
     associations = {
       "inode/directory" = [ "pcmanfm.desktop" ];
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-      "application/vnd.microsoft.portable-executable" = [ "wine.desktop" ];
       "application/vnd.adobe.flash.movie" = [ "flashplayer-standalone.desktop" ];
+      "application/vnd.microsoft.portable-executable" = [ "wine.desktop" ];
+      "application/x-ms-dos-executable" = [ "wine.desktop" ];
       "text/plain" = [ "emacsclient.desktop" ];
       "video/mkv" = [ "mpv.desktop" ];
       "video/webm" = [ "mpv.desktop" ];

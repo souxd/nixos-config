@@ -4,12 +4,6 @@
   nix.settings.max-jobs = 2;
   nix.settings.cores = 2;
 
-  services.xserver.videoDrivers = [
-    "crocus"
-    "i915"
-    "modesetting"
-    "fbdev"
-  ];
   hardware.opengl = {
     driSupport32Bit = true; # for old games
     extraPackages = [ pkgs.vaapiIntel ]; # enable vaapi decoding

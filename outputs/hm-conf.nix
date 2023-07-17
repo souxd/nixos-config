@@ -24,7 +24,7 @@ let
           homeDirectory = "/home/souxd";
         };
 
-        nixpkgs.overlays = [ nurpkgs.overlay emacs-overlay.overlay ];
+        nixpkgs.overlays = [ (import ../pkgs/default.nix) nurpkgs.overlay emacs-overlay.overlay ];
         nixpkgs.config.allowUnfreePredicate = _: true; # workaround for https://github.com/nix-community/home-manager/issues/2942
         nixpkgs.config.permittedInsecurePackages = [ "python-2.7.18.6" ];
         nix.registry.nixpkgs.flake = nixpkgs;

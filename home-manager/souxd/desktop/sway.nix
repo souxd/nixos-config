@@ -40,7 +40,7 @@
         { command = "keepassxc"; }
         { command = "ymuse"; }
         { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
-        { command = "env --unset=WAYLAND_DISPLAY --unset=QT_QPA_PLATFORM ~/src/nixpkgs/result/bin/hydrus-client"; }
+        { command = "env --unset=WAYLAND_DISPLAY --unset=QT_QPA_PLATFORM hydrus-client"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
       ];
