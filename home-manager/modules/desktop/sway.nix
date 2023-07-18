@@ -1,6 +1,24 @@
 { config, pkgs, ... }:
 
 let
+  # bash script to let dbus know about important env variables and
+  # propagate them to relevent services run at the end of sway config
+  # see
+  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
+  # note: this is pretty much the same as  /etc/sway/config.d/nixos.conf but also restarts  
+  # some user services to make sure they have the correct environment variables
+  dbus-sway-environment = pkgs.writeTextFile {
+    name = "dbus-sway-environment";
+    destination = "/bin/dbus-sway-environment";
+    executable = true;
+
+    text = ''
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_DATA_DIRS PATH
+      systemctl --user stop pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+      systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+    '';
+  }; 
+
   # start custom systemd services
   services-start = pkgs.writeShellScriptBin "services-start"
     ''
@@ -74,6 +92,7 @@ in
   imports = [ ./theme.nix ./foot.nix ./mako.nix ../media/mpv.nix ];
 
   home.packages = with pkgs; [
+    dbus-sway-environment
     services-start
     wayland
     libsForQt5.qtwayland
@@ -125,6 +144,7 @@ in
       };
 
       startup = [
+        { command = "dbus-sway-environment"; }
         { command = "services-start"; }
 	{ command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }

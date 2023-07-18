@@ -35,7 +35,6 @@ let
       inherit inputs;
       inherit stable;
       ff-addons = nur.repos.rycee.firefox-addons;
-      souxd = nur.repos.souxd;
     };
   };
 

@@ -1,5 +1,7 @@
 {
   imports = [ ./wg-conf.nix ];
+  security.pam.services.souxd.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
 
   users.users.souxd = {
     isNormalUser = true;

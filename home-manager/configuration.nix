@@ -1,5 +1,4 @@
 { config, pkgs, specialArgs, ... }:
-let inherit (specialArgs) souxd; in
 
 {
   home.packages = [ pkgs.xdg-utils ];

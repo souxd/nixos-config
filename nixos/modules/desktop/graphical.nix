@@ -19,12 +19,13 @@
 
   services.dbus = {
     enable = true;
-    implementation = "broker";
+    # TODO see the equivalent of dbus-update-activation-environment later
+    #implementation = "broker";
   };
 
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = false;
+    xdgOpenUsePortal = true;
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
