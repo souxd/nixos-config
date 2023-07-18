@@ -9,8 +9,6 @@
     ./services.nix
     ./desktop/sway.nix
     ./emacs/custom.nix
-    # noticeable lag on damnix
-    # ./desktop/hyprland.nix
   ] ++
   (map (p: ../modules + p) [
     /nix-direnv.nix

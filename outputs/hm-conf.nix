@@ -14,7 +14,6 @@ let
   mkHome = home-manager.lib.homeManagerConfiguration rec {
     inherit pkgs;
     modules = [
-      hyprland.homeManagerModules.default
       # nix-doom-emacs.hmModule
       ../home-manager/souxd/default.nix
       {
