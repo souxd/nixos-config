@@ -14,6 +14,7 @@
     ../configuration.nix
     ./hardware-configuration.nix
     ./mods.nix
+    ./network.nix
     ./programs.nix
     ./users.nix
     ./services.nix
@@ -24,10 +25,9 @@
     /desktop/drawing.nix
   ]);
 
-  networking.hostName = "damnix";
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
   time.timeZone = "Brazil/East";
   environment.sessionVariables = { TZ = "Brazil/East"; };
+  networking.hostName = "damnix";
 
   boot = {
     loader.grub = {

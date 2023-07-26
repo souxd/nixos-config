@@ -12,6 +12,9 @@
     LXVST_PATH = "/home/souxd/.nix-profile/lib/lxvst";
     LADSPA_PATH = "/home/souxd/.nix-profile/lib/ladspa";
     DSSI_PATH = "/home/souxd/.nix-profile/lib/dssi";
+    WWW_HOME = "https://lite.duckduckgo.com/lite";
+    LYNX_CFG = "~/.lynx/lynx.cfg";
+    LYNX_CFG_PATH = "~/.lynx";
   };
 
   programs.starship.enable = true;

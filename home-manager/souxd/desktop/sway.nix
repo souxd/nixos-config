@@ -39,7 +39,6 @@
         { command = "waybar"; }
         { command = "keepassxc"; }
         { command = "ymuse"; }
-        { command = "env QT_QPA_PLATFORM=xcb beebeep"; }
         { command = "env --unset=WAYLAND_DISPLAY --unset=QT_QPA_PLATFORM hydrus-client"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
@@ -65,7 +64,6 @@
     extraConfig = ''
       for_window [app_id="com.github.wwmm.easyeffects"] floating enable
       for_window [title="manage tags — hydrus client*"] floating enable
-      for_window [title="^([^\s]+) - BeeBEEP$"] move to scratchpad
       # for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
     '';
   };

@@ -16,7 +16,6 @@ in {
   programs = {
     git = {
       enable = true;
-      delta.enable = true;
       extraConfig = {
         core.editor = "nvim";
       };
@@ -54,8 +53,7 @@ in {
     # Web-browser
     lynx
     avx-palemoon-bin
-    flashplayer
-    tor-browser-bundle-bin
+    cleanflash
     # Audio
     mpc-cli
     ymuse
@@ -80,11 +78,11 @@ in {
     olive-editor
     # Social
     gajim # XMPP
+    poezio
     mirage-im # Matrix
     mumble # VoIP
     weechat # IRC
     ripcord-patched
-    beebeep
 
     ## Network
     wireshark

@@ -104,7 +104,6 @@ in
     xclip # for some clipboard usecases in xwayland clients
     pcmanfm # file manager
     gnome.file-roller # archive manager
-    feh # faster image viewer
     env-nsxiv env-nsxivDesktopItem nsxiv-url # image viewer (supports gif etc)
   ];
 
@@ -115,11 +114,11 @@ in
     enable = true;
     defaultApplications = {
       "inode/directory" = "pcmanfm.desktop";
-      "image/jpeg" = "feh.desktop";
+      "image/jpeg" = "env-nsxiv.desktop";
       "image/gif" = "env-nsxiv.desktop";
-      "image/bmp" = "feh.desktop";
-      "image/png" = "feh.desktop";
-      "image/tiff" = "feh.desktop";
+      "image/bmp" = "env-nsxiv.desktop";
+      "image/png" = "env-nsxiv.desktop";
+      "image/tiff" = "env-nsxiv.desktop";
       "image/webp" = "env-nsxiv.desktop";
       "image/avif" = "env-nsxiv.desktop";
     };

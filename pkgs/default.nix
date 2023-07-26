@@ -17,6 +17,8 @@ final: prev: {
 
   flashplayer = final.callPackage ./mozilla-plugins/flashplayer {};
 
+  cleanflash = final.callPackage ./mozilla-plugins/flashplayer/cleanflash.nix {};
+
   flashplayer-standalone = final.callPackage ./mozilla-plugins/flashplayer/standalone.nix {};
 
   flashplayer-standalone-debugger = final.callPackage ./mozilla-plugins/flashplayer/standalone.nix {
@@ -26,6 +28,8 @@ final: prev: {
   flatpak-xdg-utils = final.callPackage ./flatpak-xdg-utils {};
 
   glaxnimate = final.qt5.callPackage ./glaxnimate {};
+
+  poezio = final.callPackage ./poezio {};
   
   ripcord-patched = final.qt5.callPackage ./ripcord-patched {};
 
