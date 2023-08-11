@@ -30,18 +30,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
+    /* not in use
+
+
+    sops-nix.url = "github:Mic92/sops-nix";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    sops-nix.url = "github:Mic92/sops-nix";
-
-    /* not in use
-
-    not in use
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
 
     prjc-patches = {
