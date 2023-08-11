@@ -1,0 +1,13 @@
+diff --git a/lib/lame/quantize.c b/lib/lame/quantize.c
+index 27b6352a..3a1284ff 100644
+--- a/lib/lame/quantize.c
++++ b/lib/lame/quantize.c
+@@ -1279,7 +1279,7 @@ VBR_prepare (
+ }
+  
+  
+-inline
++// inline
+ void bitpressure_strategy1(
+     lame_internal_flags * gfc,
+     III_psy_xmin l3_xmin[2][2],

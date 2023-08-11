@@ -46,7 +46,8 @@
     client.enable = true;
   };
 
-  # restart the Tor daemon every time network reconnect is performaed. This avoids having to wait for Tor network timeouts and reastablishes a new connection faster. 
+  # restart the Tor daemon every time network reconnect is performaed. This avoids having to wait for Tor network timeouts and reastablishes a new connection faster. Useless without systemd-networkd.
+  /*
   services.networkd-dispatcher = {
     enable = true;
     rules."restart-tor" = {
@@ -61,6 +62,7 @@
       '';
     };
   };
+  */
 
   ## ports ##
   # zandronum

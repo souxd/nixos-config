@@ -11,5 +11,5 @@
 
   environment.sessionVariables = { XKB_DEFAULT_LAYOUT = "us"; }; # keymap wayland
   services.xserver.layout = "us"; #  keymap X11
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+  services.xserver.xkbOptions = "ctrl:swapcaps,numpad:microsoft";
 }

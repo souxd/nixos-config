@@ -36,13 +36,14 @@ in {
 
   home.packages = with pkgs; [
     ## Media
-    # FIXME swftools buildphase is broken
     hydrus
     flashplayer-standalone
     yt-dlp # extract videos
+    ytfzf
     streamlink # extract streams
     nicotine-plus
     # games
+    minetest
     prismlauncher
     x11Doomseeker
     zandronum-dev-bin
@@ -77,12 +78,12 @@ in {
     ffmpeg_6-full
     olive-editor
     # Social
-    gajim # XMPP
-    poezio
-    mirage-im # Matrix
-    mumble # VoIP
-    weechat # IRC
-    ripcord-patched
+    gajim # XMPP, GUI
+    poezio # XMPP, CLI
+    fluffychat # Matrix, GUI
+    mumble # VoIP, GUI
+    weechat # IRC, CLI
+    ripcord-patched # discord, GUI
 
     ## Network
     wireshark
@@ -108,7 +109,7 @@ in {
     mediamtx
     wolfssl
     # Compatibility
-    wineWowPackages.waylandFull
+    wineWowPackages.stagingFull
     winetricks
     # JVM for old games
     adoptopenjdk-hotspot-bin-8
@@ -122,6 +123,7 @@ in {
 
   xdg.mimeApps = let
     browser = [ "avx-palemoon-bin.desktop" ];
+    archive = [ "file-roller.desktop" ];
 
     associations = {
       "inode/directory" = [ "pcmanfm.desktop" ];
@@ -145,6 +147,7 @@ in {
       "application/xhtml+xml" = browser;
       "application/x-extension-xhtml" = browser;
       "application/x-extension-xht" = browser;
+      "application/zip" = archive;
     };
   in {
     enable = true;

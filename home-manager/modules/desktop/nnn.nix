@@ -25,7 +25,7 @@ in
         p = "preview-tui";
         t = "nmount";
         v = "imgview";
-	D = "dragdrop";
+        D = "dragdrop";
       };
     };
     bookmarks = {

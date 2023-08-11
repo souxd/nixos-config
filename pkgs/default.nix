@@ -1,5 +1,5 @@
 final: prev: {
-  hydrus = final.qt5.callPackage ./hydrus.nix {};
+  hydrus = final.qt5.callPackage ./hydrus {};
 
   sm64ex-coop = final.callPackage ./sm64ex/coop.nix {};
 
@@ -37,9 +37,13 @@ final: prev: {
 
   ripcord-patcher = final.callPackage ./ripcord-patched/ripcord-patcher.nix {};
 
+  swftools = final.callPackage ./swftools {};
+
   funchook = final.callPackage ./ripcord-patched/funchook.nix {};
 
   spiralknights = final.callPackage ./spiralknights {};
+
+  wmenu = final.callPackage ./wmenu {};
 
   zandronum-dev = final.callPackage ./zandronum-dev {};
 
@@ -48,4 +52,5 @@ final: prev: {
   zandronum-dev-server = final.callPackage ./zandronum-dev {
     serverOnly = true;
   };
+
 }

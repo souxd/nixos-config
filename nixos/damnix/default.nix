@@ -13,7 +13,7 @@
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
-    ./mods.nix
+    ./kernel
     ./network.nix
     ./programs.nix
     ./users.nix
@@ -38,8 +38,6 @@
         nmi_watchdog=0
       '';
     };
-
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
   swapDevices = [{ device = "/swap/swapfile"; }];

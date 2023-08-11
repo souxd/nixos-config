@@ -50,6 +50,8 @@ stdenv.mkDerivation rec {
     cp * \
        $out/lib/zandronum
     rm $out/lib/zandronum/env-vars
+    ln -s /home/souxd/.config/zandronum/skins $out/lib/zandronum/skins
+    ln -s /home/souxd/.config/zandronum/announcer $out/lib/zandronum/announcer
     makeWrapper $out/lib/zandronum/zandronum-server $out/bin/zandronum-dev-server
     makeWrapper $out/lib/zandronum/zandronum $out/bin/zandronum-dev
     wrapProgram $out/bin/zandronum-dev-server \

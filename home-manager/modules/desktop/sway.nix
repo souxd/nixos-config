@@ -181,8 +181,8 @@ in
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
           ## audio
-          "XF86AudioRaiseVolume" = ''exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
-          "XF86AudioLowerVolume" = ''exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
+          "XF86AudioRaiseVolume" = ''exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
+          "XF86AudioLowerVolume" = ''exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 2%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
           "XF86AudioMute" = ''exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
           "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
 
