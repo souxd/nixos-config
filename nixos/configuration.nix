@@ -6,7 +6,7 @@
     (map (p: ./modules + p) [
       /essentials.nix
       /nix-direnv.nix
-      /cachix/cachix.nix
+      /cachix
     ]);
 
   system.stateVersion = "22.05";

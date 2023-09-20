@@ -35,8 +35,8 @@
   };
 
   ## privoxy
-  # services.privoxy.enable = true;
-  # services.privoxy.enableTor = true;
+  services.privoxy.enable = true;
+  services.privoxy.enableTor = true;
 
   ## tor client ##
   services.tor = {

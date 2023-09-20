@@ -10,7 +10,8 @@
       screenshot-directory = "~/Pictures/mpv";
 
       ## VIDEO ##
-      vo = "gpu-next";
+      vo = "xv"; # potato gpu
+      # vo = "gpu-next";
       gpu-context = "wayland";
       hwdec = "auto-safe";
       profile = "gpu-hq";

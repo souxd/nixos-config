@@ -10,13 +10,6 @@
     extraPackages32 = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
-  services.xserver.videoDrivers = [
-    "crocus"
-    "i915"
-    "modesetting"
-    "fbdev"
-  ];
-
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
@@ -27,7 +20,7 @@
     ./services.nix
   ] ++ (map (p: ../modules + p) [
     /printing.nix
-    /locale/locale.nix
+    /locale
     /desktop/graphical.nix
     /desktop/drawing.nix
   ]);

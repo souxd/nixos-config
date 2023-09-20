@@ -13,6 +13,7 @@
   wayland.windowManager.sway = {
     config = {
       input = {
+        /*
         "1133:49271:Logitech_USB_Optical_Mouse" = {
           accel_profile = "flat";
           pointer_accel = "0.5";
@@ -21,10 +22,20 @@
           repeat_delay = "250";
           xkb_numlock = "enabled";
         };
+        */
+        "type:pointer" = {
+          accel_profile = "flat";
+          pointer_accel = "0";
+        };
+        "type:keyboard" = {
+          repeat_delay = "250";
+          xkb_numlock = "enabled";
+        };
       };
       output = {
         "*" = {
-	  subpixel = "rgb";
+          subpixel = "rgb";
+          adaptive_sync = "on";
           bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
         };
       };

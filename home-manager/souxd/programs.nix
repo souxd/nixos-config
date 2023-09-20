@@ -35,24 +35,28 @@ in {
   };
 
   home.packages = with pkgs; [
-    ## Media
+    ## Media ##
     hydrus
     flashplayer-standalone
     yt-dlp # extract videos
     ytfzf
     streamlink # extract streams
     nicotine-plus
+    stremio
     # games
     minetest
     prismlauncher
     x11Doomseeker
     zandronum-dev-bin
+    gzdoom
     melonDS
     duckstation
+    ppsspp-sdl-wayland
     snes9x-gtk
     sm64ex-coop
     # Web-browser
     lynx
+    librewolf
     avx-palemoon-bin
     cleanflash
     # Audio
@@ -80,18 +84,19 @@ in {
     # Social
     gajim # XMPP, GUI
     poezio # XMPP, CLI
-    fluffychat # Matrix, GUI
-    mumble # VoIP, GUI
+    nheko # Matrix, GUI
+    gomuks # Matrix, CLI
     weechat # IRC, CLI
+    mumble # VoIP, GUI
     ripcord-patched # discord, GUI
 
-    ## Network
+    ## Network ##
     wireshark
 
-    ## Editors
+    ## Editors ##
     x11Slade # doom editor
 
-    ## Utils
+    ## Utils ##
     xterm
     # Nix
     steam-run
@@ -110,7 +115,7 @@ in {
     wolfssl
     # Compatibility
     wineWowPackages.stagingFull
-    winetricks
+    mesa-demos
     # JVM for old games
     adoptopenjdk-hotspot-bin-8
     # Create liveusb drives
