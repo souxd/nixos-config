@@ -41,9 +41,10 @@ in {
     yt-dlp # extract videos
     ytfzf
     streamlink # extract streams
-    nicotine-plus
-    stremio
-    # games
+    nicotine-plus # download music
+    stremio # watch movies and series
+    calibre # read e-books
+    ## Games ##
     minetest
     prismlauncher
     x11Doomseeker
@@ -53,35 +54,37 @@ in {
     duckstation
     ppsspp-sdl-wayland
     snes9x-gtk
-    sm64ex-coop
-    # Web-browser
+    # sm64ex-coop
+    ## Web-browsers ##
     lynx
-    librewolf
     avx-palemoon-bin
-    cleanflash
+    flashplayer
+    pipelight
+    djview
     # Audio
     mpc-cli
     ymuse
     musescore
     reaper
-    helm
+    helm # synth vst
     yabridge
     yabridgectl
-    # E-books
-    calibre
-    # Graphic
+
+    ## Graphic ##
     imagemagick
     gimp
     inkscape
     xournalpp
     krita
     libresprite
-    # Video
+
+    ## Video ##
     (vapoursynth.withPlugins [ffms])
     vapoursynth-editor
     ffmpeg_6-full
     olive-editor
-    # Social
+
+    ## Social ##
     gajim # XMPP, GUI
     poezio # XMPP, CLI
     nheko # Matrix, GUI
@@ -98,32 +101,31 @@ in {
 
     ## Utils ##
     xterm
-    # Nix
-    steam-run
-    appimage-run
-    # Passwords
-    libsecret
-    keepassxc
-    pinentry-curses
-    # Clock & Calendar
     gnome.gnome-clocks
     calcurse
-    # Git, remove, ssh
-    gh
-    zellij
-    mediamtx
-    wolfssl
-    # Compatibility
-    wineWowPackages.stagingFull
-    mesa-demos
-    # JVM for old games
-    adoptopenjdk-hotspot-bin-8
-    # Create liveusb drives
-    unetbootin
     # extractors
     unrar
     p7zip
+    zip
     unzip
+    # Git, remove, ssh
+    gh
+    mediamtx
+    wolfssl
+
+    ## Nix ##
+    steam-run
+    appimage-run
+
+    ## Passwords ##
+    libsecret
+    keepassxc
+    pinentry-curses
+
+    ## Compatibility ##
+    wineWowPackages.stagingFull
+    mesa-demos
+    adoptopenjdk-hotspot-bin-8 # JVM for old games
   ];
 
   xdg.mimeApps = let

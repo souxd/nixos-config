@@ -15,6 +15,7 @@
     /media/mpd.nix
     /office/libreoffice.nix
     /office/zathura.nix
+    /web-browsers/firefox.nix
   ]);
 
   programs.home-manager.enable = true;

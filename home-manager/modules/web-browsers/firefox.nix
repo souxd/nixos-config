@@ -91,24 +91,23 @@ let
     "geo.enabled" = false;
   };
 
+  addons = with ff-addons; [
+    multi-account-containers
+    tridactyl
+    auto-tab-discard
+    ublock-origin
+    localcdn
+    clearurls
+    redirector
+    unpaywall
+    violentmonkey
+  ];
 in
 {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-beta-bin;
 
-    extensions = with ff-addons; [
-      multi-account-containers
-      tridactyl
-      auto-tab-discard
-      ublock-origin
-      localcdn
-      clearurls
-      redirector
-      i-dont-care-about-cookies
-      unpaywall
-      violentmonkey
-    ];
 
 
     profiles.default = {
@@ -117,6 +116,7 @@ in
       isDefault = true;
       settings = sharedSettings;
       userChrome = disableWebRtcIndicator;
+      extensions = addons;
     };
 
     profiles.itoopeer = {

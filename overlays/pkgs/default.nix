@@ -1,6 +1,4 @@
 final: prev: {
-  hydrus = final.qt5.callPackage ./hydrus {};
-
   sm64ex-coop = final.callPackage ./sm64ex/coop.nix {};
 
   am2rlauncher = final.callPackage ./am2rlauncher {};
@@ -12,8 +10,6 @@ final: prev: {
   avx-palemoon-bin = final.callPackage ./avx-palemoon/bin.nix {};
 
   beebeep = final.qt5.callPackage ./beebeep {};
-
-  doomseeker-latest = final.qt5.callPackage ./doomseeker-latest {};
 
   flashplayer = final.callPackage ./mozilla-plugins/flashplayer {};
 

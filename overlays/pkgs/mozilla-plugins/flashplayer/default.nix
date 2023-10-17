@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "http://files3.swfchan.com/end/FlashPluginsFixed_32.0.0.465_WindowsLinux.7z";
-    sha256 =
-      "1zzbp9y3ilh368zcm40c24k3zwjpdaacs5r8wpi1v1ql5g549h5d";
+    hash =
+      "sha256-rcBEyisUhx3i5SgXzZRqV/I/JhEMkMo+MgPSOHy66/8=";
   };
 
   nativeBuildInputs = [ p7zip ];

@@ -5,6 +5,6 @@
 
   users.users.souxd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "docker" "adbusers" "video" "audio" "wireshark" "transmission" ];
+    extraGroups = [ "wheel" "libvirtd" "docker" "adbusers" "video" "audio" "wireshark" "transmission" "input" ];
   };
 }

@@ -19,7 +19,8 @@
       ## AUDIO ##
       ao = "pipewire";
       audio-channels = "auto-safe";
-      af = "lavfi=[dynaudnorm]";
+      # i didnt like this
+      #af = "lavfi=[dynaudnorm]";
 
       ## MISC ##
       script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";

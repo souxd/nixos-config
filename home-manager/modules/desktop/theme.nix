@@ -6,8 +6,10 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" ]; }) # term and glyphs
-    noto-fonts-cjk-sans # asian characters
+    font-awesome_4 # more glyphs, v6 messes my other fonts
+    powerline-fonts # unicode characters and glyphs
     noto-fonts-emoji # google emojis
+    noto-fonts-cjk-sans # asian characters
   ];
 
   home.pointerCursor = {

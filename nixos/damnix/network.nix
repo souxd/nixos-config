@@ -64,7 +64,10 @@
   };
   */
 
-  ## ports ##
+  ## firewall, ports ##
+  # disable firewall?
+  networking.firewall.enable = false;
+
   # zandronum
   networking.firewall.allowedTCPPortRanges = [{ from = 10666; to = 10670; }];
   networking.firewall.allowedUDPPortRanges = [{ from = 10666; to = 10670; }];
