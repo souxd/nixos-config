@@ -2,12 +2,11 @@
 
 {
   home.sessionVariables = { WLR_DRM_NO_ATOMIC = "1"; };
+  home.packages = [ pkgs.waybar ];
 
   imports = (map (p: ../../modules + p) [
     /desktop/sway.nix
-  ]) /* ++ [
-    ./waybar.nix
-  ] */;
+  ]);
 
   # sway preferences
   wayland.windowManager.sway = {
@@ -39,6 +38,8 @@
           bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
         };
       };
+
+      bars = [{ command = "waybar"; }];
 
       defaultWorkspace = "workspace number 1";
 
