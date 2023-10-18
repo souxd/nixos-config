@@ -48,7 +48,6 @@
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [
-        { command = "waybar"; }
         { command = "keepassxc"; }
         { command = "ymuse"; }
         { command = "env --unset=WAYLAND_DISPLAY --unset=QT_QPA_PLATFORM hydrus-client"; }
