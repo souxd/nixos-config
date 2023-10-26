@@ -30,6 +30,7 @@
     man-db
     file
     vim
+    mg
     htop
     wget
     fzf

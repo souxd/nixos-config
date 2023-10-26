@@ -145,7 +145,7 @@ in
       startup = [
         { command = "dbus-sway-environment"; }
         { command = "services-start"; }
-	{ command = "wl-paste --watch cliphist store"; }
+        { command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
         { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
@@ -172,11 +172,9 @@ in
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Ctrl+m" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
-	  /* FIXME: cliphist list gets ignored
-	  # clipboard manager
-	  "${modifier}+v" = "cliphist list | dmenu -b | cliphist decode | wl-copy";
-	  "${modifier}+b" = "cliphist list | dmenu -b | cliphist delete";
-	  */
+          # clipboard manager
+          "${modifier}+v" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist decode | wl-copy";
+          "${modifier}+b" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist delete";
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 
@@ -186,7 +184,7 @@ in
           "XF86AudioMute" = ''exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > $WOBSOCK) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > $WOBSOCK'';
           "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
 
-	  ## utils
+          ## utils
           # calculator
           "XF86Calculator" = "exec ${pkgs.speedcrunch}/bin/speedcrunch";
           # screen capture

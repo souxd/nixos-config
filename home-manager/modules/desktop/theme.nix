@@ -11,6 +11,7 @@
     powerline-fonts # unicode characters and glyphs
     noto-fonts-emoji # google emojis
     noto-fonts-cjk-sans # asian characters
+    noto-fonts-cjk-serif # asian characters
   ];
 
   home.pointerCursor = {

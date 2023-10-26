@@ -6,7 +6,9 @@
 
   imports = (map (p: ../../modules + p) [
     /desktop/sway.nix
-  ]);
+  ]) ++ [
+    ./swayidle.nix
+  ];
 
   # sway preferences
   wayland.windowManager.sway = {
