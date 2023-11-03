@@ -16,14 +16,14 @@
 
 stdenv.mkDerivation rec {
   pname = "avx-palemoon-bin";
-  version = "32.4.1";
+  version = "32.5.0";
 
   src = fetchzip {
     urls = [
       "ftp://ftp2.palemoon.org/avx/linux/palemoon-${version}.linux-x86_64-avx_gtk3.tar.xz"
     ];
     hash = 
-      "sha256-Jpa6O6cmC51vjA+IZdA6aOT6zMeWk+jjKpKCljHpuaQ=";
+      "sha256-nSpWgr23rHrvtHrJ7AiN58jYbMmmwFxfCJTtlnMagGg=";
   };
 
   preferLocalBuild = true;

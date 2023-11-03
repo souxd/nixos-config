@@ -100,7 +100,7 @@ in
     slurp # region select
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
-    cliphist # clipboard manager, supports images
+    # cliphist # clipboard manager, supports images
     xclip # for some clipboard usecases in xwayland clients
     pcmanfm # file manager
     gnome.file-roller # archive manager
@@ -145,7 +145,7 @@ in
       startup = [
         { command = "dbus-sway-environment"; }
         { command = "services-start"; }
-        { command = "wl-paste --watch cliphist store"; }
+        # { command = "wl-paste --watch cliphist store"; }
         { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
         { command = "foot --server"; }
         { command = "rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | ${pkgs.wob}/bin/wob"; }
@@ -173,8 +173,8 @@ in
           "${modifier}+Ctrl+m" = "exec ${terminal}";
           "${modifier}+d" = "exec ${menu}";
           # clipboard manager
-          "${modifier}+v" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist decode | wl-copy";
-          "${modifier}+b" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist delete";
+          # "${modifier}+v" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist decode | wl-copy";
+          # "${modifier}+b" = "exec cliphist list | ${pkgs.wmenu}/bin/wmenu -bl15 | cliphist delete";
           # screen lock
           "${modifier}+Shift+s" = "exec ${pkgs.swaylock}/bin/swaylock -c 000000";
 

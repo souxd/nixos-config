@@ -88,7 +88,7 @@ in {
     gajim # XMPP, GUI
     poezio # XMPP, CLI
     nheko # Matrix, GUI
-    gomuks # Matrix, CLI
+    # gomuks # Matrix, CLI
     weechat # IRC, CLI
     mumble # VoIP, GUI
     ripcord-patched # discord, GUI

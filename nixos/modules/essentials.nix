@@ -26,6 +26,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; with inputs.nix-alien.packages.${system}; [
     nixFlakes
+    nettools
     age
     man-db
     file
