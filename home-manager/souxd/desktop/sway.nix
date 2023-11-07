@@ -2,12 +2,13 @@
 
 {
   home.sessionVariables = { WLR_DRM_NO_ATOMIC = "1"; };
-  home.packages = [ pkgs.waybar ];
+  home.packages = [ pkgs.waybar pkgs.sway-contrib.inactive-windows-transparency ];
 
   imports = (map (p: ../../modules + p) [
     /desktop/sway.nix
   ]) ++ [
     ./swayidle.nix
+    ./theme.nix
   ];
 
   # sway preferences
@@ -37,7 +38,7 @@
         "*" = {
           subpixel = "rgb";
           adaptive_sync = "on";
-          bg = "${../../../assets/wallpapers/1920x1080-space_tree_frog.png} fill";
+          bg = "${../../../assets/wallpapers/1920x1080-vulcan_sakura.jpg} fill";
         };
       };
 
@@ -45,14 +46,14 @@
 
       defaultWorkspace = "workspace number 1";
 
-      assigns = { "3" = [{ title = "main — hydrus client 544"; }]; };
-      assigns = { "9" = [{ app_id="org.kde.kdeconnect.app"; }]; };
+      assigns = { "3" = [{ title = "main — hydrus client 549"; }]; }; assigns = { "9" = [{ app_id="org.kde.kdeconnect.app"; }]; };
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [
+        { command = "inactive-windows-transparency.py -o 0.6"; }
         { command = "keepassxc"; }
         { command = "ymuse"; }
-        { command = "env --unset=WAYLAND_DISPLAY --unset=QT_QPA_PLATFORM hydrus-client"; }
+        { command = "hydrus"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
       ];

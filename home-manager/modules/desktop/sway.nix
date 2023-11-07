@@ -89,7 +89,8 @@ in
     };
   };
 
-  imports = [ ./theme.nix ./foot.nix ./mako.nix ../media/mpv.nix ];
+  # you can use the theme.nix module as a template for your own theme
+  imports = [ ./foot.nix ./mako.nix ../media/mpv.nix ];
 
   home.packages = with pkgs; [
     dbus-sway-environment

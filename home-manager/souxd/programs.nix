@@ -117,6 +117,7 @@ in {
     ## Nix ##
     steam-run
     appimage-run
+    nix-prefetch-scripts
 
     ## Passwords ##
     libsecret
