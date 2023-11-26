@@ -8,6 +8,7 @@
     ./programs.nix
     ./services.nix
     ./desktop/sway.nix
+    ./media/mpv.nix
     ./emacs/custom.nix
   ] ++
   (map (p: ../modules + p) [

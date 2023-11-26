@@ -5,5 +5,6 @@
     stable.libreoffice
     hunspell
     hunspellDicts.en_US
+    hunspellDicts.pt_BR
   ];
 }

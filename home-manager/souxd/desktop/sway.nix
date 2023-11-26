@@ -50,10 +50,12 @@
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [
-        { command = "inactive-windows-transparency.py -o 0.6"; }
+        # TODO: transparency switch
+        # { command = "inactive-windows-transparency.py -o 0.6"; }
         { command = "keepassxc"; }
         { command = "ymuse"; }
-        { command = "hydrus"; }
+        { command = "nicotine"; }
+        { command = "~/.local/bin/hydrus"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
       ];

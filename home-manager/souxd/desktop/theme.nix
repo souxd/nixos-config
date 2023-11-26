@@ -24,13 +24,13 @@
     enable = true;
 
     theme = {
-      package = pkgs.dracula-theme;
-      name = "Dracula";
+      package = pkgs.shades-of-gray-theme;
+      name = "Shades-of-gray";
     };
 
     iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
+      package = "${/home/souxd/src/buufNestort}";
+      name = "Buuf For Many Desktops";
     };
 
     cursorTheme = {
@@ -44,8 +44,8 @@
     enable = true;
     platformTheme = "gtk";
     style = {
-      package = pkgs.adwaita-qt;
-      name = "adwaita-dark";
+      package = pkgs.shades-of-gray-theme;
+      name = "Shades-of-gray";
     };
   };
 }

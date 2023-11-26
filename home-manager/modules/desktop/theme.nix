@@ -1,4 +1,4 @@
-# my preferred gtk and pointer themes
+# template and defaults for themes and fonts
 { config, pkgs, ... }:
 
 {

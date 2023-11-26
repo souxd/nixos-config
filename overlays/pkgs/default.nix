@@ -37,6 +37,8 @@ final: prev: {
 
   funchook = final.callPackage ./ripcord-patched/funchook.nix {};
 
+  pkg2zip = final.callPackage ./pkg2zip {};
+
   spiralknights = final.callPackage ./spiralknights {};
 
   wmenu = final.callPackage ./wmenu {};

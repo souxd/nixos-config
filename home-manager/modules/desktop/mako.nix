@@ -1,3 +1,4 @@
+# defaults for mako notification daemon
 { config, ... }:
 
 {

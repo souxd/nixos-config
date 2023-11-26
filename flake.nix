@@ -23,6 +23,7 @@
     nurpkgs.url = "github:nix-community/NUR";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
+    musnix.url = "github:musnix/musnix";
 
     home-manager = {
       # master branch for newest modules

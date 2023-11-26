@@ -10,8 +10,8 @@
       screenshot-directory = "~/Pictures/mpv";
 
       ## VIDEO ##
-      # vo = "xv"; # unsupported, for potato gpus
-      vo = "gpu-next"; # recommended
+      vo = "xv"; # unsupported, for potato gpus
+      # vo = "gpu-next"; # recommended
       gpu-context = "wayland";
       hwdec = "auto-safe";
       profile = "gpu-hq"; # recommended
@@ -19,8 +19,9 @@
       ## AUDIO ##
       ao = "pipewire";
       audio-channels = "auto-safe";
-      # af = "lavfi=[dynaudnorm]";
-      # volume = "50";
+      # enable at your own peril
+      #af = "lavfi=[dynaudnorm]";
+      volume = "50";
 
       ## MISC ##
       script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";

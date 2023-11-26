@@ -44,7 +44,9 @@ in {
     nicotine-plus # download music
     stremio # watch movies and series
     calibre # read e-books
+    tremotesf
     ## Games ##
+    vvvvvv
     minetest
     prismlauncher
     x11Doomseeker
@@ -65,10 +67,11 @@ in {
     mpc-cli
     ymuse
     musescore
+    mixxx
     reaper
+    yabridge # Windows VST2 and VST3 plugins on Linux
+    yabridgectl # utility to help set up and update yabridge for several directories at once
     helm # synth vst
-    yabridge
-    yabridgectl
 
     ## Graphic ##
     imagemagick
@@ -87,7 +90,7 @@ in {
     ## Social ##
     gajim # XMPP, GUI
     poezio # XMPP, CLI
-    nheko # Matrix, GUI
+    schildichat-desktop # Matrix, GUI
     # gomuks # Matrix, CLI
     weechat # IRC, CLI
     mumble # VoIP, GUI
@@ -100,6 +103,8 @@ in {
     x11Slade # doom editor
 
     ## Utils ##
+    jq
+    pkg2zip
     xterm
     gnome.gnome-clocks
     calcurse

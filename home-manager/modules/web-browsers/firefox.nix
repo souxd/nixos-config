@@ -1,3 +1,4 @@
+# firefox profiles, targets firefox-beta-bin and uses addons from rycee's NUR
 { config, pkgs, specialArgs, ... }:
 
 let
@@ -19,10 +20,6 @@ let
     "extensions.update.enabled" = false;
 
     "extension.activeThemeID" = "firefox-compact-dark@mozilla.org";
-  };
-
-  i2p = {
-    "media.peerConnection.ice.proxy_only" = true;
   };
 
   privacySettings = {
@@ -91,6 +88,11 @@ let
     "geo.enabled" = false;
   };
 
+  i2p = {
+    "media.peerConnection.ice.proxy_only" = true;
+  };
+
+
   addons = with ff-addons; [
     multi-account-containers
     tridactyl
@@ -107,8 +109,6 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-beta-bin;
-
-
 
     profiles.default = {
       id = 0;

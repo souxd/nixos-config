@@ -1,9 +1,10 @@
+# defaults for mpd
 { config, pkgs, ... }:
 
 {
   services.mpd = {
     enable = true;
-    musicDirectory = "~/Música";
+    musicDirectory = "~/Music";
     extraConfig = ''
       audio_output {
             type    "pipewire"

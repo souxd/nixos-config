@@ -10,6 +10,8 @@
     extraPackages32 = [ pkgs.vaapiIntel ]; # enable vaapi decoding
   };
 
+  musnix.enable = true;
+
   imports = [
     ../configuration.nix
     ./hardware-configuration.nix
