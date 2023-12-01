@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 {
-  home.sessionVariables = { XKB_DEFAULT_OPTIONS = "ctrl:swapcaps"; };
+  home.sessionVariables = {
+    XKB_DEFAULT_OPTIONS = "ctrl:swapcaps";
+    DOTNET_ROOT = "${pkgs.dotnet-sdk}";
+  };
 
   imports = [
     ../configuration.nix

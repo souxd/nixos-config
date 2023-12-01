@@ -1,19 +1,15 @@
 final: prev: {
   sm64ex-coop = final.callPackage ./sm64ex/coop.nix {};
 
-  am2rlauncher = final.callPackage ./am2rlauncher {};
+  avx-palemoon-bin = final.callPackage ./avx-palemoon {};
 
-  avisynthplus = final.callPackage ./avisynthplus {};
-
-  avx-palemoon = final.callPackage ./avx-palemoon {};
-
-  avx-palemoon-bin = final.callPackage ./avx-palemoon/bin.nix {};
-
-  beebeep = final.qt5.callPackage ./beebeep {};
-
-  flashplayer = final.callPackage ./mozilla-plugins/flashplayer {};
+  beebeep-bin = final.qt5.callPackage ./beebeep-bin {};
 
   cleanflash = final.callPackage ./mozilla-plugins/flashplayer/cleanflash.nix {};
+
+  doomseeker = final.qt5.callPackage ./doomseeker {};
+
+  flashplayer = final.callPackage ./mozilla-plugins/flashplayer {};
 
   flashplayer-standalone = final.callPackage ./mozilla-plugins/flashplayer/standalone.nix {};
 
@@ -21,34 +17,17 @@ final: prev: {
     debug = true;
   };
 
-  flatpak-xdg-utils = final.callPackage ./flatpak-xdg-utils {};
-
-  glaxnimate = final.qt5.callPackage ./glaxnimate {};
-
-  poezio = final.callPackage ./poezio {};
-  
   ripcord-patched = final.qt5.callPackage ./ripcord-patched {};
 
   ripcord-audio-hook = final.callPackage ./ripcord-patched/ripcord-audio-hook.nix {};
 
   ripcord-patcher = final.callPackage ./ripcord-patched/ripcord-patcher.nix {};
 
-  swftools = final.callPackage ./swftools {};
-
   funchook = final.callPackage ./ripcord-patched/funchook.nix {};
 
   pkg2zip = final.callPackage ./pkg2zip {};
 
-  spiralknights = final.callPackage ./spiralknights {};
-
   wmenu = final.callPackage ./wmenu {};
 
-  zandronum-dev = final.callPackage ./zandronum-dev {};
-
-  zandronum-dev-bin = final.callPackage ./zandronum-dev/bin.nix {};
-
-  zandronum-dev-server = final.callPackage ./zandronum-dev {
-    serverOnly = true;
-  };
-
+  zandronum-alpha-bin = final.callPackage ./zandronum-alpha-bin {};
 }

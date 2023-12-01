@@ -50,11 +50,14 @@ in {
     minetest
     prismlauncher
     x11Doomseeker
-    zandronum-dev-bin
+    zandronum-alpha-bin
     gzdoom
+    deutex
+    #odamex
     melonDS
     duckstation
     ppsspp-sdl-wayland
+    mupen64plus
     snes9x-gtk
     # sm64ex-coop
     ## Web-browsers ##
@@ -101,6 +104,7 @@ in {
 
     ## Editors ##
     x11Slade # doom editor
+    # ultimateDoomBuilder # doom map editor
 
     ## Utils ##
     jq
@@ -131,6 +135,7 @@ in {
 
     ## Compatibility ##
     wineWowPackages.stagingFull
+    winetricks
     mesa-demos
     adoptopenjdk-hotspot-bin-8 # JVM for old games
   ];

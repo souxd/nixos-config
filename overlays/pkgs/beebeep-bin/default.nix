@@ -10,7 +10,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "beebeep";
+  pname = "beebeep-bin";
   version = "5.8.6";
 
   src = fetchurl {

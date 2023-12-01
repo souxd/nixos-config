@@ -26,7 +26,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "zandronum-dev-bin";
+  pname = "zandronum-alpha-bin";
   version = "3.2-230709-1914";
 
   src = fetchurl {
@@ -40,6 +40,7 @@ stdenv.mkDerivation rec {
 
   # I have no idea why would SDL and libjpeg be needed for the server part!
   # But they are.
+  # RE: libjpeg idk, but SDL provides many low-level OS abstractions other than just video and audio, timing is probably the notable one
   buildInputs = [ openssl bzip2 zlib SDL_compat olibjpeg sqlite game-music-emu libGL glew fmod fluidsynth gtk2 ];
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
@@ -50,14 +51,12 @@ stdenv.mkDerivation rec {
     cp * \
        $out/lib/zandronum
     rm $out/lib/zandronum/env-vars
-    ln -s /home/souxd/.config/zandronum/skins $out/lib/zandronum/skins
-    ln -s /home/souxd/.config/zandronum/announcer $out/lib/zandronum/announcer
-    makeWrapper $out/lib/zandronum/zandronum-server $out/bin/zandronum-dev-server
-    makeWrapper $out/lib/zandronum/zandronum $out/bin/zandronum-dev
-    wrapProgram $out/bin/zandronum-dev-server \
-      --set LC_ALL=""
-    wrapProgram $out/bin/zandronum-dev \
-      --set LC_ALL=C
+    makeWrapper $out/lib/zandronum/zandronum-server $out/bin/zandronum-alpha-server
+    makeWrapper $out/lib/zandronum/zandronum $out/bin/zandronum-alpha
+    wrapProgram $out/bin/zandronum-alpha-server \
+      --set LC_ALL="C"
+    wrapProgram $out/bin/zandronum-alpha \
+      --set LC_ALL"C"
   '';
 
   postFixup = ''
