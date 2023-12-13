@@ -23,6 +23,7 @@
   nix.nixPath = [ "nixpkgs=/etc/nix/inputs/nixpkgs" ];
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
+  programs.nix-ld.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; with inputs.nix-alien.packages.${system}; [
     nixFlakes
