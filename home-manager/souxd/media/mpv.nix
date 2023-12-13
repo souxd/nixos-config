@@ -21,7 +21,7 @@
       audio-channels = "auto-safe";
       # enable at your own peril
       #af = "lavfi=[dynaudnorm]";
-      volume = "50";
+      volume = "80";
 
       ## MISC ##
       script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";

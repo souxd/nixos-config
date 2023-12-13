@@ -37,6 +37,7 @@ in {
   home.packages = with pkgs; [
     ## Media ##
     hydrus
+    timidity # play midi
     flashplayer-standalone
     yt-dlp # extract videos
     ytfzf
@@ -51,9 +52,11 @@ in {
     prismlauncher
     x11Doomseeker
     zandronum-alpha-bin
+    q-zandronum-bin
+    odamex
     gzdoom
-    deutex
-    #odamex
+    chocolate-doom
+    quake3e
     melonDS
     duckstation
     ppsspp-sdl-wayland
@@ -75,6 +78,7 @@ in {
     yabridge # Windows VST2 and VST3 plugins on Linux
     yabridgectl # utility to help set up and update yabridge for several directories at once
     helm # synth vst
+    sfizz # SFZ jack client and LV2 plugin
 
     ## Graphic ##
     imagemagick
@@ -138,6 +142,8 @@ in {
     winetricks
     mesa-demos
     adoptopenjdk-hotspot-bin-8 # JVM for old games
+    mono # for UDB
+    gtk2-x11 # for UDB
   ];
 
   xdg.mimeApps = let

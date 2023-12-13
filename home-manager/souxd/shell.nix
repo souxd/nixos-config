@@ -49,6 +49,7 @@
           echo "use flake" > .envrc
           direnv allow
         fi
+
       }
     '';
   };

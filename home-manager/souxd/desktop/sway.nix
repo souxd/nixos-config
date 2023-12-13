@@ -2,7 +2,7 @@
 
 {
   home.sessionVariables = { WLR_DRM_NO_ATOMIC = "1"; };
-  home.packages = [ pkgs.waybar pkgs.sway-contrib.inactive-windows-transparency ];
+  home.packages = [ pkgs.waybar pkgs.wttrbar pkgs.sway-contrib.inactive-windows-transparency ];
 
   imports = (map (p: ../../modules + p) [
     /desktop/sway.nix
@@ -54,7 +54,7 @@
         # { command = "inactive-windows-transparency.py -o 0.6"; }
         { command = "keepassxc"; }
         { command = "ymuse"; }
-        { command = "nicotine"; }
+        # { command = "nicotine"; }
         { command = "~/.local/bin/hydrus"; }
         { command = "gnome-clocks"; } # FIXME gapplication-service
         { command = "kdeconnect-app"; }
@@ -80,7 +80,13 @@
     extraConfig = ''
       for_window [app_id="com.github.wwmm.easyeffects"] floating enable
       for_window [title="manage tags — hydrus client*"] floating enable
+      for_window [title="manage tags — hydrus client*"] floating enable
       # for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
+      for_window [title="Default - Wine desktop"] floating enable
+      for_window [title="Ultimate Doom Builder*"] floating enable
+      for_window [title="Open Map*"] floating enable
+      for_window [title="Edit Thing*"] floating enable
+      for_window [title="Erros and Warnings*"] floating enable
     '';
   };
 }
