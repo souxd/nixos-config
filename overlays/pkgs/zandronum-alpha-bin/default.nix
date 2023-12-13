@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://zandronum.com/downloads/testing/3.2/ZandroDev3.2-230709-1914linux-x86_64.tar.bz2";
-    sha256 = "04lz4b5xpza1a00xwnkjd2pn1r5s725rv2mr0sxz38dnkh0l0h8v";
+    hash = "sha256-G0FAAZy2ofG7BrmKnYs4uuRgr2hyWt4BUEH928sinxI=";
   };
 
   # Work around the "unpacker appears to have produced no directories"
