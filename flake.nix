@@ -22,14 +22,12 @@
     stablepkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nurpkgs.url = "github:nix-community/NUR";
 
-    nix-alien.url = "github:thiagokokada/nix-alien";
     musnix.url = "github:musnix/musnix";
 
-    home-manager = {
-      # master branch for newest modules
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
