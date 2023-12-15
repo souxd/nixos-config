@@ -35,7 +35,9 @@ final: prev: {
 
   wmenu = final.callPackage ./wmenu {};
 
+  q-zandronum-bin = final.callPackage ./q-zandronum-bin {};
+
   zandronum-alpha-bin = final.callPackage ./zandronum-alpha-bin {};
 
-  q-zandronum-bin = final.callPackage ./q-zandronum-bin {};
+  zt-bcc = final.callPackage ./zt-bcc {};
 }
