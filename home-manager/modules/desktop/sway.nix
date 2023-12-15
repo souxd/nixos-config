@@ -13,9 +13,9 @@ let
     executable = true;
 
     text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_DATA_DIRS PATH
-      systemctl --user stop pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
-      systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+    ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_DATA_DIRS PATH
+    systemctl --user stop pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+    systemctl --user start pipewire xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk
     '';
   }; 
 

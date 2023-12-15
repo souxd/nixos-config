@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 
 {
+  services.dbus.implementation = "broker";
   services.irqbalance.enable = true;
 
   services.i2pd = {
