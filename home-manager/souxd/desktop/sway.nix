@@ -46,7 +46,8 @@
 
       defaultWorkspace = "workspace number 1";
 
-      assigns = { "3" = [{ title = "main — hydrus client 549"; }]; }; assigns = { "9" = [{ app_id="org.kde.kdeconnect.app"; }]; };
+      assigns = { "3" = [{ title = "main — hydrus client 554"; }]; };
+      assigns = { "9" = [{ app_id="org.kde.kdeconnect.app"; }]; };
       assigns = { "10" = [{ app_id = "ymuse"; } { app_id = "org.gnome.clocks"; }]; };
 
       startup = [

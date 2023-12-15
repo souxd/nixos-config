@@ -97,7 +97,7 @@ in {
     ## Social ##
     gajim # XMPP, GUI
     poezio # XMPP, CLI
-    schildichat-desktop # Matrix, GUI
+    element-desktop # Matrix, GUI
     # gomuks # Matrix, CLI
     weechat # IRC, CLI
     mumble # VoIP, GUI
@@ -108,6 +108,7 @@ in {
 
     ## Editors ##
     x11Slade # doom editor
+    zt-bcc 
     # ultimateDoomBuilder # doom map editor
 
     ## Utils ##
