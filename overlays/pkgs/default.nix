@@ -39,5 +39,7 @@ final: prev: {
 
   zandronum-alpha-bin = final.callPackage ./zandronum-alpha-bin {};
 
+  zdbsp = final.callPackage ./zdbsp {};
+
   zt-bcc = final.callPackage ./zt-bcc {};
 }
