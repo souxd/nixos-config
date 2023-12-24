@@ -19,13 +19,15 @@ final: prev: {
     debug = true;
   };
 
+  funchook = final.callPackage ./ripcord-patched/funchook.nix {};
+
   ripcord-patched = final.qt5.callPackage ./ripcord-patched {};
 
   ripcord-audio-hook = final.callPackage ./ripcord-patched/ripcord-audio-hook.nix {};
 
   ripcord-patcher = final.callPackage ./ripcord-patched/ripcord-patcher.nix {};
 
-  funchook = final.callPackage ./ripcord-patched/funchook.nix {};
+  ultimateDoomBuilder = final.callPackage ./ultimateDoomBuilder {};
 
   odamex = final.callPackage ./odamex {};
 
@@ -39,7 +41,7 @@ final: prev: {
 
   zandronum-alpha-bin = final.callPackage ./zandronum-alpha-bin {};
 
-  zdbsp = final.callPackage ./zdbsp {};
+  zdbsp = final.callPackage ./ultimateDoomBuilder/zdbsp.nix {};
 
-  zt-bcc = final.callPackage ./zt-bcc {};
+  zt-bcc = final.callPackage ./ultimateDoomBuilder/zt-bcc.nix {};
 }

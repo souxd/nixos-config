@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index a057e9e7..7a134bdb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,7 @@ linux: builder native
+ mac: builder nativemac
+ 
+ builder:
+-	msbuild /nologo /verbosity:minimal -p:Configuration=$(BUILDTYPE) BuilderMono.sln
++	msbuild /nologo -p:Configuration=$(BUILDTYPE) BuilderMono.sln
+ 	cp builder.sh Build/builder
+ 	chmod +x Build/builder
+ 
+diff --git a/Source/Core/Controls/FolderSelectDialog.cs b/Source/Core/Controls/FolderSelectDialog.cs
+index 9c80ef62..6a1a58d6 100755
+--- a/Source/Core/Controls/FolderSelectDialog.cs
++++ b/Source/Core/Controls/FolderSelectDialog.cs
+@@ -283,7 +283,7 @@ namespace CodeImp.DoomBuilder.Controls
+         {
+             bool flag = false;
+ 
+-            if (Environment.OSVersion.Version.Major >= 6)
++            if (Environment.OSVersion.Platform != PlatformID.Unix && Environment.OSVersion.Version.Major >= 6)
+             {
+                 var r = new Reflector("System.Windows.Forms");
+ 
