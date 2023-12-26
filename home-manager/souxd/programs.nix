@@ -109,7 +109,7 @@ in {
     ## Editors ##
     x11Slade # doom editor
     zt-bcc 
-    # ultimateDoomBuilder # doom map editor
+    ultimateDoomBuilder # doom map editor
 
     ## Utils ##
     jq
