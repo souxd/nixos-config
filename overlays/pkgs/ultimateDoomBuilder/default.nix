@@ -14,6 +14,7 @@
 let
   # TODO: package acs and bcs libs
   # zonebuilder and BCS compiler
+  zennode = callPackage ./zennode.nix {};
   zdbsp = callPackage ./zdbsp.nix {};
   zt-bcc = callPackage ./zt-bcc.nix {};
 in
@@ -61,6 +62,7 @@ stdenv.mkDerivation rec {
 
     substituteInPlace $out/opt/UltimateDoomBuilder/builder --replace mono ${mono}/bin/mono
     substituteInPlace $out/opt/UltimateDoomBuilder/builder --replace Builder.exe $out/opt/UltimateDoomBuilder/Builder.exe
+    substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/Nodebuilders/ZenNode.cfg --replace ZenNode.exe ${zennode}/bin/ZenNode
     substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/Nodebuilders/zdbsp.cfg --replace zdbsp.exe ${zdbsp}/bin/zdbsp
     substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/BCC/bcc.cfg --replace bcc.exe ${zt-bcc}/bin/zt-bcc
 

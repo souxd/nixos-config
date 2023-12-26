@@ -43,5 +43,7 @@ final: prev: {
 
   zdbsp = final.callPackage ./ultimateDoomBuilder/zdbsp.nix {};
 
+  zennode = final.callPackage ./ultimateDoomBuilder/zennode.nix {};
+
   zt-bcc = final.callPackage ./ultimateDoomBuilder/zt-bcc.nix {};
 }
