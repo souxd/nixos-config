@@ -9,6 +9,7 @@
 , libpng
 , libX11
 , gtk2-x11
+, acc
 }:
 
 let
@@ -64,7 +65,15 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/opt/UltimateDoomBuilder/builder --replace Builder.exe $out/opt/UltimateDoomBuilder/Builder.exe
     substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/Nodebuilders/ZenNode.cfg --replace ZenNode.exe ${zennode}/bin/ZenNode
     substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/Nodebuilders/zdbsp.cfg --replace zdbsp.exe ${zdbsp}/bin/zdbsp
-    substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/BCC/bcc.cfg --replace bcc.exe ${zt-bcc}/bin/zt-bcc
+    echo $out/opt/UltimateDoomBuilder/Compilers/Hexen \
+    $out/opt/UltimateDoomBuilder/Compilers/ZDoom \
+    $out/opt/UltimateDoomBuilder/Compilers/ZDaemon \
+    $out/opt/UltimateDoomBuilder/Compilers/Zandronum \
+    | xargs -n 1 cp ${acc}/bin/acc
+    substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/{Z*,Hexen}/acc.cfg --replace acc.exe acc
+    cp ${zt-bcc}/bin/zt-bcc $out/opt/UltimateDoomBuilder/Compilers/BCC
+    substituteInPlace $out/opt/UltimateDoomBuilder/Compilers/BCC/bcc.cfg --replace bcc.exe bcc
+
 
     wrapProgram $out/opt/UltimateDoomBuilder/builder \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ gtk2-x11 libGL libpng libX11 ]}"

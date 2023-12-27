@@ -15,8 +15,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip ];
 
+  hardeningDisable = [ "format" ];
+
+  buildPhase = ''
+  runHook preBuild
+  unzip zennode-src.zip
+  cd src/ZenNode
+  make
+  runHook postBuild
+  '';
+
   installPhase = ''
-    mkdir -p $out/bin
-    cp linux-x86_64/* $out/bin
+  runHook preInstall
+  mkdir -p $out/{share,bin}
+  cp {ZenNode,bspdiff,bspinfo,compare} $out/share
+  ln -s $out/share/{ZenNode,bspdiff,bspinfo} $out/bin
+  ln -s $out/share/compare $out/bin/bspcompare
+  runHook postInstall
   '';
 }
