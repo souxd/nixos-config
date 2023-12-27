@@ -83,11 +83,16 @@
       for_window [title="manage tags — hydrus client*"] floating enable
       for_window [title="manage tags — hydrus client*"] floating enable
       # for_window [app_id="org.keepassxc.KeePassXC"] move to scratchpad
+      for_window [title="Chocolate*"] floating enable
+      for_window [title="Odamex*"] floating enable
       for_window [title="Default - Wine desktop"] floating enable
       for_window [title="Ultimate Doom Builder*"] floating enable
       for_window [title="Open Map*"] floating enable
+      for_window [title="Add Resource*"] floating enable
       for_window [title="Edit Thing*"] floating enable
-      for_window [title="Erros and Warnings*"] floating enable
+      for_window [title="Errors and Warnings*"] floating enable
+      for_window [title="Browse textures"] floating enable
+      for_window [title="Script Editor"] floating enable
     '';
   };
 }
