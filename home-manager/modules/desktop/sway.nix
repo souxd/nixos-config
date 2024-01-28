@@ -97,7 +97,7 @@ in
     services-start
     wayland
     libsForQt5.qtwayland
-    wf-recorder # screenrecorder
+    wl-screenrec # screenrecorder
     slurp # region select
     swappy # snapshot editor
     wl-clipboard # wl-copy and wl-paste from stdin/stdout
@@ -267,6 +267,7 @@ in
 
           "${modifier}+r" = '' mode "resize" '';
         };
+
       modes.resize = {
         "Left" = "resize shrink width 50px";
         "Up" = "resize grow height 50px";
