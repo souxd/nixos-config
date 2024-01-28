@@ -51,17 +51,22 @@ in {
     minetest
     prismlauncher
     x11Doomseeker
+    qzdl
+    (lib.hiPrio zandronum)
     zandronum-alpha-bin
     q-zandronum-bin
+    notblood
     odamex
     gzdoom
     chocolate-doom
+    dosbox
     quake3e
-    melonDS
-    duckstation
-    ppsspp-sdl-wayland
-    mupen64plus
-    snes9x-gtk
+    melonDS # ds
+    duckstation # psx
+    flycast # deamcast
+    ppsspp-sdl-wayland # psp
+    mupen64plus # n64
+    snes9x-gtk # snes
     # sm64ex-coop
     ## Web-browsers ##
     lynx
@@ -96,7 +101,7 @@ in {
 
     ## Social ##
     gajim # XMPP, GUI
-    poezio # XMPP, CLI
+    #profanity # XMPP, CLI
     element-desktop # Matrix, GUI
     # gomuks # Matrix, CLI
     weechat # IRC, CLI
@@ -112,6 +117,8 @@ in {
     ultimateDoomBuilder # doom map editor
 
     ## Utils ##
+    tigervnc
+    ncdu
     jq
     pkg2zip
     xterm
