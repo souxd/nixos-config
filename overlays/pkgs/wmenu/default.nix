@@ -14,15 +14,15 @@
 
 stdenv.mkDerivation rec {
   pname = "wmenu";
-  version = "git-2b9e08fb";
+  version = "0.1.6";
 
   strictDeps = true;
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = "wmenu";
-    rev = "2b9e08fba1adfe36e89a4f6113112e8feed54d4f";
-    hash = "sha256-Kntyqm2IFUdKDJUXzjttzqJEnKfiRe3sgGpuQi3kaJw=";
+    rev = "0.1.6";
+    hash = "sha256-Xsnf7T39up6E5kzV37sM9j3PpA2eqxItbGt+tOfjsjE=";
   };
 
   nativeBuildInputs = [ pkg-config meson ninja ];
