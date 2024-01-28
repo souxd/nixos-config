@@ -29,6 +29,8 @@ final: prev: {
 
   ultimateDoomBuilder = final.callPackage ./ultimateDoomBuilder {};
 
+  notblood-bin = final.callPackage ./notblood-bin {};
+
   odamex = final.callPackage ./odamex {};
 
   pkg2zip = final.callPackage ./pkg2zip {};
